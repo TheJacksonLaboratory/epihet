@@ -1,0 +1,6 @@
+## editable compiler flags for C++ code
+##
+
+
+PKG_CPPFLAGS = -Iutils/BamTools/include/ -Iutils/gzstream 
+PKG_LIBS = -Lutils/BamTools/lib/ -Lutils/gzstream  -lbamtools -lgzstream

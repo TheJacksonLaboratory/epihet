@@ -1,0 +1,40 @@
+Package: epihet
+Title: Determining Epigenetic Heterogeneity from Bisulfite Sequencing Data
+Date: 2018-04-10
+Version: 0.99.0
+Authors@R: c(person("Xiaowen", "Chen", email = "Xiaowen.Chen@jax.org",
+    role = c("aut", "cre")),person("Haitham", "Ashoor",
+    role = c("aut")),person("Ryan", "Musich",
+    email = "rjmusich@gmail.com",role = c("aut")),
+    person("Jiahui","Wang",role = "aut"),person("Sheng", "Li", role = "aut"))
+Description: epihet is an R-package that calculates the epigenetic 
+    heterogeneity between cancer cells and/or normal cells. The functions
+    establish a pipeline that take in bisulfite sequencing data from multiple
+    samples and use the data to track similarities and differences in 
+    epipolymorphism,proportion of discordantly methylated sequencing reads
+    (PDR),and Shannon entropy values at epialleles that are shared between
+    the samples.epihet can be used to perform analysis on the data by creating
+    pheatmaps, box plots, PCA plots, and t-SNE plots. MA plots can also be
+    created by calculating the differential heterogeneity of the samples.
+    And we construct co-epihet network and perform network analysis.
+Depends:
+    R(>= 3.3),GenomicRanges, IRanges, S4Vectors,ggplot2,foreach,Rtsne,
+    igraph
+License: Artistic-2.0
+biocViews:
+    DNAMethylation, Epigenetics, MethylSeq, Sequencing, Software
+Imports:
+    data.table, doMC, EntropyExplorer, graphics, stats,
+    grDevices, pheatmap,Rcpp, utils, qvalue,
+    WGCNA, ReactomePA
+LinkingTo: Rcpp
+Maintainer: Xiaowen Chen <Xiaowen.Chen@jax.org>
+Author: Xiaowen Chen [aut, cre], Haitham Ashoor [aut, cre],
+    Ryan Musich [aut, cre], Jiahui Wang [aut], Sheng Li [aut]
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.0.1
+Suggests: knitr,clusterProfiler,doParallel,ggfortify,
+    rmarkdown
+VignetteBuilder: knitr
+BuildVignettes: TRUE
