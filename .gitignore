@@ -3,3 +3,5 @@
 .RData
 .Ruserdata
 epihet.Rproj
+*.so
+*.o

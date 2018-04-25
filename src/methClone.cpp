@@ -185,13 +185,10 @@ int byread(BamTools::BamAlignment al,
 int bamCheck(std::string bamFile, BamTools::BamReader & reader)
 {
     if (!reader.Open(bamFile)){ //bam file
-        std::cerr << "Could not open input BAM file." << std::endl;
+        Rcerr << "Could not open input BAM file." << std::endl;
         reader.Close();
         return false;
     } else {
-        time_t now = time(0);
-        std::cerr << "*******************************\n" << ctime(&now) << "************Entropy************\n" << "Opening " << bamFile <<std::endl;
-        std::cerr << "===============================" << std::endl;
         return 0;
     }
     
@@ -209,10 +206,9 @@ int readerToMeth(BamTools::BamReader & reader1,
     const int rl=i->RefLength;
     if(reader1.SetRegion(r1,0, r1, rl))
     {
-        std::cerr << "Processing " << i->RefName << std::endl;
+        //Rcerr << "Processing " << i->RefName << std::endl;
         BamTools::BamAlignment al;            
         while (reader1.GetNextAlignment(al)){
-            //std::cout << al.RefID << std::endl;
             byread(al, d, lociMeth1, refs, sample);
         }
     }
@@ -233,7 +229,7 @@ int header_one_sample(ogzstream & myfile, std::map <std::string, int> allpattern
 int finished()
 {
     time_t now = time(0);
-    std::cerr << "********************************\n" << ctime(&now) << "************Finished************" << std::endl;
+    //Rcerr << "********************************\n" << ctime(&now) << "************Finished************" << std::endl;
     return 0;
 }
 
@@ -357,8 +353,8 @@ int MethClone_one_sample(std::string bamFile1,
 
     if (reader1.HasIndex())
     {
-        //std::cerr << "Output file: " << outFile << std::endl;
-        //std::cerr << "===============================" << std::endl;
+        //Rcerr << "Output file: " << outFile << std::endl;
+        //Rcerr << "===============================" << std::endl;
 
         ogzstream myfile;
         myfile.open (outFile);
@@ -378,7 +374,7 @@ int MethClone_one_sample(std::string bamFile1,
         finished();
         return 0;
     } else {
-        std::cerr << "Could not load index data for all input BAM file(s)... Aborting." << std::endl;
+        Rcerr << "Could not load index data for all input BAM file(s)... Aborting." << std::endl;
         return false;
     }
 
@@ -425,8 +421,8 @@ int MethClone_two_samples(std::string bamFile1,
 
     if (reader1.HasIndex() & reader2.HasIndex())
     {
-        std::cerr << "Output file: " << outFile << std::endl;
-        std::cerr << "===============================" << std::endl;
+        //Rcerr << "Output file: " << outFile << std::endl;
+        //Rcerr << "===============================" << std::endl;
 
         ogzstream myfile;
         myfile.open (outFile);
@@ -448,7 +444,7 @@ int MethClone_two_samples(std::string bamFile1,
         finished();
         return 0;
     } else {
-        std::cerr << "Could not load index data for all input BAM file(s)... Aborting." << std::endl;
+        Rcerr << "Could not load index data for all input BAM file(s)... Aborting." << std::endl;
         return false;
     }
 

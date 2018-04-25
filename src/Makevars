@@ -3,4 +3,4 @@
 
 
 PKG_CPPFLAGS = -Iutils/BamTools/include/ -Iutils/gzstream 
-PKG_LIBS = -Lutils/BamTools/lib/ -Lutils/gzstream  -lbamtools -lgzstream
+PKG_LIBS = -Lutils/BamTools/lib/  -lbamtools -Lutils/gzstream -lgzstream
