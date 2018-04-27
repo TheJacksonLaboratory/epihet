@@ -2,5 +2,15 @@
 ##
 
 
-PKG_CPPFLAGS = -Iutils/BamTools/include/ -Iutils/gzstream 
-PKG_LIBS = -Lutils/BamTools/lib/  -lbamtools -Lutils/gzstream -lgzstream
+PKG_CPPFLAGS = -IBamTools/include/ -Igzstream/ 
+PKG_LIBS = -LBamTools/lib  -lbamtools -Lgzstream/ -lgzstream
+
+
+$(SHLIB):  gzstream/libgzstream.a BamTools/lib/libbamtools.a
+
+BamTools/lib/libbamtools.a:
+	cd BamTools/ &&  $(MAKE) all && $(MAKE) clean_api
+
+
+gzstream/libgzstream.a:
+	cd gzstream && $(MAKE) && $(MAKE) clean

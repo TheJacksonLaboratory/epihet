@@ -35,7 +35,7 @@ readGR = function(files, ids, n) {
     }
     f_out = paste(f, "methClone_out.gz", sep = ".")
     MethClone_one_sample(f, f_out, sampleid, 72, 60)
-    x = data.table::fread(paste("zcat", f_out), sep = "\t")  #[,-27]
+    x = data.table::fread(paste("zcat <", f_out), sep = "\t")  #[,-27]
     x=x[,-27]
     x$pdr = 1 - rowSums(x[, c(11, 26), with = FALSE])/100
     x$epipoly = 1 - rowSums((x[, c(11:26), with = FALSE]/100)^2)

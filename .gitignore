@@ -5,3 +5,6 @@
 epihet.Rproj
 *.so
 *.o
+*.a
+.DS_Store
+
