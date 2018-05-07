@@ -58,6 +58,7 @@ all: $(LIBRARY)
 
 $(LIBRARY): $(OBJECTS_BAMS)
 	@echo " * linking $(LIBRARY)"
+	mkdir lib/
 	ar cr $(LIBRARY) $(OBJECTS_BAMS)
 	-ranlib $(LIBRARY)
 
