@@ -63,6 +63,7 @@ epinetwork = function(node.type = "locus", DEH, compare.matrix,
         if (length(geneid) == 0) {
             print("no gene annotated by DEH loci")
         } else {
+            i=NULL
             mean.matrix = foreach(i = geneid, .combine = cbind) %do%
                 {
                   gene.name = mcols(annotation.obj[i])[, 2]
@@ -198,6 +199,8 @@ epinetwork = function(node.type = "locus", DEH, compare.matrix,
         # module
         gene.num = as.data.frame(table(gene.list$color))
         gene.num$Var2 = paste("ME", gene.num$Var1,sep = "")
+        Var2=NULL
+        Freq=NULL
         g = ggplot(data = gene.num, aes(x = Var2, y = Freq,fill = Var2)) +
             geom_bar(stat = "identity",
             colour = "black",
@@ -227,6 +230,8 @@ epinetwork = function(node.type = "locus", DEH, compare.matrix,
     } else {
         gene.num = as.data.frame(table(module$color))
         gene.num$Var2 = paste("ME", gene.num$Var1,sep = "")
+        Var2=NULL
+        Freq=NULL
         g = ggplot(data = gene.num, aes(x = Var2, y = Freq,fill = Var2)) +
             geom_bar(stat = "identity",colour = "black",
                 position = position_dodge(width = 0.8),width = 0.7) +
