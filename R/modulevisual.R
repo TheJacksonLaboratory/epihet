@@ -45,6 +45,7 @@ modulevisual = function(TOM, value.matrix, moduleColors,
     mymodule, cutoff = 0.02, prefix = NULL, sve = FALSE) {
     # Select modules
     TOM = as.matrix(TOM)
+    modules=NULL
     network = foreach(modules = mymodule) %do% {
         inModule = is.finite(match(moduleColors, modules))
         loci = colnames(value.matrix)
