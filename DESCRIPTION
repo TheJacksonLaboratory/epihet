@@ -24,7 +24,7 @@ License: Artistic-2.0
 biocViews:
     DNAMethylation, Epigenetics, MethylSeq, Sequencing, Software
 Imports:
-    data.table, doMC, EntropyExplorer, graphics, stats,
+    data.table, doParallel, EntropyExplorer, graphics, stats,
     grDevices, pheatmap,Rcpp, utils, qvalue,
     WGCNA, ReactomePA
 LinkingTo: Rcpp
@@ -34,7 +34,7 @@ Author: Xiaowen Chen [aut, cre], Haitham Ashoor [aut, cre],
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.0.1
-Suggests: knitr,clusterProfiler,doParallel,ggfortify,
+Suggests: knitr,clusterProfiler,ggfortify,org.Hs.eg.db,
     rmarkdown
 VignetteBuilder: knitr
 BuildVignettes: TRUE
