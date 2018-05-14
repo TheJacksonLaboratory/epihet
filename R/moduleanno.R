@@ -43,6 +43,7 @@ moduleanno = function(DEG, background, module.gene,
     gene.num = as.data.frame(table(module.gene[, 3]))
     gene.num$Var1 = as.character(gene.num$Var1)
     Kpai = length(intersect(DEG, background))
+    i=NULL
     result = foreach(i = module.id$color, .combine = rbind) %do%
         {
             n = gene.num$Freq[gene.num$Var1 == i]
@@ -65,6 +66,9 @@ moduleanno = function(DEG, background, module.gene,
         } else {
             color.points = as.character(result.used$moduleColors)
             names(color.points) = color.points
+            module.size=NULL
+            share.gene=NULL
+            moduleColors=NULL
             g = ggplot(data = result.used, aes(x = module.size,
                 y = share.gene/module.size, color = moduleColors,
                 label = share.gene)) + geom_point(shape = 19, size = 3) +
@@ -94,6 +98,9 @@ moduleanno = function(DEG, background, module.gene,
     } else {
         color.points = as.character(result.sig$moduleColors)
         names(color.points) = color.points
+        module.size=NULL
+        share.gene=NULL
+        moduleColors=NULL
         g = ggplot(data = result.sig, aes(x = module.size,
             y = -log10(qvalue), color = moduleColors,
             label = share.gene)) + geom_point(shape = 19,
