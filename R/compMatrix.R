@@ -67,7 +67,7 @@
 #' @export
 compMatrix = function(epi.gr, outprefix = NULL, readNumber = 60,
     p = 1, cores = 5, sve = FALSE) {
-    doMC::registerDoMC(cores = cores)
+    doParallel::registerDoParallel(cores = cores)
     i = NULL
     print("Getting all loci")
     sub.ids = foreach(x = epi.gr, .combine = c) %dopar% {
