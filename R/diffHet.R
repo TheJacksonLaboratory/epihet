@@ -85,7 +85,7 @@ diffHet = function(compare.matrix, value, group1, group2,
         }
         i = NULL
         j = NULL
-        registerDoMC(cores = cores)
+        doParallel::registerDoParallel(cores=cores)
         pval = foreach(i = lst1, j = lst2, .combine = rbind) %dopar%
             {
                 EntropyExplorer::EntropyExplorer(i,
@@ -108,7 +108,7 @@ diffHet = function(compare.matrix, value, group1, group2,
                   stringsAsFactors = FALSE)
             }
     } else {
-        registerDoMC(cores = cores)
+        doParallel::registerDoParallel(cores=cores)
         p.vals = foreach(i = loci, .combine = rbind) %dopar%
             {
                 test = t.test(val1[i, ], val2[i, ])
