@@ -100,6 +100,9 @@ epiTSNE = function(compare.matrix, value, type, points.colors = NULL,
     title = paste0("t-SNE Plot for ", value, "(perplexity=", perplexity, ")")
     pcaRes = data.frame(Sample = rownames(sample.matrix),
         Type = factor(full.matrix[, 1]), tsne2)
+    X1=NULL
+    X2=NULL
+    Type=NULL
     tsne.plot = ggplot(pcaRes, aes(x = X1, y = X2,
         color = Type)) + geom_point() + ggtitle(title) +
         xlab("t-SNE1") + ylab("t-SNE2")
