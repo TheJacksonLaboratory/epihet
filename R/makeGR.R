@@ -48,7 +48,7 @@ makeGR = function(files, ids, cores = 5, sve = FALSE) {
 
 
 
-    doMC::registerDoMC(cores = cores)
+    doParallel::registerDoParallel(cores = cores)
     n = NULL
     epi.gr = foreach(n = 1:length(files)) %dopar% {
         f = files[n]
