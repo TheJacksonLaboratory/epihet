@@ -67,10 +67,8 @@
 #' @export
 compMatrix = function(epi.gr, outprefix = NULL, readNumber = 60,
     p = 1, cores = 5, sve = FALSE) {
-    doParallel::registerDoParallel(cores = cores)
-    i = NULL
     print("Getting all loci")
-    sub.ids = foreach(x = epi.gr, .combine = c) %dopar% {
+    sub.ids = foreach(x = epi.gr, .combine = c) %do% {
         x = x[values(x)$values.read1 >= readNumber,]
         paste(seqnames(x), values(x)$values.loci, sep = "-")
     }
@@ -79,6 +77,7 @@ compMatrix = function(epi.gr, outprefix = NULL, readNumber = 60,
     print("Shared epimatrix")
     dat.na = data.frame(value = rep(NA, length(shared.ids)),
         row.names = shared.ids)
+    doParallel::registerDoParallel(cores = cores)
     epi.shared.matrix = foreach(x = epi.gr, .combine = cbind) %dopar% {
         x = x[values(x)$values.read1 >= readNumber,]
         ids = paste(seqnames(x), values(x)$values.loci, sep = "-")
@@ -86,6 +85,7 @@ compMatrix = function(epi.gr, outprefix = NULL, readNumber = 60,
         x2 = values(x1)[, 2:6]
         rownames(x2) = paste(seqnames(x1), values(x1)[,1], sep = "-")
         use.ids = intersect(ids, shared.ids)
+        i = NULL
         res = foreach(i = colnames(values(x1))[2:6],.combine = rbind) %dopar% {
             dat = dat.na
             # dat$type=gsub('values.|1','',i)

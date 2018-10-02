@@ -26,10 +26,11 @@ Creates a GenomicRanges object for each bisulfite sequencing data
 file
 }
 \examples{
-path = system.file('extdata', package = 'epihet')
-files = dir(path = path, pattern = '\\\\.bam$',
-            recursive = TRUE, full.names = TRUE)[c(1,2)]
-ids = basename(dirname(files))[c(1,2)]
+files = c(system.file("extdata","D-2238.chr22.region.methClone_out.gz",package = "epihet"),
+          system.file("extdata","D-2668.chr22.region.methClone_out.gz",package = "epihet"),
+          system.file("extdata","N-1.chr22.region.methClone_out.gz",package = "epihet"),
+          system.file("extdata","N-2.chr22.region.methClone_out.gz",package = "epihet"))
+ids = epihet::splitn(basename(files),"[.]",1)
 GR.List = epihet::makeGR(files = files, ids = ids,
 cores = 1, sve = FALSE)
 }

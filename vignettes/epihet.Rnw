@@ -48,9 +48,8 @@ concordance=TRUE
 This manual introduces the epihet package and shows how the package
 can be used to calculate epigenetic heterogeneity of cells and analyze the
 results through various types of graphs. This package was designed to use
-bisulfite sequencing data that has been processed by
-\href{https://github.com/ShengLi/methclone}{methclone}, a C++ library
-that analyzes the evolution of epialleles using DNA methylation data.
+output from \href{https://github.com/ShengLi/methclone}{methclone}, a C++ library
+that analyzes the evolution of epialleles using Bisulfite Sequencing methylation data.
 
 \section{Background}
   \subsection{DNA Methylation \& Epigenetic Heterogeneity}
@@ -153,8 +152,8 @@ that analyzes the evolution of epialleles using DNA methylation data.
     only an epialle only contained a single methylation pattern across multiple reads.
 
 \section{Building the Comparison Matrix}
-  In order to prepare for analysis, epihet has built\-in functions that take in bisulfite sequencing data for multiple
-  samples and transforms the data into a large matrix that contains the location information and PDR, epipoly, and Shannon entropy
+  In order to prepare for analysis, epihet has built\-in functions that take in multiple txt files for multiple
+  samples from the program methclone and transforms the data into a large matrix that contains the location information and PDR, epipoly, and Shannon entropy
   values for each locus that is shared between the inputted samples. The following sections provide examples on how to use
   the functions in epihet to build the comparison matrix and prepare the data for analysis. To install epihet, use the following line:
 
@@ -162,17 +161,15 @@ that analyzes the evolution of epialleles using DNA methylation data.
   options(continue = ' ')
 @
   \setlength{\parindent}{0cm}
-  To begin using epihet, the user should already have bisulfite sequencing data that has been processed by
-  \href{https://github.com/ShengLi/methclone}{methclone}, which contain epiallele patterns and are saved as .txt.gz files. Included
-  in epihet are example files used for the sample code in this vignette, which include only the bisulfite sequencing data for epialleles
-  on chromosome 22 for three normal samples (N1, N2, N3) and three AML patients with the CEBPA\_sil (isocitrate dehydrogenase 2) mutation
-  (D2238, D2668, D3314). The following lines of code can be run to obtain the files and their corresponding ID names:
+  To begin using epihet, the user should already have fed bisulfite sequencing data to
+  \href{https://github.com/ShengLi/methclone}{methclone}, which creates .txt.gz file containing epiallele patterns and the percentage of reads supporting each of epiallele patterns at the genomic locus in sample. Included in epihet are example files used for the sample code in this vignette, which include only the result for epialleles on chromosome 22 for two normal samples (N1, N2) and two AML patients with the CEBPA\_sil (isocitrate dehydrogenase 2) mutation (D2238, D2668). The following lines of code can be run to obtain the files and their corresponding ID names:
 
 <<>>=
-path = system.file('extdata', package = 'epihet')
-files = dir(path = path, pattern = '\\.bam$',
-            recursive = TRUE, full.names = TRUE)
-ids = basename(dirname(files))
+files = c(system.file("extdata","D-2238.chr22.region.methClone_out.gz",package = "epihet"),
+          system.file("extdata","D-2668.chr22.region.methClone_out.gz",package = "epihet"),
+          system.file("extdata","N-1.chr22.region.methClone_out.gz",package = "epihet"),
+          system.file("extdata","N-2.chr22.region.methClone_out.gz",package = "epihet"))
+ids = epihet::splitn(basename(files),"[.]",1)
 @
 
   \subsection{Creating a List of GenomicRanges Objects}
