@@ -1,7 +1,7 @@
 Package: epihet
 Title: Determining Epigenetic Heterogeneity from Bisulfite Sequencing Data
 Date: 2018-04-10
-Version: 0.99.0
+Version: 0.99.1
 Authors@R: c(person("Xiaowen", "Chen", email = "Xiaowen.Chen@jax.org",
     role = c("aut", "cre")),person("Haitham", "Ashoor",
     role = c("aut")),person("Ryan", "Musich", role = c("aut")),
