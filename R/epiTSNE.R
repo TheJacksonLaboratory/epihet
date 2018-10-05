@@ -93,7 +93,7 @@ epiTSNE = function(compare.matrix, value, type, points.colors = NULL,
             axis.text.x = element_text(size = 10, angle = -90),
             strip.text.y = element_text(size = 10))
     }
-    set.seed(42)
+    #set.seed(42)
     tsne = Rtsne::Rtsne(sample.matrix, theta = theta,
         verbose = TRUE, perplexity = perplexity, max_iter = max_iter)
     tsne2 = tsne$Y

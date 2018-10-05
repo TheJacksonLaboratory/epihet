@@ -67,8 +67,8 @@ diffHet = function(compare.matrix, value, group1, group2,
     val2 = val2.r[which(abs(fc.v) > het.dif.cutoff),]
     loci = rownames(val1)
     if (value == "shannon") {
-        seed = sample(1:1e+06, 1)
-        set.seed(seed)
+        #seed = sample(1:1e+06, 1)
+        #set.seed(seed)
         nums = ceiling(nrow(val1)/cores)
         start = 1
         end = nums

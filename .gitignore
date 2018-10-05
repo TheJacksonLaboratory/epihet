@@ -2,7 +2,6 @@
 .Rhistory
 .RData
 .Ruserdata
-epihet.Rproj
 *.so
 *.o
 *.a

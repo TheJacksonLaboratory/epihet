@@ -351,6 +351,7 @@ epihet::epiPCA(compare.matrix = comp.Matrix, value = 'epipoly',
   epiTSNE can create a t\-SNE plot for the data values and color them by an inputted annotation. The following code creates the t\-SNE
   plot below using epipoly values and colors the points based on their subtype information:
 <<results='hide'>>=
+set.seed(42)
 epihet::epiTSNE(compare.matrix = comp.Matrix, value = 'epipoly',
                 type = subtype, points.colors = NULL, theta = 0.5,
                 perplexity = 1, max_iter = 1000, pdf.height = 10,
@@ -380,6 +381,8 @@ samples=data.frame(Sample=colnames(comp.Matrix)[1:(length(comp.Matrix)-2)],
                    Genotype=c(rep ("CEBPA_sil", 2), rep ("Normal", 2)),
                    stringsAsFactors = FALSE)
 rownames(samples)=samples$Sample
+seed = sample(1:1e+06, 1)
+set.seed(seed)
 diff.het.matrix = epihet::diffHet(compare.matrix = comp.Matrix,
                                   value = 'epipoly', group1 = 'CEBPA_sil',
                                   group2 = 'Normal', subtype = samples,
