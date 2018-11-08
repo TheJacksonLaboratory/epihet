@@ -22,6 +22,7 @@
 #' @docType data
 #' @keywords datasets
 #' @name datTraits
+#' @rdname data
 #' @usage data(datTraits)
 #' datTraits
 #' @format A data frame with 6 rows and 3 variables:
@@ -41,6 +42,7 @@
 #' @docType data
 #' @keywords datasets
 #' @name DEG
+#' @rdname data
 #' @usage data(DEG)
 #' DEG
 #' @format A data frame with 13685 rows and 1 variables:
@@ -59,6 +61,7 @@
 #' @docType data
 #' @keywords datasets
 #' @name DEH
+#' @rdname data
 #' @usage data(DEH)
 #' DEH
 #' @format A data frame with 479 rows and 3 variables:
@@ -79,6 +82,7 @@
 #' @docType data
 #' @keywords datasets
 #' @name diffhetmatrix
+#' @rdname data
 #' @usage data(diffhetmatrix)
 #' diffhetmatrix
 #' @format A data frame with 30 rows and 8 variables:
@@ -105,6 +109,7 @@
 #' @docType data
 #' @keywords datasets
 #' @name moduledm
+#' @rdname data
 #' @usage data(moduledm)
 #' moduledm
 #' @format A data frame with 140 rows and 3 variables:
@@ -125,6 +130,7 @@
 #' @docType data
 #' @keywords datasets
 #' @name modulesil
+#' @rdname data
 #' @usage data(modulesil)
 #' modulesil
 #' @format A data frame with 501 rows and 3 variables:
@@ -145,6 +151,7 @@
 #' @docType data
 #' @keywords datasets
 #' @name promoter
+#' @rdname data
 #' @usage data(promoter)
 #' promoter
 #' @format A large GRanges with 63344 elements:
@@ -168,6 +175,7 @@
 #' @docType data
 #' @keywords datasets
 #' @name sharedmatrix
+#' @rdname data
 #' @usage data(sharedmatrix)
 #' sharedmatrix
 #' @format A data frame with 479 rows and 8 variables:

@@ -24,7 +24,7 @@ of the individual points for each sample. One color is used per
 type. the names of vector is the types(default: NULL)}
 
 \item{frames}{A boolean stating if the frames should be drawn
-around the points for each subtype cluster. (default: F)}
+around the points for each subtype cluster. (default: False)}
 
 \item{frames.colors}{A vector of colors to be used as the color
 of the frames for each subtype cluster. (default: NULL)}
@@ -32,7 +32,7 @@ of the frames for each subtype cluster. (default: NULL)}
 \item{probability}{A boolean stating if the frames should be drawn
 as probability ellipses around the points for each subtype cluster.
 Both 'probability' and 'frames' must be set to TRUE to have effect.
-(default: F)}
+(default: False)}
 
 \item{pdf.height}{An integer representing the height (in inches) of
 the outputted PCA plot pdf file (default: 10)}

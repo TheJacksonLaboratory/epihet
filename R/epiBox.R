@@ -61,6 +61,7 @@ epiBox = function(compare.matrix, value, type, box.colors = NULL,
         stop("Invalid value '", value, "': Possible values are 'read',
              'pdr', 'meth', 'epipoly', or 'shannon'")
     }
+    stopifnot(is(type,"data.frame"))
     location.col = length(compare.matrix)
     type.col = location.col - 1
     value.matrix = compare.matrix[compare.matrix$type == value,

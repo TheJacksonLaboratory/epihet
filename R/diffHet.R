@@ -50,8 +50,8 @@ diffHet = function(compare.matrix, value, group1, group2,
     rownames(value.matrix) = value.matrix$location
     val1.r = value.matrix[, group1.samples]
     val2.r = value.matrix[, group2.samples]
-    mean1.v = apply(val1.r, 1, mean)
-    mean2.v = apply(val2.r, 1, mean)
+    mean1.v = rowMeans(val1.r)
+    mean2.v = rowMeans(val2.r)
     fc.v = mean1.v - mean2.v
     fc.v.filter = fc.v[which(abs(fc.v) <= het.dif.cutoff)]
     loci.filter = names(fc.v.filter)

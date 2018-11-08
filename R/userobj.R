@@ -11,6 +11,7 @@
 #' userobj(data)
 #' @export
 userobj = function(data) {
+    stopifnot(is(data,"data.frame"))
     data$start = as.numeric(splitn(data$loci, ":", 
         1))
     data$end = as.numeric(splitn(data$loci, ":", 4))

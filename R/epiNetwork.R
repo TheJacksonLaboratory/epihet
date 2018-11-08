@@ -5,32 +5,32 @@
 #' clinical traits for co-epihet DEH loci network,we identify genes with genome
 #' region containing DEH loci in each module.
 #' @param node.type a character suggest node type in network. Possible values
-#' are 'locus','gene'.
+#' are 'locus','gene' (default:locus)
 #' @param DEH the dataframe containing the chromosome number, loci and strand
-#' information of DEH loci generated from diffHet() function.
+#' information of DEH loci generated from diffHet() function
 #' @param compare.matrix The comparison matrix generated from
 #' the compMatrix() function.
-#' @param value The value to be used to identify DEH loci
-#' Possible values are 'pdr', 'epipoly',and 'shannon'.
-#' @param group The subtype group to be used to construct network.
+#' @param value A character, which is used to identify DEH loci.
+#' Possible values are 'pdr', 'epipoly',and 'shannon'(default:pdr)
+#' @param group The subtype group to be used to construct network
 #' @param subtype A dataframe containing the subtype information
 #' for the samples in the comparison matrix. The row names should
 #' be the names of the samples and there should be one column
-#' containing the subtype information for each sample.
+#' containing the subtype information for each sample
 #' @param datTraits a dataframe containing the clinical traits for all patients
-#' from the subtype group.
+#' from the subtype group
 #' @param annotation.obj a GRanges object containing gene annotation
-#' information.
-#' @param networktype network type in WGCNA.
+#' information
+#' @param networktype network type in WGCNA (default:signed)
 #' @param method character string specifying the correlation to be
-#' used in WGCNA.
+#' used in WGCNA (default:pearson)
 #' @param prefix character string containing the file name base for files
 #' containing the consensus
-#' topological overlaps in WGCNA.
+#' topological overlaps in WGCNA
 #' @param mergeCutHeight a numeric, dendrogram cut height for module merging
-#' (default: 0.25).
+#' (default: 0.25)
 #' @param minModuleSize a numeric, minimum module size for module detection
-#' in WGCNA (default: 30).
+#' in WGCNA (default: 30)
 #' @return a list, if node type is CpG site, it contains the epigenetic
 #' heterogeneity matrix for patients
 #' module information, gene.list which is a data frame containing genes with
@@ -38,12 +38,13 @@
 #' if node type is gene,it contains the epigenetic heterogeneity matrix for
 #' patients and module information.
 #' @export
-epinetwork = function(node.type = "locus", DEH, compare.matrix,
-    value = NULL, group, subtype, datTraits = NULL,
+epiNetwork = function(node.type = "locus", DEH, compare.matrix,
+    value = "pdr", group, subtype, datTraits = NULL,
     annotation.obj, networktype = "signed", method = "pearson",
     prefix = NULL, mergeCutHeight = 0.25, minModuleSize = 30) {
     # obtain the epigenetic heterogeneity marix on each
     # DEH loci for patients from the group subtype
+    stopifnot(is(annotation.obj,"GRanges"))
     group.samples = subtype[which(subtype[, 2] == group), 1]
     compare.matrix = compare.matrix[which(compare.matrix$type == value), ]
     rownames(compare.matrix) = compare.matrix$location

@@ -1,15 +1,15 @@
 #' @title  module annotation
-#' @description annotate modules using differentially expressed genes.
+#' @description annotate modules using differentially expressed genes
 #' @param DEG a character vector containing up/down regulated genes
 #' @param background a charactor vector containing all genes as background
 #' in hypergeometric test
 #' @param module.gene a data frame containing genes with genome region
-#' containing DEH loci from one module, generated from epinetwork() function.
+#' containing DEH loci from one module, generated from epiNetwork() function.
 #' The first column is gene entrez ID, the second column is module lable,
-#' the third column is module color.
-#' @param cutoff Cutoff value of qvalue for gene enrichment
+#' the third column is module color
+#' @param cutoff Cutoff value of qvalue for gene enrichment (default: 0.05)
 #' @param adjust.method one of 'holm', 'hochberg', 'hommel', 'bonferroni',
-#' 'BH', 'BY', 'fdr', 'none'
+#' 'BH', 'BY', 'fdr', 'none'(default:fdr)
 #' @param prefix a prefix for PDF file name
 #' @param pdf.height An integer representing the height (in inches)
 #' of the outputted boxplot pdf file (default: 10)
@@ -29,13 +29,13 @@
 #' "NM_000095","NM_006474"),label=rep(c(1,2),c(12,15)),
 #' color=rep(c("purple","brown"),c(12,15)),
 #' stringsAsFactors = FALSE)
-#' module.annotation=epihet::moduleanno(DEG$refseq,background$gene,
+#' module.annotation=epihet::moduleAnno(DEG$refseq,background$gene,
 #'                                      module.gene=module,
 #'                                      cutoff=0.05,adjust.method = "fdr",
 #'                                      prefix='epipoly',pdf.height = 10,
 #'                                      pdf.width = 10, sve = TRUE)
 #' @export
-moduleanno = function(DEG, background, module.gene,
+moduleAnno = function(DEG, background, module.gene,
     cutoff = 0.05, adjust.method = "fdr", prefix = NA,
     pdf.height = 10, pdf.width = 10, sve = FALSE) {
     N = length(background)

@@ -15,13 +15,13 @@
 \doublespacing
 
 \title{
-  \textbf{epihet:} \\
+  \textbf{EpiHet:} \\
   \large An R Package for Calculating and Analyzing \\
   the Epigenetic Heterogeneity of Cancer Cells}
 \author{Xiaowen Chen,Haitham Ashoor,Ryan Musich,Jiahui Wang,Sheng Li}
-\date{April 2018}
+\date{\today}
 
-% \VignetteIndexEntry{epihet}
+% \VignetteIndexEntry{EpiHet}
 %\VignetteEngine{knitr::knitr}
 \begin{document}
 
@@ -45,11 +45,29 @@ concordance=TRUE
 
 \section{Introduction}
 
-This manual introduces the epihet package and shows how the package
-can be used to calculate epigenetic heterogeneity of cells and analyze the
+This manual introduces the EpiHet package and shows how the package
+can be used to calculate intra-tumoral epigenetic heterogeneity and analyze the
 results through various types of graphs. This package was designed to use
-output from \href{https://github.com/ShengLi/methclone}{methclone}, a C++ library
-that analyzes the evolution of epialleles using Bisulfite Sequencing methylation data.
+output from \href{https://github.com/TheJacksonLaboratory/Methclone}{methclone}, a C++ library
+that analyzes the evolution of epialleles using Bisulfite Sequencing.
+
+\section{Installation}
+To install this package, start R and enter:
+<<>>=
+install.packages("BiocManager")
+BioManager::install("EpiHet")
+@
+
+or install the development version of this package from Github
+<<>>=
+BiocManager::install("TheJacksonLaboratory/epihet")
+@
+
+Load this package into R session.
+<<>>=
+library(EpiHet)
+@
+
 
 \section{Background}
   \subsection{DNA Methylation \& Epigenetic Heterogeneity}
@@ -68,22 +86,21 @@ that analyzes the evolution of epialleles using Bisulfite Sequencing methylation
   various epigenome status within the same patients. Specifically, the
   epigenetic heterogeneity and dynamics measured by the phased DNA methylation
   patterns has been reported to associate with clinical outcome in acute
-  myeloid leukemia (AML), chronic lymphocytic leukemia (CLL), diffuse large
-  B\-cell lymphoma, and Ewing sarcoma (Sheffield et al, 2017). As the cancer
-  cell evolves from diagnosis to relapse, methylation patterns at a given loci
+  myeloid leukemia (AML)(Li et al., 2016), chronic lymphocytic leukemia (CLL)(Landau et al., 2014),
+  diffuse large B\-cell lymphoma, and Ewing sarcoma (Sheffield et al, 2017). 
+  As the cancer cell evolves from diagnosis to relapse, methylation patterns at a given loci
   can further disrupt promoter sequences and gene regulation (Pan et al, 2015).
   These differing methylation patterns on the same loci/gene are called
   epialleles and are key to determining epigenetic heterogeneity. Previous
   studies have shown that the methylation patterns of cancer cells on relapse
   can vastly differ from the patterns of the same cells on diagnosis
-  (Li et al, 2014). This package uses epialleles consisting of four cytosine
+  (Li et al, 2014). This package uses epialleles consisting of adjacent four cytosine
   base pairs to create 16 (either a methylated or unmethylated cytosine across
   four unique loci) distinct methylation patterns to analyze methylation
   levels in the samples.
 
-  \subsection{Bisulfite Sequencing Data}
-  Using bisulfite sequencing, the methylation patterns of cancer patients can be
-  determined upon diagnosis and relapse. To determine the patterns, a DNA sample
+  \subsection{Bisulfite Sequencing}
+  To determine the methylation patterns of cancer patients, a DNA sample
   is treated with bisulfite, which reacts with each unmethylated cytosine base
   to create uracil bases. The cytosine bases with methylated regions remain
   untouched. The DNA sample can then be sequenced normally for individual base
@@ -98,12 +115,11 @@ that analyzes the evolution of epialleles using Bisulfite Sequencing methylation
   extent of heterogeneity across the epigenome.
 
   \subsection{Important Variables for Analysis}
-  To determine epigenetic heterogeneity, epihet uses the following three
+  To determine epigenetic heterogeneity, EpiHet uses the following three
   variables:proportion of discordant reads (PDR), epipolymorphism, and Shannon
   entropy values. By comparing the similarities and differences between these
   values at the same epiallele across multiple samples, the extent of
-  heterogeneity between the samples can be analyzed
-  by the user.
+  heterogeneity between the samples can be analyzed by the user.
 
     \subsubsection{Proportion of Discordant Reads (PDR)}
     One important variable to analyze for heterogeneity between cells is the
@@ -116,15 +132,12 @@ that analyzes the evolution of epialleles using Bisulfite Sequencing methylation
     at a given loci, such as a methylated cytosine followed by three
     unmethylated cytosines. After finding the number of discordant reads at
     a given loci, a proportion can be calculated by dividing by the number of
-    total reads from that locus. PDR values can then be used for analyzing
+    total reads from that locus. the range of PDR values is \[0,1\]. 
+    PDR values can then be used for analyzing
     epigenetic heterogeneity because a greater value for PDR corresponds
-    to a greater amount of discord within the sample. With a greater level of discord, the sample is considered
-    to be more heterogeneous in nature and could lead to adverse clinical outcomes upon treatment.
-    \\In this package, epihet calculates PDR values for each locus from the percentages of each methylation pattern.
-    For a given loci, epihet adds the percentage of reads that have all methylated sites to the percentage of reads
-    that have all unmethylated sites. The sum is divided by 100 to return the percentage to a proportion between 0 and
-    1. The resulting value corresponds to the proportion of concordant reads. The proportion of discordant reads is then
-    calculated from this result by simply subtracting the proportion of concordant reads from 1.
+    to a greater amount of discord within the sample. With a greater level of discord, 
+    the sample is considered to be more heterogeneous in nature and could lead to 
+    adverse clinical outcomes upon treatment.
 
     \subsubsection{Epipolymorphism}
     When analyzing epigenetic heterogeneity, epigenetic polymorphism, or epipolymorphism, is an important variable
@@ -152,35 +165,35 @@ that analyzes the evolution of epialleles using Bisulfite Sequencing methylation
     only an epialle only contained a single methylation pattern across multiple reads.
 
 \section{Building the Comparison Matrix}
-  In order to prepare for analysis, epihet has built\-in functions that take in multiple txt files for multiple
-  samples from the program methclone and transforms the data into a large matrix that contains the location information and PDR, epipoly, and Shannon entropy
+  In order to prepare for analysis, EpiHet has built\-in functions that take in multiple txt files for multiple
+  samples from the tool methclone and transforms the data into a large matrix that contains the location information and PDR, epipoly, and Shannon entropy
   values for each locus that is shared between the inputted samples. The following sections provide examples on how to use
-  the functions in epihet to build the comparison matrix and prepare the data for analysis. To install epihet, use the following line:
+  the functions in EpiHet to build the comparison matrix and prepare the data for analysis. 
 
 <<echo=FALSE>>=
   options(continue = ' ')
 @
   \setlength{\parindent}{0cm}
-  To begin using epihet, the user should already have fed bisulfite sequencing data to
-  \href{https://github.com/ShengLi/methclone}{methclone}, which creates .txt.gz file containing epiallele patterns and the percentage of reads supporting each of epiallele patterns at the genomic locus in sample. Included in epihet are example files used for the sample code in this vignette, which include only the result for epialleles on chromosome 22 for two normal samples (N1, N2) and two AML patients with the CEBPA\_sil (isocitrate dehydrogenase 2) mutation (D2238, D2668). The following lines of code can be run to obtain the files and their corresponding ID names:
+  To begin using EpiHet, the user should already have fed bisulfite sequencing data to
+  \href{https://github.com/ShengLi/methclone}{methclone}, which creates compressed text files containing epiallele patterns and the percentage of reads supporting each of epiallele patterns at the genomic locus in sample. The suffix of the compressed text files should be methClone_out.gz. Included in EpiHet are example files used for the sample code in this vignette, which include only the result for epialleles on chromosome 22 for two normal samples (N1, N2) and two AML patients with the CEBPA\_sil (isocitrate dehydrogenase 2) mutation (D2238, D2668). The following lines of code can be run to obtain the files and their corresponding ID names:
 
 <<>>=
-files = c(system.file("extdata","D-2238.chr22.region.methClone_out.gz",package = "epihet"),
-          system.file("extdata","D-2668.chr22.region.methClone_out.gz",package = "epihet"),
-          system.file("extdata","N-1.chr22.region.methClone_out.gz",package = "epihet"),
-          system.file("extdata","N-2.chr22.region.methClone_out.gz",package = "epihet"))
-ids = epihet::splitn(basename(files),"[.]",1)
+files = c(system.file("extdata","D-2238.chr22.region.methClone_out.gz",package = "EpiHet"),
+          system.file("extdata","D-2668.chr22.region.methClone_out.gz",package = "EpiHet"),
+          system.file("extdata","N-1.chr22.region.methClone_out.gz",package = "EpiHet"),
+          system.file("extdata","N-2.chr22.region.methClone_out.gz",package = "EpiHet"))
+ids = EpiHet::splitn(basename(files),"[.]",1)
 @
 
   \subsection{Creating a List of GenomicRanges Objects}
-  To process the .txt.gz files, epihet has a function called makeGR which reads in the data and creates a GenomicRanges
-  object for each file. The GenomicRanges objects are returned in a list. The makeGR function is the first step for epihet's
+  To process the methClone_out.gz files, EpiHet has a function called makeGR which reads in the compressed files and creates a GenomicRanges
+  object for each file. The GenomicRanges objects are returned in a list. The makeGR function is the first step for EpiHet's
   pipeline as the result is needed for input in the comparison matrix function, compMatrix. The function takes a vector of file
   paths, 'files', and a vector of sample names that correspond to the files, 'ids'. The following code creates a
-  list of GenomicRanges objects using epihet's sample files:
+  list of GenomicRanges objects using EpiHet's sample files:
 
 <<>>=
-GR.List = epihet::makeGR(files = files, ids = ids,
+GR.List = EpiHet::makeGR(files = files, ids = ids,
                          cores = 1, sve = FALSE)
 @
 
@@ -193,13 +206,13 @@ GR.List = epihet::makeGR(files = files, ids = ids,
 
   \subsection{Generate Comparison Matrix}
   After creating the list of GenomicRanges objects, the result can be used to generate the comparison matrix that is used for the
-  analysis functions included in epihet. The comparison matrix is created using the 'compMatrix' function which locates epialleles
+  analysis functions included in EpiHet. The comparison matrix is created using the 'compMatrix' function which locates epialleles
   that are shared by a certain percentage of the samples and organizing the data into sections for read number, average methylation
   levels, PDR, epipolymorphism, and Shannon entropy values at these matching loci. The following code creates a comparison matrix from
   the GenomicRanges list created in the previous section and finds epialleles that are present in 100\% of the samples (p = 1):
 
 <<results='hide'>>=
-comp.Matrix = epihet::compMatrix(epi.gr = GR.List, outprefix = NULL,
+comp.Matrix = EpiHet::compMatrix(epi.gr = GR.List, outprefix = NULL,
                                  readNumber = 60, p = 1,
                                  cores = 1, sve = FALSE)
 @
@@ -219,11 +232,11 @@ comp.Matrix = epihet::compMatrix(epi.gr = GR.List, outprefix = NULL,
   third file in the vector:
 
 <<>>=
-GR.Object = epihet::readGR(files = files, ids = ids, n = 3)
+GR.Object = EpiHet::readGR(files = files, ids = ids, n = 3)
 @
 
   \subsection{Simple Summary for Two Samples}
-  If only a quick comparison is needed between two samples, epihet's summarize function can be used to
+  If only a quick comparison is needed between two samples, EpiHet's summarize function can be used to
   provide a simple overview of how the values from one sample correlate to the values from another. The
   summarize function works by taking in two GenomicRanges objects and the values of each that will be compared.
   The possible values for the summarize function are 'pdr', 'epipoly', and 'shannon' that correspond to the data
@@ -234,7 +247,7 @@ GR.Object = epihet::readGR(files = files, ids = ids, n = 3)
   at both read cutoffs. The following code generates a summary of PDR and epipolymorphism values for the first and second
   sample (D2238, D2668) in the GR.List created earlier with read cutoffs of 10 and 60:
 <<>>=
-summary = epihet::summarize(gr1 = GR.List[[1]], gr2 = GR.List[[2]],
+summary = EpiHet::summarize(gr1 = GR.List[[1]], gr2 = GR.List[[2]],
                             value1 = 'pdr', value2 = 'epipoly',
                             cutoff1 = 10, cutoff2 = 60)
 @
@@ -244,9 +257,9 @@ summary = epihet::summarize(gr1 = GR.List[[1]], gr2 = GR.List[[2]],
 
 \section{Analyzing the Data}
 Once the comparison matrix has been generated for the sample data, the epigenetic heterogeneity can be
-analyzed by using epihet's built\-in analysis functions. With epihet, the data in the comparison matrix
+analyzed by using EpiHet's built\-in analysis functions. With EpiHet, the data in the comparison matrix
 can be used to create boxplots, heat maps, and PCA, t\-SNE, and MA plots. For most of the functions used
-for analysis in epihet, annotation information can be added as a parameter that will annotate or group the
+for analysis in EpiHet, annotation information can be added as a parameter that will annotate or group the
 data based on the subtype information provided by the user. The annotation information must be a dataframe
 with row names as the samples, data entries as the corresponding annotations, and the column names as the
 name of the annotation groupings. For these examples, the subtype groupings for the samples will be used
@@ -259,12 +272,12 @@ subtype = data.frame(Type= c(rep('CEBPA_sil', 2), rep('Normal', 2)),
   \subsection{Creating Boxplots}
   A simple way to analyze how data is distributed across samples are comparative boxplots. By creating
   boxplots, one can easily analyze the spread, median, range, and find any potential outliers in the data.
-  The boxplot function in epihet, called epiBox, is used to create a boxplot for each grouping of samples
+  The boxplot function in EpiHet, called epiBox, is used to create a boxplot for each grouping of samples
   as inputted by the user. Based on a specific value, such as 'pdr', 'epipoly', or 'shannon', finds the mean
   of this value for each sample. Using these calculations, a boxplot for each subtype grouping is created. The
   following call to epiBox compares Epipolymorphism values across the samples and creates the figure seen below:
 <<results='hide'>>=
-epihet::epiBox(compare.matrix = comp.Matrix, value = 'epipoly',
+EpiHet::epiBox(compare.matrix = comp.Matrix, value = 'epipoly',
                type = subtype, box.colors = NULL, add.points = FALSE,
                points.colors = NULL, pdf.height = 10, pdf.width = 10,
                sve = TRUE)
@@ -291,7 +304,7 @@ epihet::epiBox(compare.matrix = comp.Matrix, value = 'epipoly',
   In the exampple, the function use epipoly values to cluster the sample based on the top 5\% of loci with highest standard deviation.
   user can create the appropriate input for the parameter annotate.colors to color the samples by subtype information:
 <<>>=
-pmap = epihet::epiMap(compare.matrix = comp.Matrix,
+pmap = EpiHet::epiMap(compare.matrix = comp.Matrix,
                       value = 'epipoly',annotate = subtype,
                       clustering_distance_rows = "euclidean",
                       clustering_distance_cols = "euclidean",
@@ -313,7 +326,7 @@ pmap = epihet::epiMap(compare.matrix = comp.Matrix,
 <<>>=
   box.colors=c("orange","forestgreen")
   names(box.colors)=c("CEBPA_sil","Normal")
-  annotate.colors = box.colors
+  annotate.colors = list(type=box.colors)
 @
 
   \subsection{Graphing a PCA Plot}
@@ -325,7 +338,7 @@ pmap = epihet::epiMap(compare.matrix = comp.Matrix,
   below for epipoly values and colors the points on the plot based on subtype groupings:
 <<>>=
 library(ggfortify)
-epihet::epiPCA(compare.matrix = comp.Matrix, value = 'epipoly',
+EpiHet::epiPCA(compare.matrix = comp.Matrix, value = 'epipoly',
                type = subtype, points.colors = NULL,
                frames = FALSE, frames.colors = NULL,
                probability = FALSE, pdf.height = 10,
@@ -347,12 +360,12 @@ epihet::epiPCA(compare.matrix = comp.Matrix, value = 'epipoly',
   Another plot used to analyze how the samples are group based on a given value is a t\-distributed stochastic neighbor embedding
   (t\-SNE) plot. Similar to a PCA plot, a t\-SNE plot is used for analyzing patterns in data by grouping points together, however,
   a t\-SNE plot uses multiple dimensions for these groupings. The results are placed on a human\-readable plot in 2\-dimensions.
-  The function in epihet used for t\-SNE plot creation is epiTSNE. By using either epipoly, epipolymorphism, or Shannon entropy values,
+  The function in EpiHet used for t\-SNE plot creation is epiTSNE. By using either epipoly, epipolymorphism, or Shannon entropy values,
   epiTSNE can create a t\-SNE plot for the data values and color them by an inputted annotation. The following code creates the t\-SNE
   plot below using epipoly values and colors the points based on their subtype information:
 <<results='hide'>>=
 set.seed(42)
-epihet::epiTSNE(compare.matrix = comp.Matrix, value = 'epipoly',
+EpiHet::epiTSNE(compare.matrix = comp.Matrix, value = 'epipoly',
                 type = subtype, points.colors = NULL, theta = 0.5,
                 perplexity = 1, max_iter = 1000, pdf.height = 10,
                 pdf.width = 10, sve = TRUE)
@@ -383,7 +396,7 @@ samples=data.frame(Sample=colnames(comp.Matrix)[1:(length(comp.Matrix)-2)],
 rownames(samples)=samples$Sample
 seed = sample(1:1e+06, 1)
 set.seed(seed)
-diff.het.matrix = epihet::diffHet(compare.matrix = comp.Matrix,
+diff.het.matrix = EpiHet::diffHet(compare.matrix = comp.Matrix,
                                   value = 'epipoly', group1 = 'CEBPA_sil',
                                   group2 = 'Normal', subtype = samples,
                                   het.dif.cutoff = 0.20,
@@ -395,8 +408,8 @@ diff.het.matrix = epihet::diffHet(compare.matrix = comp.Matrix,
   DEH loci (sigenificant p\-values lower than the inputted cutoff) are highlighted in red. The following code creates the MA plot below using the above calculated
   differential heterogeneity matrix and an adjusted p\-value cutoff of 0.05:
 <<results='hide'>>=
-data(diffhetmatrix,package="epihet")
-epihet::epiMA(pval.matrix = diff.het.matrix, padjust.cutoff = 0.05,
+data(diffhetmatrix,package="EpiHet")
+EpiHet::epiMA(pval.matrix = diff.het.matrix, padjust.cutoff = 0.05,
               pch = ".", sve = TRUE)
 @
 \begin{figure}[!htbp]
@@ -429,16 +442,16 @@ epihet::epiMA(pval.matrix = diff.het.matrix, padjust.cutoff = 0.05,
 library(GenomicRanges)
 library(doParallel)
 registerDoParallel(cores=1)
-data(sharedmatrix,package="epihet")
-data(DEH,package = "epihet")
-data(datTraits,package = "epihet")
-data(promoter,package = "epihet")
+data(sharedmatrix,package="EpiHet")
+data(DEH,package = "EpiHet")
+data(datTraits,package = "EpiHet")
+data(promoter,package = "EpiHet")
 classes=data.frame(Sample=
                   c(colnames(sharedmatrix)[1:(length(sharedmatrix)-2)],
                   paste("N",1:14,sep = "-")),group=c(rep("CEBPA_sil",6),
                   rep("Normal",14)),stringsAsFactors = FALSE)
 rownames(classes)=classes$Sample
-epi.network=epihet::epinetwork(node.type = "gene",DEH,sharedmatrix,
+epi.network=EpiHet::epiNetwork(node.type = "gene",DEH,sharedmatrix,
                                value = "epipoly",group="CEBPA_sil",
                                subtype=classes,datTraits = datTraits,
                                promoter,networktype = "signed",
@@ -471,7 +484,7 @@ epi.network=epihet::epinetwork(node.type = "gene",DEH,sharedmatrix,
   We can also visualize the modules and perform the network topoloty analysis using the following function.
 <<results='hide'>>=
 load("epipoly-block.1.RData")
-module.topology=epihet::modulevisual(TOM,
+module.topology=EpiHet::moduleVisual(TOM,
                                      value.matrix=epi.network$epimatrix,
                                      moduleColors=epi.network$module$color,
                                      mymodule="turquoise",cutoff=0.02,
@@ -486,7 +499,7 @@ module.topology=epihet::modulevisual(TOM,
   Users can specify network layout and style using Cytoscape.
 
   \subsection{Module Annotation}
-  The epihet package contains a function to perform pathway enrichment analysis using a simple,single step. To run the function, ReactomePA needs to be installed before running the code.
+  The EpiHet package contains a function to perform pathway enrichment analysis using a simple,single step. To run the function, ReactomePA needs to be installed before running the code.
   Here, ReactomePA needs entrez ID, so we firstly transform refseq ID to entrez ID using function bitr() in R package clusterProfiler.
 <<results='hide'>>=
 library(clusterProfiler)
@@ -498,7 +511,7 @@ head(genelist)
 genelist=merge(genelist,entrez,by.x="gene",by.y="REFSEQ")
 genelist=unique(genelist[,c(4,2,3)])
 head(genelist)
-pathway = epihet::epipathway(genelist,cutoff = 0.05,
+pathway = EpiHet::epiPathway(genelist,cutoff = 0.05,
                              prefix="CEBPA_sil",pdf.height = 10,
                              pdf.width = 10)
 @
@@ -510,9 +523,9 @@ pathway = epihet::epipathway(genelist,cutoff = 0.05,
   The function returns a dataframe containing pathways significantly enriched by genes of one module and a barplot enrichment map for visualization.
   \\Furthermore, in this analysis we would like to investigate modules that are associated with transcription variance between cancer and normal sample. so we identify the modules significantly enriched by differentially expressed genes (DEGs)
 <<results='hide'>>=
-data(DEG,package = "epihet")
-data(background,package = "epihet")
-module.annotation=epihet::moduleanno(DEG$refseq,background$gene,
+data(DEG,package = "EpiHet")
+data(background,package = "EpiHet")
+module.annotation=EpiHet::moduleAnno(DEG$refseq,background$gene,
                                      module.gene=epi.network$module,
                                      cutoff=0.1,adjust.method = "fdr",
                                      prefix='epipoly',pdf.height = 3,
@@ -526,9 +539,9 @@ module.annotation=epihet::moduleanno(DEG$refseq,background$gene,
   \subsection{Module comparison}
   Finally,we compare the similarity between modules using the Jaccard similarity score for different cancers or different sutypes of one cancer.
 <<results='hide'>>=
-data(modulesil,package = "epihet")
-data(moduledm,package = "epihet")
-sim.score=epihet::modulesim(module.subtype1=modulesil,
+data(modulesil,package = "EpiHet")
+data(moduledm,package = "EpiHet")
+sim.score=EpiHet::moduleSim(module.subtype1=modulesil,
                             module.subtype2=moduledm,
                             pdf.height = 3,pdf.width = 3,
                             sve = TRUE)
@@ -540,6 +553,10 @@ sim.score=epihet::modulesim(module.subtype1=modulesil,
 \includegraphics[width=3in]{module_compare.pdf}
 \caption{Heatmap plot showing the Jaccard score between any two modules from cancer types/subtypes you interested.}
 \end{figure}
+\section{SessionInfo}
+<<>>=
+sessionInfo()
+@
 \clearpage
 \section{References}
 \begin{enumerate}

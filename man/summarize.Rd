@@ -7,23 +7,23 @@
 summarize(gr1, gr2, value1, value2, cutoff1 = 10, cutoff2 = 60)
 }
 \arguments{
-\item{gr1}{A GenomicRaes object to be compared}
+\item{gr1}{A GenomicRanges object to be compared}
 
-\item{gr2}{A GenomicRaes object to be compared}
+\item{gr2}{A GenomicRanges object to be compared}
 
 \item{value1}{The value of gr1 to be compared}
 
 \item{value2}{The value of gr2 be compared}
 
-\item{cutoff1}{The first cutoff value for the number of reads}
+\item{cutoff1}{The first cutoff value for the number of reads (default:10)}
 
-\item{cutoff2}{The second cutoff value for the number of reads}
+\item{cutoff2}{The second cutoff value for the number of reads (default:60)}
 }
 \value{
-A data frame containing a summary of the GenomicRaes object
+A data frame containing a summary of the GenomicRanges object
 }
 \description{
-Summarizes pdr, epi, and shannon values over the annotation regions
+Summarizes pdr, epipolymorphism, and shannon values over the annotation regions
 }
 \examples{
 p1.GR<-GRanges(seqnames = Rle(c("chr22"), c(5)),

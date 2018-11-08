@@ -17,7 +17,7 @@ the compMatrix() function}
 \item{type}{A dataframe containing the type information
 for the samples in the comparison matrix. The row names should
 be the names of the samples and there should be one column
-containing the type information for each sample.}
+containing the type information for each sample}
 
 \item{points.colors}{A vector of colors to be used as the color
 of the individual points for each sample. One color is used per

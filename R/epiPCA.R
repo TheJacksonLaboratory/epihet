@@ -14,13 +14,13 @@
 #' of the individual points for each sample. One color is used per
 #' type. the names of vector is the types(default: NULL)
 #' @param frames A boolean stating if the frames should be drawn
-#' around the points for each subtype cluster. (default: F)
+#' around the points for each subtype cluster. (default: False)
 #' @param frames.colors A vector of colors to be used as the color
 #' of the frames for each subtype cluster. (default: NULL)
 #' @param probability A boolean stating if the frames should be drawn
 #' as probability ellipses around the points for each subtype cluster.
 #' Both 'probability' and 'frames' must be set to TRUE to have effect.
-#' (default: F)
+#' (default: False)
 #' @param pdf.height An integer representing the height (in inches) of
 #' the outputted PCA plot pdf file (default: 10)
 #' @param pdf.width An integer representing the width (in inches) of
@@ -63,6 +63,7 @@ epiPCA = function(compare.matrix, value, type, points.colors = NULL,
         stop("Invalid value '", value, "': Possible values are 'read',
              'pdr', 'meth', 'epipoly', or 'shannon'")
     }
+    stopifnot(is(type,"data.frame"))
     value.matrix = compare.matrix[compare.matrix$type == value,
         -(length(compare.matrix) - 1)]
     rownames(value.matrix) = value.matrix$location
