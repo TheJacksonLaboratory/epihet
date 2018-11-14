@@ -55,7 +55,7 @@ that analyzes the evolution of epialleles using Bisulfite Sequencing.
 To install this package, start R and enter:
 <<>>=
 install.packages("BiocManager")
-BioManager::install("EpiHet")
+BiocManager::install("EpiHet")
 @
 
 or install the development version of this package from Github
