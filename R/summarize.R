@@ -33,7 +33,7 @@
 #' value1 = 'pdr', value2 = 'epipoly',
 #' cutoff1 = 10, cutoff2 = 60)
 #' @importFrom stats cor
-#' @importFrom GenomicRaes findOverlaps values
+#' @importFrom GenomicRanges findOverlaps values
 #' @importFrom S4Vectors queryHits
 #' @export
 summarize = function(gr1, gr2, value1, value2, cutoff1 = 10,
