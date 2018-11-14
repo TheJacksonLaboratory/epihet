@@ -18,7 +18,7 @@ Description: epihet is an R-package that calculates the epigenetic
     created by calculating the differential heterogeneity of the samples.
     And we construct co-epihet network and perform network analysis.
 Depends:
-    R(>= 3.5),
+    R(>= 3.5.1),
     GenomicRanges,
     IRanges,
     S4Vectors,
