@@ -19,7 +19,7 @@
   \large An R Package for Calculating and Analyzing \\
   the Epigenetic Heterogeneity of Cancer Cells}
 \author{Xiaowen Chen,Haitham Ashoor,Ryan Musich,Jiahui Wang,Sheng Li}
-\date{\today}
+\date{November 2018}
 
 % \VignetteIndexEntry{EpiHet}
 %\VignetteEngine{knitr::knitr}
@@ -32,7 +32,6 @@ concordance=TRUE
 )
 @
 
-
 \maketitle
 \thispagestyle{empty}
 \newpage
@@ -43,6 +42,10 @@ concordance=TRUE
 }
 \newpage
 
+<<echo=FALSE>>=
+  options(continue = ' ')
+@
+
 \section{Introduction}
 
 This manual introduces the EpiHet package and shows how the package
@@ -50,18 +53,6 @@ can be used to calculate intra-tumoral epigenetic heterogeneity and analyze the
 results through various types of graphs. This package was designed to use
 output from \href{https://github.com/TheJacksonLaboratory/Methclone}{methclone}, a C++ library
 that analyzes the evolution of epialleles using Bisulfite Sequencing.
-
-\section{Installation}
-To install this package, start R and enter:
-<<>>=
-install.packages("BiocManager")
-BiocManager::install("EpiHet")
-@
-
-or install the development version of this package from Github
-<<>>=
-BiocManager::install("TheJacksonLaboratory/epihet")
-@
 
 Load this package into R session.
 <<>>=
@@ -170,9 +161,7 @@ library(EpiHet)
   values for each locus that is shared between the inputted samples. The following sections provide examples on how to use
   the functions in EpiHet to build the comparison matrix and prepare the data for analysis. 
 
-<<echo=FALSE>>=
-  options(continue = ' ')
-@
+
   \setlength{\parindent}{0cm}
   To begin using EpiHet, the user should already have fed bisulfite sequencing data to
   \href{https://github.com/ShengLi/methclone}{methclone}, which creates compressed text files containing epiallele patterns and the percentage of reads supporting each of epiallele patterns at the genomic locus in sample. The suffix of the compressed text files should be methClone_out.gz. Included in EpiHet are example files used for the sample code in this vignette, which include only the result for epialleles on chromosome 22 for two normal samples (N1, N2) and two AML patients with the CEBPA\_sil (isocitrate dehydrogenase 2) mutation (D2238, D2668). The following lines of code can be run to obtain the files and their corresponding ID names:
