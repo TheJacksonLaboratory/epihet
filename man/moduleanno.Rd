@@ -5,8 +5,8 @@
 \title{module annotation}
 \usage{
 moduleanno(DEG, background, module.gene, cutoff = 0.05,
-  adjust.method = "fdr", prefix = NA, pdf.height = 10, pdf.width = 10,
-  sve = FALSE)
+  adjust.method = "fdr", prefix = NA, pdf.height = 10,
+  pdf.width = 10, sve = FALSE)
 }
 \arguments{
 \item{DEG}{a character vector containing up/down regulated genes}

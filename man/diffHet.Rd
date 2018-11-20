@@ -4,8 +4,9 @@
 \alias{diffHet}
 \title{Calculate Differential Heterogeneity}
 \usage{
-diffHet(compare.matrix, value, group1, group2, subtype, het.dif.cutoff = 0.2,
-  permutations = 1000, p.adjust.method = "fdr", cores = 5)
+diffHet(compare.matrix, value, group1, group2, subtype,
+  het.dif.cutoff = 0.2, permutations = 1000, p.adjust.method = "fdr",
+  cores = 5)
 }
 \arguments{
 \item{compare.matrix}{The comparison matrix generated from

@@ -4,8 +4,8 @@
 \alias{compMatrix}
 \title{Make Comparison Matrix}
 \usage{
-compMatrix(epi.gr, outprefix = NULL, readNumber = 60, p = 1, cores = 5,
-  sve = FALSE)
+compMatrix(epi.gr, outprefix = NULL, readNumber = 60, p = 1,
+  cores = 5, sve = FALSE)
 }
 \arguments{
 \item{epi.gr}{An input file containing the read number, locus,

@@ -4,8 +4,9 @@
 \alias{epiBox}
 \title{Make Boxplot from Comparison Matrix}
 \usage{
-epiBox(compare.matrix, value, type, box.colors = NULL, add.points = FALSE,
-  points.colors = NULL, pdf.height = 10, pdf.width = 10, sve = FALSE)
+epiBox(compare.matrix, value, type, box.colors = NULL,
+  add.points = FALSE, points.colors = NULL, pdf.height = 10,
+  pdf.width = 10, sve = FALSE)
 }
 \arguments{
 \item{compare.matrix}{The comparison matrix generated from

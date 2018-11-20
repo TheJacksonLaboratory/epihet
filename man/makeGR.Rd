@@ -7,9 +7,10 @@
 makeGR(files, ids, cores = 5, sve = FALSE)
 }
 \arguments{
-\item{files}{A vector of input files containing methclone output files, the suffix of files should be methClone_out.gz}
+\item{files}{A vector of input files containing methclone output files,
+the suffix of files should be methClone_out.gz}
 
-\item{ids}{A vector of sample id's for the files}
+\item{ids}{A vector of sample ids for the files}
 
 \item{cores}{The number of cores to be used for parallel execution
 (default: 5)}
@@ -22,11 +23,12 @@ containing pdr, epipolymorphism, and Shannon entropy values for each
 input file. Saves as an epi.gr.rda extension
 }
 \description{
-Creates a GenomicRanges object for each methclone output file}
+Creates a GenomicRanges object for each methclone output file
+}
 \examples{
 path = system.file('extdata', package = 'EpiHet')
 files = dir(path = path, pattern = 'methClone_out.gz',
-             recursive = TRUE, full.names = TRUE)
+            recursive = TRUE, full.names = TRUE)
 ids = basename(dirname(files))
 GR.List = EpiHet::makeGR(files = files, ids = ids,
 cores = 1, sve = FALSE)

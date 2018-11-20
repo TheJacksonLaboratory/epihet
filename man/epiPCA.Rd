@@ -4,9 +4,9 @@
 \alias{epiPCA}
 \title{Make PCA Plot from Comparison Matrix}
 \usage{
-epiPCA(compare.matrix, value, type, points.colors = NULL, frames = FALSE,
-  frames.colors = NULL, probability = FALSE, pdf.height = 10,
-  pdf.width = 10, sve = FALSE)
+epiPCA(compare.matrix, value, type, points.colors = NULL,
+  frames = FALSE, frames.colors = NULL, probability = FALSE,
+  pdf.height = 10, pdf.width = 10, sve = FALSE)
 }
 \arguments{
 \item{compare.matrix}{The comparison matrix generated from

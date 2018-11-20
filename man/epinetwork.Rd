@@ -4,10 +4,10 @@
 \alias{epinetwork}
 \title{Construct co-epihet network based on DEH loci.}
 \usage{
-epinetwork(node.type = "locus", DEH, compare.matrix, value = NULL, group,
-  subtype, datTraits = NULL, annotation.obj, networktype = "signed",
-  method = "pearson", prefix = NULL, mergeCutHeight = 0.25,
-  minModuleSize = 30)
+epinetwork(node.type = "locus", DEH, compare.matrix, value = NULL,
+  group, subtype, datTraits = NULL, annotation.obj,
+  networktype = "signed", method = "pearson", prefix = NULL,
+  mergeCutHeight = 0.25, minModuleSize = 30)
 }
 \arguments{
 \item{node.type}{a character suggest node type in network. Possible values

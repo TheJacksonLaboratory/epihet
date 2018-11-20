@@ -4,8 +4,8 @@
 \alias{modulesim}
 \title{module comparison between two subtypes.}
 \usage{
-modulesim(module.subtype1, module.subtype2, pdf.height = 10, pdf.width = 10,
-  sve = FALSE)
+modulesim(module.subtype1, module.subtype2, pdf.height = 10,
+  pdf.width = 10, sve = FALSE)
 }
 \arguments{
 \item{module.subtype1}{a data frame generated from the network.construct()

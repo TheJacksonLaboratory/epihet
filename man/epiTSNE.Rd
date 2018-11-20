@@ -5,8 +5,8 @@
 \title{Make TSNE Plot from Comparison Matrix}
 \usage{
 epiTSNE(compare.matrix, value, type, points.colors = NULL, theta = 0.5,
-  curTheme = NULL, perplexity = 5, max_iter = 1000, pdf.height = 10,
-  pdf.width = 10, sve = FALSE)
+  curTheme = NULL, perplexity = 5, max_iter = 1000,
+  pdf.height = 10, pdf.width = 10, sve = FALSE)
 }
 \arguments{
 \item{compare.matrix}{The comparison matrix generated from

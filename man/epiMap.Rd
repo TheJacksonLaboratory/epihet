@@ -4,13 +4,13 @@
 \alias{epiMap}
 \title{Make Pheatmap from Comparison Matrix}
 \usage{
-epiMap(compare.matrix, value, annotate = NULL,
+epiMap(compare.matrix, value, annotate,
   clustering_distance_rows = "euclidean",
-  clustering_distance_cols = "euclidean", clustering_method = "complete",
-  annotate.colors = NA, color = colorRampPalette(c("blue", "white",
-  "red"))(1000), loci.percent = 0.1, show.rows = FALSE,
-  show.columns = FALSE, font.size = 6, pdf.height = 10, pdf.width = 10,
-  sve = FALSE, ...)
+  clustering_distance_cols = "euclidean",
+  clustering_method = "complete", annotate.colors = NA,
+  color = colorRampPalette(c("blue", "white", "red"))(1000),
+  loci.percent = 0.1, show.rows = FALSE, show.columns = FALSE,
+  font.size = 6, pdf.height = 10, pdf.width = 10, sve = FALSE, ...)
 }
 \arguments{
 \item{compare.matrix}{The comparison matrix generated from
