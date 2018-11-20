@@ -71,7 +71,7 @@
 #' show.columns = TRUE, font.size = 15,
 #' pdf.height = 10, pdf.width = 10, sve = TRUE)
 #' @export
-epiMap = function(compare.matrix, value, annotate = NULL,
+epiMap = function(compare.matrix, value, annotate,
     clustering_distance_rows = "euclidean",
     clustering_distance_cols = "euclidean",
     clustering_method = "complete", annotate.colors = NA,
@@ -84,6 +84,7 @@ epiMap = function(compare.matrix, value, annotate = NULL,
         stop("Invalid value '", value, "': Possible values are 'read',
            'pdr', 'meth', 'epipoly', or 'shannon'")
     }
+    stopifnot(is(annotate,"data.frame"))
     value.matrix = compare.matrix[compare.matrix$type == value,
         -(length(compare.matrix) - 1)]
     rownames(value.matrix) = value.matrix$location
@@ -93,7 +94,7 @@ epiMap = function(compare.matrix, value, annotate = NULL,
     value.matrix = value.matrix[, -length(value.matrix)]
     loci.number = floor(loci.percent * nrow(value.matrix))
     title = paste0("Top ", loci.percent * 100, "% of ", value, " values")
-    matrix = value.matrix[1:loci.number, ]
+    matrix = value.matrix[seq_len(loci.number), ]
     if (sve) {
         pmap = pheatmap::pheatmap(matrix, show_rownames = show.rows,
             show_colnames = show.columns, color = color,

@@ -7,7 +7,7 @@
 makeGR(files, ids, cores = 5, sve = FALSE)
 }
 \arguments{
-\item{files}{A vector of input files containing bisulfite sequencing data}
+\item{files}{A vector of input files containing methclone output files, the suffix of files should be methClone_out.gz}
 
 \item{ids}{A vector of sample id's for the files}
 
@@ -17,20 +17,17 @@ makeGR(files, ids, cores = 5, sve = FALSE)
 \item{sve}{A boolean to save the GenomicRanges object (default: FALSE)}
 }
 \value{
-A data frame of GenomicRanges objects containing pdr,
-epipolymorphism, and Shannon entropy values for all input files.
-Saves as an epi.gr.rda extension
+A list, each element is a data frame of GenomicRanges objects 
+containing pdr, epipolymorphism, and Shannon entropy values for each 
+input file. Saves as an epi.gr.rda extension
 }
 \description{
-Creates a GenomicRanges object for each bisulfite sequencing data
-file
-}
+Creates a GenomicRanges object for each methclone output file}
 \examples{
-files = c(system.file("extdata","D-2238.chr22.region.methClone_out.gz",package = "epihet"),
-          system.file("extdata","D-2668.chr22.region.methClone_out.gz",package = "epihet"),
-          system.file("extdata","N-1.chr22.region.methClone_out.gz",package = "epihet"),
-          system.file("extdata","N-2.chr22.region.methClone_out.gz",package = "epihet"))
-ids = epihet::splitn(basename(files),"[.]",1)
-GR.List = epihet::makeGR(files = files, ids = ids,
+path = system.file('extdata', package = 'EpiHet')
+files = dir(path = path, pattern = 'methClone_out.gz',
+             recursive = TRUE, full.names = TRUE)
+ids = basename(dirname(files))
+GR.List = EpiHet::makeGR(files = files, ids = ids,
 cores = 1, sve = FALSE)
 }

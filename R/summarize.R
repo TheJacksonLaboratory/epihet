@@ -1,13 +1,13 @@
 #' @title Summarize Data
 #' @description
-#' Summarizes pdr, epi, and shannon values over the annotation regions
-#' @param  gr1 A GenomicRaes object to be compared
-#' @param  gr2 A GenomicRaes object to be compared
+#' Summarizes pdr, epipolymorphism, and shannon values over the annotation regions
+#' @param  gr1 A GenomicRanges object to be compared
+#' @param  gr2 A GenomicRanges object to be compared
 #' @param  value1 The value of gr1 to be compared
 #' @param  value2 The value of gr2 be compared
-#' @param  cutoff1 The first cutoff value for the number of reads
-#' @param  cutoff2 The second cutoff value for the number of reads
-#' @return A data frame containing a summary of the GenomicRaes object
+#' @param  cutoff1 The first cutoff value for the number of reads (default:10)
+#' @param  cutoff2 The second cutoff value for the number of reads (default:60)
+#' @return A data frame containing a summary of the GenomicRanges object
 #' @examples
 #' p1.GR<-GRanges(seqnames = Rle(c("chr22"), c(5)),
 #' ranges = IRanges(c(327,821,838,755,761), end = c(364,849,858,773,781)),
@@ -33,7 +33,7 @@
 #' value1 = 'pdr', value2 = 'epipoly',
 #' cutoff1 = 10, cutoff2 = 60)
 #' @importFrom stats cor
-#' @importFrom GenomicRaes findOverlaps values
+#' @importFrom GenomicRanges findOverlaps values
 #' @importFrom S4Vectors queryHits
 #' @export
 summarize = function(gr1, gr2, value1, value2, cutoff1 = 10,
@@ -47,6 +47,8 @@ summarize = function(gr1, gr2, value1, value2, cutoff1 = 10,
         stop("Invalid value '", value2, "': Possible values are 'pdr',
              'epipoly', or 'shannon'")
     }
+    stopifnot(is(gr1,"GRanges"))
+    stopifnot(is(gr2,"GRanges"))
     o = findOverlaps(gr1, gr2)
     x.anno = values(gr1[unique(queryHits(o))])
     sub1 = x.anno[x.anno$values.read1 >= cutoff1, ]

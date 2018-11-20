@@ -3,20 +3,21 @@
 #' @description
 #' Creates a GenomicRanges object for each methclone output file
 #'
-#' @param files A vector of input files containing methclone output file
-#' @param ids A vector of sample id's for the files
+#' @param files A vector of input files containing methclone output files,
+#' the suffix of files should be methClone_out.gz
+#' @param ids A vector of sample ids for the files
 #' @param cores The number of cores to be used for parallel execution
 #' (default: 5)
 #' @param sve A boolean to save the GenomicRanges object (default: FALSE)
-#' @return A data frame of GenomicRanges objects containing pdr,
-#' epipolymorphism, and Shannon entropy values for all input files.
-#' Saves as an epi.gr.rda extension
+#' @return A list, each element is a data frame of GenomicRanges objects 
+#' containing pdr, epipolymorphism, and Shannon entropy values for each 
+#' input file. Saves as an epi.gr.rda extension
 #' @examples
-#' path = system.file('extdata', package = 'epihet')
+#' path = system.file('extdata', package = 'EpiHet')
 #' files = dir(path = path, pattern = 'methClone_out.gz',
 #'             recursive = TRUE, full.names = TRUE)
 #' ids = basename(dirname(files))
-#' GR.List = epihet::makeGR(files = files, ids = ids,
+#' GR.List = EpiHet::makeGR(files = files, ids = ids,
 #' cores = 1, sve = FALSE)
 #' @export
 makeGR = function(files, ids, cores = 5, sve = FALSE) {
@@ -41,7 +42,7 @@ makeGR = function(files, ids, cores = 5, sve = FALSE) {
     f = files[n]
     x = data.table::fread(paste("gzip -dc", f), sep = "\t")  #[,-27]
     x=x[,-27]
-    x$pdr = 1 - rowSums(x[, c(11, 26), with = FALSE])/100
+    x$pdr = rowSums(x[, c(12:25), with = FALSE])/100
     x$epipoly = 1 - rowSums((x[, c(11:26), with = FALSE]/100)^2)
     x$shannon = apply(x[, c(11:26), with = FALSE], 1, shannon)
     x = as.data.frame(x)

@@ -9,7 +9,7 @@ compMatrix(epi.gr, outprefix = NULL, readNumber = 60, p = 1, cores = 5,
 }
 \arguments{
 \item{epi.gr}{An input file containing the read number, locus,
-pdr, epipoly, and Shannon entropy values stored in a list of
+pdr, epipolymorphism, and Shannon entropy values stored in a list of
 GenomicRanges objects}
 
 \item{outprefix}{The prefix name of the outputted matrix file.
@@ -29,11 +29,11 @@ loci in order to add the loci to the matrix (default: 1)}
 \item{sve}{A boolean to save the comparison matrix (default: FALSE)}
 }
 \value{
-A large matrix containing values (epi, pdr, etc.) at the same loci
+A large matrix containing values (pdr, etc.) at the same loci
 }
 \description{
 A matrix is created for pca/hclust/tsne which contains
-read number, average methylation levels, pdr, epipoly,
+read number, average methylation levels, pdr, epipolymorphism,
 and Shannon entropy values across multiple samples at
 the same loci using read number in a GenomicRanges object
 }

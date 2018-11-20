@@ -2,12 +2,12 @@
 #'
 #' @description
 #' A matrix is created for pca/hclust/tsne which contains
-#' read number, average methylation levels, pdr, epipoly,
+#' read number, average methylation levels, pdr, epipolymorphism,
 #' and Shannon entropy values across multiple samples at
 #' the same loci using read number in a GenomicRanges object
 #'
 #' @param epi.gr An input file containing the read number, locus,
-#' pdr, epipoly, and Shannon entropy values stored in a list of
+#' pdr, epipolymorphism, and Shannon entropy values stored in a list of
 #' GenomicRanges objects
 #' @param outprefix The prefix name of the outputted matrix file.
 #' 'sve' must be set to TRUE (default: NULL)
@@ -20,7 +20,7 @@
 #' @param cores The number of cores to be used for parallel execution
 #' (default: 5)
 #' @param sve A boolean to save the comparison matrix (default: FALSE)
-#' @return A large matrix containing values (epi, pdr, etc.) at the same loci
+#' @return A large matrix containing values (pdr, etc.) at the same loci
 #' @examples
 #' p1.GR<-GRanges(seqnames = Rle(c("chr22"), c(5)),
 #' ranges = IRanges(c(327,821,838,755,761), end = c(364,849,858,773,781)),
@@ -67,6 +67,9 @@
 #' @export
 compMatrix = function(epi.gr, outprefix = NULL, readNumber = 60,
     p = 1, cores = 5, sve = FALSE) {
+    for (i in c(1:length(epi.gr))) {
+      stopifnot( is(epi.gr[[i]], "GRanges") )
+    }
     print("Getting all loci")
     sub.ids = foreach(x = epi.gr, .combine = c) %do% {
         x = x[values(x)$values.read1 >= readNumber,]
