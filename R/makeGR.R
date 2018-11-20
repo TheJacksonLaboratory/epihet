@@ -13,11 +13,11 @@
 #' containing pdr, epipolymorphism, and Shannon entropy values for each 
 #' input file. Saves as an epi.gr.rda extension
 #' @examples
-#' path = system.file('extdata', package = 'EpiHet')
+#' path = system.file('extdata', package = 'epihet')
 #' files = dir(path = path, pattern = 'methClone_out.gz',
 #'             recursive = TRUE, full.names = TRUE)
 #' ids = basename(dirname(files))
-#' GR.List = EpiHet::makeGR(files = files, ids = ids,
+#' GR.List = epihet::makeGR(files = files, ids = ids,
 #' cores = 1, sve = FALSE)
 #' @export
 makeGR = function(files, ids, cores = 5, sve = FALSE) {

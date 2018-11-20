@@ -9,12 +9,12 @@
 #' @return A GenomicRanges object containing pdr, epipolymorphism, and
 #' Shannon entropy values for the nth file
 #' @examples
-#' files = c(system.file("extdata","D-2238.chr22.region.methClone_out.gz",package = "EpiHet"),
-#' system.file("extdata","D-2668.chr22.region.methClone_out.gz",package = "EpiHet"),
-#' system.file("extdata","N-1.chr22.region.methClone_out.gz",package = "EpiHet"),
-#' system.file("extdata","N-2.chr22.region.methClone_out.gz",package = "EpiHet"))
-#' ids = EpiHet::splitn(basename(files),"[.]",1)
-#' GR.Object = EpiHet::readGR(files = files, ids = ids, n = 3)
+#' files = c(system.file("extdata","D-2238.chr22.region.methClone_out.gz",package = "epihet"),
+#' system.file("extdata","D-2668.chr22.region.methClone_out.gz",package = "epihet"),
+#' system.file("extdata","N-1.chr22.region.methClone_out.gz",package = "epihet"),
+#' system.file("extdata","N-2.chr22.region.methClone_out.gz",package = "epihet"))
+#' ids = epihet::splitn(basename(files),"[.]",1)
+#' GR.Object = epihet::readGR(files = files, ids = ids, n = 3)
 #' @export
 readGR = function(files, ids, n) {
     f = files[n]

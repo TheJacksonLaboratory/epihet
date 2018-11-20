@@ -29,7 +29,7 @@
 #' values.epipoly=c(0.57,0.42,0.28,0.18,0.23))
 #'
 #' GR.List=list(p1=p1.GR,p2=p2.GR)
-#' summary = epihet::summarize(gr1 = GR.List[[1]], gr2 = GR.List[[2]],
+#' summary = summarize(gr1 = GR.List[[1]], gr2 = GR.List[[2]],
 #' value1 = 'pdr', value2 = 'epipoly',
 #' cutoff1 = 10, cutoff2 = 60)
 #' @importFrom stats cor

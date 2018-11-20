@@ -29,7 +29,7 @@
 #' "NM_000095","NM_006474"),label=rep(c(1,2),c(12,15)),
 #' color=rep(c("purple","brown"),c(12,15)),
 #' stringsAsFactors = FALSE)
-#' module.annotation=epihet::moduleanno(DEG$refseq,background$gene,
+#' module.annotation=moduleanno(DEG$refseq,background$gene,
 #'                                      module.gene=module,
 #'                                      cutoff=0.05,adjust.method = "fdr",
 #'                                      prefix='epipoly',pdf.height = 10,

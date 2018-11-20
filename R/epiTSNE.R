@@ -51,7 +51,7 @@
 #' subtype = data.frame(Type= c(rep('CEBPA_sil', 3), rep('Normal', 3)),
 #' row.names = colnames(comp.Matrix)[1:6],stringsAsFactors = FALSE)
 #'
-#' epihet::epiTSNE(compare.matrix = comp.Matrix, value = 'epipoly',
+#' epiTSNE(compare.matrix = comp.Matrix, value = 'epipoly',
 #' type = subtype, points.colors = NULL, theta = 0.5,
 #' perplexity = 1, max_iter = 1000, pdf.height = 10,
 #' pdf.width = 10, sve = TRUE)

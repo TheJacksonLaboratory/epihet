@@ -62,7 +62,7 @@
 #' values.shannon=c(0.12,0.25,0.54,0.23,0.25))
 #'
 #' GR.List=list(p1=p1.GR,p2=p2.GR,N1=N1.GR,N2=N2.GR)
-#' comp.Matrix = epihet::compMatrix(epi.gr = GR.List, outprefix = NULL,
+#' comp.Matrix = compMatrix(epi.gr = GR.List, outprefix = NULL,
 #' readNumber = 60, p = 1, cores = 1, sve = FALSE)
 #' @export
 compMatrix = function(epi.gr, outprefix = NULL, readNumber = 60,

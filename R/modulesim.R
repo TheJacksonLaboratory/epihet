@@ -17,7 +17,7 @@
 #' @examples
 #' data(modulesil,package = "epihet")
 #' data(moduledm,package = "epihet")
-#' sim.score=epihet::modulesim(module.subtype1=modulesil,
+#' sim.score=modulesim(module.subtype1=modulesil,
 #'                             module.subtype2=moduledm,
 #'                             pdf.height = 10,pdf.width = 10,
 #'                             sve = TRUE)

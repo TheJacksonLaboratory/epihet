@@ -47,7 +47,7 @@
 #' subtype = data.frame(Type= c(rep('CEBPA_sil', 3), rep('Normal', 3)),
 #' row.names = colnames(comp.Matrix)[1:6],stringsAsFactors = FALSE)
 #'
-#' epihet::epiBox(compare.matrix = comp.Matrix, value = 'epipoly',
+#' epiBox(compare.matrix = comp.Matrix, value = 'epipoly',
 #' type = subtype, box.colors = NULL, add.points = FALSE,
 #' points.colors = NULL, pdf.height = 10, pdf.width = 10,
 #' sve = FALSE)

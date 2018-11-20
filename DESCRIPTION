@@ -1,4 +1,4 @@
-Package: EpiHet
+Package: epihet
 Title: Determining Epigenetic Heterogeneity from Bisulfite Sequencing Data
 Version: 0.99.4
 Authors@R: c(person("Xiaowen", "Chen", role = c("aut", "cre"),
@@ -7,13 +7,13 @@ Authors@R: c(person("Xiaowen", "Chen", role = c("aut", "cre"),
     person("Ryan", "Musich", role = "aut"),
     person("Jiahui","Wang",role = "aut"),
     person("Sheng", "Li", role = "aut"))
-Description: EpiHet is an R-package that calculates the epigenetic 
+Description: epihet is an R-package that calculates the epigenetic 
     heterogeneity between cancer cells and/or normal cells. The functions
     establish a pipeline that take in bisulfite sequencing data from multiple
     samples and use the data to track similarities and differences in 
     epipolymorphism,proportion of discordantly methylated sequencing reads
     (PDR),and Shannon entropy values at epialleles that are shared between
-    the samples.EpiHet can be used to perform analysis on the data by creating
+    the samples.epihet can be used to perform analysis on the data by creating
     pheatmaps, box plots, PCA plots, and t-SNE plots. MA plots can also be
     created by calculating the differential heterogeneity of the samples.
     And we construct co-epihet network and perform network analysis.
@@ -42,7 +42,7 @@ Imports:
     WGCNA,
     ReactomePA
 Encoding: UTF-8
-RoxygenNote: 6.1.1
+RoxygenNote: 6.0.1
 Suggests:
     knitr,
     clusterProfiler,

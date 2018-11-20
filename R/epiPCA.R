@@ -48,7 +48,7 @@
 #' subtype = data.frame(Type= c(rep('CEBPA_sil', 3), rep('Normal', 3)),
 #' row.names = colnames(comp.Matrix)[1:6],stringsAsFactors = FALSE)
 #'
-#'epihet::epiPCA(compare.matrix = comp.Matrix, value = 'epipoly',
+#'epiPCA(compare.matrix = comp.Matrix, value = 'epipoly',
 #'               type = subtype, points.colors = NULL,
 #'             frames = FALSE, frames.colors = NULL,
 #'             probability = FALSE, pdf.height = 10,

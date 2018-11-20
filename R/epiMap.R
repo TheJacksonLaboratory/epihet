@@ -61,7 +61,7 @@
 #' subtype = data.frame(Type= c(rep('CEBPA_sil', 3), rep('Normal', 3)),
 #' row.names = colnames(comp.Matrix)[1:6],stringsAsFactors = FALSE)
 #'
-#' pmap = epihet::epiMap(compare.matrix = comp.Matrix,
+#' pmap = epiMap(compare.matrix = comp.Matrix,
 #' value = 'epipoly',annotate = subtype,
 #' clustering_distance_rows = "euclidean",
 #' clustering_distance_cols = "euclidean",
