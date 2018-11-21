@@ -438,7 +438,7 @@ classes=data.frame(Sample=
                   paste("N",1:14,sep = "-")),group=c(rep("CEBPA_sil",6),
                   rep("Normal",14)),stringsAsFactors = FALSE)
 rownames(classes)=classes$Sample
-epi.network=epihet::epinetwork(node.type = "gene",DEH,sharedmatrix,
+epi.network=epihet::epiNetwork(node.type = "gene",DEH,sharedmatrix,
                                value = "epipoly",group="CEBPA_sil",
                                subtype=classes,datTraits = datTraits,
                                promoter,networktype = "signed",
@@ -482,7 +482,7 @@ module.topology=epihet::modulevisual(TOM,
 \includegraphics[width=4in]{CEBPA_sil_epipoly_turquoise_3dsphere.pdf}
 \caption{The lightgreen module.}
 \end{figure}
- Here,TOM file is loaded into R workspace, which was created by the above function epinetwork.This function can also generate an edge file and a node file as the txt format.
+ Here,TOM file is loaded into R workspace, which was created by the above function epiNetwork.This function can also generate an edge file and a node file as the txt format.
   Users can specify network layout and style using Cytoscape.
 
   \subsection{Module Annotation}
@@ -498,7 +498,7 @@ head(genelist)
 genelist=merge(genelist,entrez,by.x="gene",by.y="REFSEQ")
 genelist=unique(genelist[,c(4,2,3)])
 head(genelist)
-pathway = epihet::epipathway(genelist,cutoff = 0.05,
+pathway = epihet::epiPathway(genelist,cutoff = 0.05,
                              prefix="CEBPA_sil",pdf.height = 10,
                              pdf.width = 10)
 @

@@ -3,8 +3,8 @@
 #' in one module.
 #' @param gene.list a data frame generated from network.construct() function.
 #' The first column is gene entrez ID, the second column is module lable,
-#' the third column is module color.
-#' @param cutoff Cutoff value of qvalue for pathway enrichment
+#' the third column is module color
+#' @param cutoff Cutoff value of pvalue for pathway enrichment (default:0.05)
 #' @param prefix a prefix for PDF file name
 #' @param pdf.height An integer representing the height (in inches)
 #' of the outputted boxplot pdf file (default: 10)
@@ -19,11 +19,11 @@
 #' "389136","124857","1829","3164","3754","8614","9469","3217","9578",
 #' "10516","10630"),label=rep(18,33),color=rep("lightgreen",33),
 #' stringsAsFactors = FALSE)
-#' pathway = epipathway(genelist,cutoff = 0.05,
+#' pathway = epihet::epiPathway(genelist,cutoff = 0.05,
 #'                              prefix="CEBPA_sil",pdf.height = 10,
 #'                              pdf.width = 10)
 #' @export
-epipathway = function(gene.list, cutoff = 0.05, prefix = NA,
+epiPathway = function(gene.list, cutoff = 0.05, prefix = NA,
     pdf.height = 10, pdf.width = 10) {
     module.id = unique(gene.list[, 3])
     pathway.result = list()

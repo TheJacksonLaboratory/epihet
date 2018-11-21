@@ -55,7 +55,7 @@ colnames(matrix.v)=c("NM_052960","NR_138250","NM_015074","NM_183416",
 "NM_017891","NM_001330306","NM_014917","NM_001312688","NM_001330665",
 "NM_017766","NM_001079843","NM_001040709")
 modulecolor<-c(rep(c("yellow","cyan"),c(10,2)))
-module.topology=epihet::modulevisual(correlation.m,
+module.topology=modulevisual(correlation.m,
                                      value.matrix=matrix.v,
                                      moduleColors=modulecolor,
                                      mymodule="yellow",cutoff=0.02,
