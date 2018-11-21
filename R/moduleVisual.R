@@ -1,17 +1,18 @@
-#' @title  Modules visualization and
-#' @description Visualize the modules identified by epinetwork() function.
+#' @title  Modules visualization and network topology
+#' @description Visualize the modules identified by epiNetwork() function, and calculate
+#' network topology
 #' @param TOM  the topological overlap matrix in WGCNA generated from
-#' the network.construct() function
-#' @param value.matrix A data frame generated from the epinetwork() function.
+#' the epiNetwork() function
+#' @param value.matrix A data frame generated from the epiNetwork() function.
 #' the row name is patients in one subtype. the column name is the DEH loci
 #' the value in the matrix is epigenetic heterogeneity on one DEH loci
 #' for one patient
-#' @param moduleColors the module assignment generated from the epinetwork()
+#' @param moduleColors the module assignment generated from the epiNetwork()
 #' function
 #' @param mymodule a character vector containing the module colors
 #' you want to visulaize
-#' @param cutoff adjacency threshold for including edges in the output.
-#' @param prefix a character for outpuf filename
+#' @param cutoff adjacency threshold for including edges in the output (default:0.02)
+#' @param prefix a character for output filename
 #' @param sve A boolean to save the plot (default: FALSE)
 #' @return a list containing all module edge and node information for mymodule
 #' @examples
@@ -31,19 +32,21 @@
 #' t(correlation.m)[lower.tri(correlation.m)]
 #'
 #' matrix.v<-matrix(0.5,5,12)
+#' matrix.v<-as.data.frame(matrix.v)
 #' colnames(matrix.v)=c("NM_052960","NR_138250","NM_015074","NM_183416",
 #' "NM_017891","NM_001330306","NM_014917","NM_001312688","NM_001330665",
 #' "NM_017766","NM_001079843","NM_001040709")
 #' modulecolor<-c(rep(c("yellow","cyan"),c(10,2)))
-#' module.topology=modulevisual(correlation.m,
+#' module.topology=epihet::moduleVisual(correlation.m,
 #'                                      value.matrix=matrix.v,
 #'                                      moduleColors=modulecolor,
 #'                                      mymodule="yellow",cutoff=0.02,
 #'                                      prefix='CEBPA_sil_epipoly',sve = TRUE)
 #' @export
-modulevisual = function(TOM, value.matrix, moduleColors,
+moduleVisual = function(TOM, value.matrix, moduleColors,
     mymodule, cutoff = 0.02, prefix = NULL, sve = FALSE) {
     # Select modules
+    stopifnot(is(value.matrix,"data.frame"))
     TOM = as.matrix(TOM)
     modules=NULL
     network = foreach(modules = mymodule) %do% {

@@ -471,7 +471,7 @@ epi.network=epihet::epiNetwork(node.type = "gene",DEH,sharedmatrix,
   We can also visualize the modules and perform the network topoloty analysis using the following function.
 <<results='hide'>>=
 load("epipoly-block.1.RData")
-module.topology=epihet::modulevisual(TOM,
+module.topology=epihet::moduleVisual(TOM,
                                      value.matrix=epi.network$epimatrix,
                                      moduleColors=epi.network$module$color,
                                      mymodule="turquoise",cutoff=0.02,
@@ -512,7 +512,7 @@ pathway = epihet::epiPathway(genelist,cutoff = 0.05,
 <<results='hide'>>=
 data(DEG,package = "epihet")
 data(background,package = "epihet")
-module.annotation=epihet::moduleanno(DEG$refseq,background$gene,
+module.annotation=epihet::moduleAnno(DEG$refseq,background$gene,
                                      module.gene=epi.network$module,
                                      cutoff=0.1,adjust.method = "fdr",
                                      prefix='epipoly',pdf.height = 3,
@@ -528,7 +528,7 @@ module.annotation=epihet::moduleanno(DEG$refseq,background$gene,
 <<results='hide'>>=
 data(modulesil,package = "epihet")
 data(moduledm,package = "epihet")
-sim.score=epihet::modulesim(module.subtype1=modulesil,
+sim.score=epihet::moduleSim(module.subtype1=modulesil,
                             module.subtype2=moduledm,
                             pdf.height = 3,pdf.width = 3,
                             sve = TRUE)

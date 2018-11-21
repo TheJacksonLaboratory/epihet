@@ -1,13 +1,13 @@
-#' @title  module comparison between two subtypes.
+#' @title  module comparison between two subtypes
 #' @description Compare any two modules from two subytpes based
-#' on genes shared by the modules.
-#' @param module.subtype1 a data frame generated from the network.construct()
+#' on genes shared by the modules
+#' @param module.subtype1 a data frame generated from the epiNetwork()
 #' function the module information of subtype1,the first column is module
-#' nodes,the second column is module label, the third column is module color.
-#' @param module.subtype2 a data frame generated from the network.construct()
+#' nodes,the second column is module label, the third column is module color
+#' @param module.subtype2 a data frame generated from the epiNetwork()
 #' function. The module information of subtype1, the first column is
 #' module nodes, the second column is module label, the third column is
-#' module color.
+#' module color
 #' @param pdf.height An integer representing the height (in inches)
 #' of the outputted boxplot pdf file (default: 10)
 #' @param pdf.width An integer representing the width (in inches) of
@@ -17,12 +17,12 @@
 #' @examples
 #' data(modulesil,package = "epihet")
 #' data(moduledm,package = "epihet")
-#' sim.score=modulesim(module.subtype1=modulesil,
+#' sim.score=epihet::moduleSim(module.subtype1=modulesil,
 #'                             module.subtype2=moduledm,
 #'                             pdf.height = 10,pdf.width = 10,
 #'                             sve = TRUE)
 #' @export
-modulesim = function(module.subtype1, module.subtype2,
+moduleSim = function(module.subtype1, module.subtype2,
     pdf.height = 10, pdf.width = 10, sve = FALSE) {
 
     jaccard.matrix = jaccard(module.subtype1, module.subtype2)
@@ -47,11 +47,11 @@ modulesim = function(module.subtype1, module.subtype2,
 #' @description Jaccard score calculation based on the common genes in two
 #' modules from two subtypes.
 #' @param module.subtype1 a data frame generated from the
-#' epinetwork() function. The module information of subtype1,
+#' epiNetwork() function. The module information of subtype1,
 #' the first column is module nodes, the second column is module label,
 #' the third column is module color.
 #' @param module.subtype2 a data frame generated from
-#' the epinetwork() function. The module information of subtype1,
+#' the epiNetwork() function. The module information of subtype1,
 #' the first column is module nodes, the second column is module label,
 #' the third column is module color.
 #' @return A matrix containing Jaccard scores.
