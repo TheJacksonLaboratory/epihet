@@ -51,6 +51,22 @@ results through various types of graphs. This package was designed to use
 output from \href{https://github.com/ShengLi/methclone}{methclone}, a C++ library
 that analyzes the evolution of epialleles using Bisulfite Sequencing methylation data.
 
+\section{Installation}
+1. Download the package from Bioconductor.
+<<eval=FALSE>>=
+if (!requireNamespace("BiocManager", quietly = TRUE))
+install.packages("BiocManager")
+BiocManager::install("epihet")
+@
+Or install the development version of the package from Github.
+<<eval=FALSE>>=
+BiocManager::install("TheJacksonLaboratory/epihet")
+@
+2. Load the package into R session.
+<<eval=FALSE,message=FALSE>>=
+library(epihet)
+@
+
 \section{Background}
   \subsection{DNA Methylation \& Epigenetic Heterogeneity}
   Methylation occurs on the DNA strand where a methyl group attaches to the
