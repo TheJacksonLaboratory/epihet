@@ -541,6 +541,21 @@ sim.score=epihet::moduleSim(module.subtype1=modulesil,
 \caption{Heatmap plot showing the Jaccard score between any two modules from cancer types/subtypes you interested.}
 \end{figure}
 \clearpage
+
+\newpage
+%------------------------------------
+%handy to include this at the end
+%------------------------------------
+\section{SessionInfo}
+%-------------------------------------
+
+<<sessionInfo>>=
+
+  sessionInfo()
+
+@ 
+
+
 \section{References}
 \begin{enumerate}
   \item H. Pag\`es, M. Lawrence and P. Aboyoun (2017). S4Vectors: S4 implementation of vectors and lists.
