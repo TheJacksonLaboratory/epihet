@@ -1,10 +1,11 @@
 Package: epihet
 Title: Determining Epigenetic Heterogeneity from Bisulfite Sequencing Data
-Version: 0.99.4
+Version: 0.99.5
 Authors@R: c(person("Xiaowen", "Chen", role = c("aut", "cre"),
     email = "Xiaowen.Chen@jax.org"),
     person("Haitham", "Ashoor",role = "aut"),
     person("Ryan", "Musich", role = "aut"),
+    person("Mingsheng","Zhang",role="aut"),
     person("Jiahui","Wang",role = "aut"),
     person("Sheng", "Li", role = "aut"))
 Description: epihet is an R-package that calculates the epigenetic 
@@ -18,7 +19,7 @@ Description: epihet is an R-package that calculates the epigenetic
     created by calculating the differential heterogeneity of the samples.
     And we construct co-epihet network and perform network analysis.
 Depends:
-    R(>= 3.4.1),
+    R(>= 3.5.1),
     GenomicRanges,
     IRanges,
     S4Vectors,
