@@ -59,7 +59,7 @@
 #' 3),stringsAsFactors =FALSE )
 #'
 #' subtype <- data.frame(Type= c(rep('CEBPA_sil', 3), rep('Normal', 3)),
-#' row.names <- colnames(comp.Matrix)[1:6],stringsAsFactors = FALSE)
+#' row.names = colnames(comp.Matrix)[1:6],stringsAsFactors = FALSE)
 #'
 #' pmap <- epiMap(compare.matrix = comp.Matrix,
 #' value = 'epipoly',annotate = subtype,
