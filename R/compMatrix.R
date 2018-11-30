@@ -61,50 +61,50 @@
 #' values.epipoly=c(0.26,0.58,0.58,0.37,0.37),
 #' values.shannon=c(0.12,0.25,0.54,0.23,0.25))
 #'
-#' GR.List=list(p1=p1.GR,p2=p2.GR,N1=N1.GR,N2=N2.GR)
-#' comp.Matrix = compMatrix(epi.gr = GR.List, outprefix = NULL,
+#' GR.List<-list(p1=p1.GR,p2=p2.GR,N1=N1.GR,N2=N2.GR)
+#' comp.Matrix <- compMatrix(epi.gr = GR.List, outprefix = NULL,
 #' readNumber = 60, p = 1, cores = 1, sve = FALSE)
 #' @export
-compMatrix = function(epi.gr, outprefix = NULL, readNumber = 60,
+compMatrix <- function(epi.gr, outprefix = NULL, readNumber = 60,
     p = 1, cores = 5, sve = FALSE) {
     for (i in c(1:length(epi.gr))) {
       stopifnot( is(epi.gr[[i]], "GRanges") )
     }
     print("Getting all loci")
-    sub.ids = foreach(x = epi.gr, .combine = c) %do% {
-        x = x[values(x)$values.read1 >= readNumber,]
+    sub.ids <- foreach(x = epi.gr, .combine = c) %do% {
+        x <- x[values(x)$values.read1 >= readNumber,]
         paste(seqnames(x), values(x)$values.loci, sep = "-")
     }
     print(paste0("Shared ids by ", p * 100, "% samples"))
-    shared.ids = names(which(table(sub.ids) >= p * length(epi.gr)))
+    shared.ids <- names(which(table(sub.ids) >= p * length(epi.gr)))
     print("Shared epimatrix")
-    dat.na = data.frame(value = rep(NA, length(shared.ids)),
+    dat.na <- data.frame(value = rep(NA, length(shared.ids)),
         row.names = shared.ids)
     doParallel::registerDoParallel(cores = cores)
-    epi.shared.matrix = foreach(x = epi.gr, .combine = cbind) %dopar% {
-        x = x[values(x)$values.read1 >= readNumber,]
-        ids = paste(seqnames(x), values(x)$values.loci, sep = "-")
-        x1 = x[ids %in% shared.ids, ]
-        x2 = values(x1)[, 2:6]
-        rownames(x2) = paste(seqnames(x1), values(x1)[,1], sep = "-")
-        use.ids = intersect(ids, shared.ids)
-        i = NULL
-        res = foreach(i = colnames(values(x1))[2:6],.combine = rbind) %dopar% {
-            dat = dat.na
+    epi.shared.matrix <- foreach(x = epi.gr, .combine = cbind) %dopar% {
+        x <- x[values(x)$values.read1 >= readNumber,]
+        ids <- paste(seqnames(x), values(x)$values.loci, sep = "-")
+        x1 <- x[ids %in% shared.ids, ]
+        x2 <- values(x1)[, 2:6]
+        rownames(x2) <- paste(seqnames(x1), values(x1)[,1], sep = "-")
+        use.ids <- intersect(ids, shared.ids)
+        i <- NULL
+        res <- foreach(i = colnames(values(x1))[2:6],.combine = rbind) %dopar% {
+            dat <- dat.na
             # dat$type=gsub('values.|1','',i)
             dat[use.ids, "value"] = x2[use.ids, i]
             dat
         }
         res
     }
-    colnames(epi.shared.matrix) = names(epi.gr)
+    colnames(epi.shared.matrix) <- names(epi.gr)
     epi.shared.matrix$type = rep(gsub("values.|1", "",
         colnames(values(epi.gr[[1]]))[2:6]), each = length(shared.ids))
     epi.shared.matrix$location = rownames(epi.shared.matrix)
     epi.shared.matrix[epi.shared.matrix$type != "read", "location"] =
         gsub(".{1}$", "", epi.shared.matrix[epi.shared.matrix$type !=
         "read", "location"])
-    rownames(epi.shared.matrix) = 1:nrow(epi.shared.matrix)
+    rownames(epi.shared.matrix) <- 1:nrow(epi.shared.matrix)
     if (sve) {
         save(epi.shared.matrix, file = paste0(outprefix,
             "_epi_shared.matrix.rda"))
