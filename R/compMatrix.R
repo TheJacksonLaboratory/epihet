@@ -67,7 +67,7 @@
 #' @export
 compMatrix <- function(epi.gr, outprefix = NULL, readNumber = 60,
     p = 1, cores = 5, sve = FALSE) {
-    for (i in c(1:length(epi.gr))) {
+    for (i in seq_len(length(epi.gr))) {
       stopifnot( is(epi.gr[[i]], "GRanges") )
     }
     print("Getting all loci")
@@ -104,7 +104,7 @@ compMatrix <- function(epi.gr, outprefix = NULL, readNumber = 60,
     epi.shared.matrix[epi.shared.matrix$type != "read", "location"] =
         gsub(".{1}$", "", epi.shared.matrix[epi.shared.matrix$type !=
         "read", "location"])
-    rownames(epi.shared.matrix) <- 1:nrow(epi.shared.matrix)
+    rownames(epi.shared.matrix) <- seq_len(nrow(epi.shared.matrix))
     if (sve) {
         save(epi.shared.matrix, file = paste0(outprefix,
             "_epi_shared.matrix.rda"))

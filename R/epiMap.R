@@ -42,7 +42,7 @@
 #' @return A pheatmap object that contains the tree data for
 #' both rows and columns and the final pheatmap plot
 #' @examples
-#' comp.Matrix=data.frame(
+#' comp.Matrix<-data.frame(
 #' p1=c(0.6,0.3,0.5,0.5,0.5,0.6,0.45,0.57,0.45,0.63,0.58,0.67,0.5,0.42,0.67),
 #' p2=c(0.62,0.63,0.55,0.75,0.84,0.58,1,0.33,1,0.97,0.57,0.68,0.73,0.72,0.82),
 #' p3=c(0.72,0.53,0.62,0.69,0.37,0.85,1,0.63,0.87,0.87,0.82,0.81,0.79,
@@ -58,10 +58,10 @@
 #' "chr22-761:771:773:781","chr22-821:837:844:849","chr22-838:845:850:858"),
 #' 3),stringsAsFactors =FALSE )
 #'
-#' subtype = data.frame(Type= c(rep('CEBPA_sil', 3), rep('Normal', 3)),
-#' row.names = colnames(comp.Matrix)[1:6],stringsAsFactors = FALSE)
+#' subtype <- data.frame(Type= c(rep('CEBPA_sil', 3), rep('Normal', 3)),
+#' row.names <- colnames(comp.Matrix)[1:6],stringsAsFactors = FALSE)
 #'
-#' pmap = epiMap(compare.matrix = comp.Matrix,
+#' pmap <- epiMap(compare.matrix = comp.Matrix,
 #' value = 'epipoly',annotate = subtype,
 #' clustering_distance_rows = "euclidean",
 #' clustering_distance_cols = "euclidean",
@@ -71,7 +71,7 @@
 #' show.columns = TRUE, font.size = 15,
 #' pdf.height = 10, pdf.width = 10, sve = TRUE)
 #' @export
-epiMap = function(compare.matrix, value, annotate,
+epiMap <- function(compare.matrix, value, annotate,
     clustering_distance_rows = "euclidean",
     clustering_distance_cols = "euclidean",
     clustering_method = "complete", annotate.colors = NA,
@@ -84,19 +84,18 @@ epiMap = function(compare.matrix, value, annotate,
         stop("Invalid value '", value, "': Possible values are 'read',
            'pdr', 'meth', 'epipoly', or 'shannon'")
     }
-    stopifnot(is(annotate,"data.frame"))
-    value.matrix = compare.matrix[compare.matrix$type == value,
+    value.matrix <- compare.matrix[compare.matrix$type == value,
         -(length(compare.matrix) - 1)]
-    rownames(value.matrix) = value.matrix$location
-    value.matrix = value.matrix[, -length(value.matrix)]
+    rownames(value.matrix) <- value.matrix$location
+    value.matrix <- value.matrix[, -length(value.matrix)]
     value.matrix$sd = apply(value.matrix, 1, sd, na.rm = TRUE)
-    value.matrix = value.matrix[order(-value.matrix$sd), ]
-    value.matrix = value.matrix[, -length(value.matrix)]
-    loci.number = floor(loci.percent * nrow(value.matrix))
-    title = paste0("Top ", loci.percent * 100, "% of ", value, " values")
-    matrix = value.matrix[seq_len(loci.number), ]
+    value.matrix <- value.matrix[order(-value.matrix$sd), ]
+    value.matrix <- value.matrix[, -length(value.matrix)]
+    loci.number <- floor(loci.percent * nrow(value.matrix))
+    title <- paste0("Top ", loci.percent * 100, "% of ", value, " values")
+    matrix <- value.matrix[seq_len(loci.number), ]
     if (sve) {
-        pmap = pheatmap::pheatmap(matrix, show_rownames = show.rows,
+        pmap <- pheatmap::pheatmap(matrix, show_rownames = show.rows,
             show_colnames = show.columns, color = color,
             clustering_distance_rows = clustering_distance_rows,
             clustering_distance_cols = clustering_distance_cols,
@@ -106,7 +105,7 @@ epiMap = function(compare.matrix, value, annotate,
             width = pdf.width, main = title,
                 filename = paste0(value, "_pheatmap.pdf"), ...)
     } else {
-        pmap = pheatmap::pheatmap(matrix, show_rownames = show.rows,
+        pmap <- pheatmap::pheatmap(matrix, show_rownames = show.rows,
             show_colnames = show.columns, color = color,
             clustering_distance_rows = clustering_distance_rows,
             clustering_distance_cols = clustering_distance_cols,

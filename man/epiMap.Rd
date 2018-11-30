@@ -75,7 +75,7 @@ names. The columns can be annotated by adding annotation
 information as a parameter.
 }
 \examples{
-comp.Matrix=data.frame(
+comp.Matrix<-data.frame(
 p1=c(0.6,0.3,0.5,0.5,0.5,0.6,0.45,0.57,0.45,0.63,0.58,0.67,0.5,0.42,0.67),
 p2=c(0.62,0.63,0.55,0.75,0.84,0.58,1,0.33,1,0.97,0.57,0.68,0.73,0.72,0.82),
 p3=c(0.72,0.53,0.62,0.69,0.37,0.85,1,0.63,0.87,0.87,0.82,0.81,0.79,
@@ -91,10 +91,10 @@ location=rep(c("chr22-327:350:361:364","chr22-755:761:771:773",
 "chr22-761:771:773:781","chr22-821:837:844:849","chr22-838:845:850:858"),
 3),stringsAsFactors =FALSE )
 
-subtype = data.frame(Type= c(rep('CEBPA_sil', 3), rep('Normal', 3)),
-row.names = colnames(comp.Matrix)[1:6],stringsAsFactors = FALSE)
+subtype <- data.frame(Type= c(rep('CEBPA_sil', 3), rep('Normal', 3)),
+row.names <- colnames(comp.Matrix)[1:6],stringsAsFactors = FALSE)
 
-pmap = epiMap(compare.matrix = comp.Matrix,
+pmap <- epiMap(compare.matrix = comp.Matrix,
 value = 'epipoly',annotate = subtype,
 clustering_distance_rows = "euclidean",
 clustering_distance_cols = "euclidean",

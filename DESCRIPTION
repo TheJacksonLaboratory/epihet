@@ -43,7 +43,7 @@ Imports:
     WGCNA,
     ReactomePA
 Encoding: UTF-8
-RoxygenNote: 6.1.1
+RoxygenNote: 6.0.1
 Suggests:
     knitr,
     clusterProfiler,

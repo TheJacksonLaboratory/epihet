@@ -28,7 +28,7 @@
 #' @return a data frame containing the mean epigenetic heterogeneity
 #' for each sample
 #' @examples
-#' comp.Matrix=data.frame(
+#' comp.Matrix<-data.frame(
 #' p1=c(0.6,0.3,0.5,0.5,0.5,0.6,0.45,0.57,0.45,0.63,0.58,0.67,0.5,0.42,0.67),
 #' p2=c(0.62,0.63,0.55,0.75,0.84,0.58,1,0.33,1,0.97,0.57,0.68,0.73,0.72,0.82),
 #' p3=c(0.72,0.53,0.62,0.69,0.37,0.85,1,0.63,0.87,0.87,0.82,0.81,0.79,
@@ -44,16 +44,16 @@
 #' "chr22-761:771:773:781","chr22-821:837:844:849","chr22-838:845:850:858"),
 #' 3),stringsAsFactors =FALSE )
 #'
-#' subtype = data.frame(Type= c(rep('CEBPA_sil', 3), rep('Normal', 3)),
-#' row.names = colnames(comp.Matrix)[1:6],stringsAsFactors = FALSE)
+#' subtype <- data.frame(Type= c(rep('CEBPA_sil', 3), rep('Normal', 3)),
+#' row.names <- colnames(comp.Matrix)[1:6],stringsAsFactors = FALSE)
 #'
 #' epiBox(compare.matrix = comp.Matrix, value = 'epipoly',
-#' type = subtype, box.colors = NULL, add.points = FALSE,
-#' points.colors = NULL, pdf.height = 10, pdf.width = 10,
+#' type <- subtype, box.colors = NULL, add.points = FALSE,
+#' points.colors <- NULL, pdf.height = 10, pdf.width = 10,
 #' sve = FALSE)
 #'
 #' @export
-epiBox = function(compare.matrix, value, type, box.colors = NULL,
+epiBox <- function(compare.matrix, value, type, box.colors = NULL,
     add.points = FALSE, points.colors = NULL, pdf.height = 10,
     pdf.width = 10, sve = FALSE) {
     values = c("read", "pdr", "meth", "epipoly", "shannon")
@@ -61,17 +61,16 @@ epiBox = function(compare.matrix, value, type, box.colors = NULL,
         stop("Invalid value '", value, "': Possible values are 'read',
              'pdr', 'meth', 'epipoly', or 'shannon'")
     }
-    stopifnot(is(type,"data.frame"))
-    location.col = length(compare.matrix)
-    type.col = location.col - 1
-    value.matrix = compare.matrix[compare.matrix$type == value,
+    location.col <- length(compare.matrix)
+    type.col <- location.col - 1
+    value.matrix <- compare.matrix[compare.matrix$type == value,
         c(-type.col, -location.col)]
-    mean.value = data.frame(colMeans(value.matrix))
-    mean.value = merge(type, mean.value, by = 0, all = TRUE)
-    mean.value = mean.value[, -1]
-    y.axis = paste0("Mean of ", value)
-    title = paste0("Mean ", value)
-    curTheme = theme(panel.background = element_rect(fill = "white",
+    mean.value <- data.frame(colMeans(value.matrix))
+    mean.value <- merge(type, mean.value, by = 0, all = TRUE)
+    mean.value <- mean.value[, -1]
+    y.axis <- paste0("Mean of ", value)
+    title <- paste0("Mean ", value)
+    curTheme <- theme(panel.background = element_rect(fill = "white",
         colour = "darkgrey"), plot.background = element_rect(fill = "white",
         colour = "white"), strip.text = element_text(size = 8,
         colour = "black"), strip.background = element_rect(fill = "white",
