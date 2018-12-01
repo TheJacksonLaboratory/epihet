@@ -11,11 +11,10 @@
 #' userobj(data)
 #' @export
 userobj = function(data) {
-    stopifnot(is(data,"data.frame"))
-    data$start = as.numeric(splitn(data$loci, ":", 
-        1))
+    stopifnot(grepl(":",data[1,2]))
+    data$start = as.numeric(splitn(data$loci, ":", 1))
     data$end = as.numeric(splitn(data$loci, ":", 4))
-    userset = GenomicRanges::GRanges(seqnames = Rle(data$chromosome), 
+    userset <- GenomicRanges::GRanges(seqnames = Rle(data$chromosome), 
         ranges = IRanges(start = data$start, end = data$end), 
         strand = data$strand, loci = paste(data$chromosome, 
             data$loci, sep = "-"))

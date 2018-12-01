@@ -31,8 +31,8 @@ on the y-axis. Graphs coordinates with significant adjusted
 p-values in red.
 }
 \examples{
-diff.het.matrix=data.frame(chromosome=c(rep("1",10)),
-loci=paste("loci",1:10,sep="-"),subtype.mean=c(0.21,0.23,0.37,0.26,
+diff.het.matrix<-data.frame(chromosome=c(rep("1",10)),
+loci=paste("loci",seq_len(10),sep="-"),subtype.mean=c(0.21,0.23,0.37,0.26,
 0.29,0.31,0.29,0.13,0.12,0.093),Normal.mean=c(0.01,0.01,0.01,0.02,
 0.02,0.01,0.01,0.79,0.73,0.79),het.dif=c(0.20,0.220,0.360,0.240,0.270,
 0.300,0.280,-0.660,-0.610,-0.697),p.value=c(3.08e-03,1.43e-02,9.27e-03,

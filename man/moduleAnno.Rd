@@ -44,7 +44,7 @@ annotate modules using differentially expressed genes
 \examples{
 data(DEG,package = "epihet")
 data(background,package = "epihet")
-module=data.frame(gene=c("NM_000014","NM_000015","NM_000017","NM_000019",
+module<-data.frame(gene=c("NM_000014","NM_000015","NM_000017","NM_000019",
 "NM_052960","NR_138250","NM_000037","NM_000038","NM_000039","NM_000044",
 "NM_000046","NM_015074","NM_183416","NM_004421","NM_001330311",
 "NM_001145210","NM_000097","NM_000103","NM_000104",
@@ -52,7 +52,7 @@ module=data.frame(gene=c("NM_000014","NM_000015","NM_000017","NM_000019",
 "NM_000095","NM_006474"),label=rep(c(1,2),c(12,15)),
 color=rep(c("purple","brown"),c(12,15)),
 stringsAsFactors = FALSE)
-module.annotation=epihet::moduleAnno(DEG$refseq,background$gene,
+module.annotation<-epihet::moduleAnno(DEG$refseq,background$gene,
                                      module.gene=module,
                                      cutoff=0.05,adjust.method = "fdr",
                                      prefix='epipoly',pdf.height = 10,

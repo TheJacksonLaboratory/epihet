@@ -26,10 +26,10 @@ input file. Saves as an epi.gr.rda extension
 Creates a GenomicRanges object for each methclone output file
 }
 \examples{
-path = system.file('extdata', package = 'epihet')
-files = dir(path = path, pattern = 'methClone_out.gz',
+path <- system.file('extdata', package = 'epihet')
+files <- dir(path = path, pattern = 'methClone_out.gz',
             recursive = TRUE, full.names = TRUE)
-ids = basename(dirname(files))
-GR.List = epihet::makeGR(files = files, ids = ids,
+ids <- basename(dirname(files))
+GR.List <- epihet::makeGR(files = files, ids = ids,
 cores = 1, sve = FALSE)
 }

@@ -21,7 +21,7 @@
 #' @examples
 #' data(DEG,package = "epihet")
 #' data(background,package = "epihet")
-#' module=data.frame(gene=c("NM_000014","NM_000015","NM_000017","NM_000019",
+#' module<-data.frame(gene=c("NM_000014","NM_000015","NM_000017","NM_000019",
 #' "NM_052960","NR_138250","NM_000037","NM_000038","NM_000039","NM_000044",
 #' "NM_000046","NM_015074","NM_183416","NM_004421","NM_001330311",
 #' "NM_001145210","NM_000097","NM_000103","NM_000104",
@@ -29,55 +29,56 @@
 #' "NM_000095","NM_006474"),label=rep(c(1,2),c(12,15)),
 #' color=rep(c("purple","brown"),c(12,15)),
 #' stringsAsFactors = FALSE)
-#' module.annotation=epihet::moduleAnno(DEG$refseq,background$gene,
+#' module.annotation<-epihet::moduleAnno(DEG$refseq,background$gene,
 #'                                      module.gene=module,
 #'                                      cutoff=0.05,adjust.method = "fdr",
 #'                                      prefix='epipoly',pdf.height = 10,
 #'                                      pdf.width = 10, sve = TRUE)
 #' @export
-moduleAnno = function(DEG, background, module.gene,
+moduleAnno <- function(DEG, background, module.gene,
     cutoff = 0.05, adjust.method = "fdr", prefix = NA,
     pdf.height = 10, pdf.width = 10, sve = FALSE) {
-    N = length(background)
-    module.id = unique(module.gene[, c(2, 3)])
-    gene.num = as.data.frame(table(module.gene[, 3]))
-    gene.num$Var1 = as.character(gene.num$Var1)
-    Kpai = length(intersect(DEG, background))
-    i=NULL
-    result = foreach(i = module.id$color, .combine = rbind) %do%
+    stopifnot(ncol(module.gene)==3)
+    N <- length(background)
+    module.id <- unique(module.gene[, c(2, 3)])
+    gene.num <- as.data.frame(table(module.gene[, 3]))
+    gene.num$Var1 <- as.character(gene.num$Var1)
+    Kpai <- length(intersect(DEG, background))
+    i<-NULL
+    result <- foreach(i = module.id$color, .combine = rbind) %do%
         {
             n = gene.num$Freq[gene.num$Var1 == i]
-            geneset = module.gene[which(module.gene[, 3] == i), 1]
-            kpai = length(intersect(DEG, geneset))
-            pvalue = 1 - phyper(kpai - 1, Kpai, N - Kpai, n)
-            data = data.frame(moduleColors = i,
+            geneset <- module.gene[which(module.gene[, 3] == i), 1]
+            kpai <- length(intersect(DEG, geneset))
+            pvalue <- 1 - phyper(kpai - 1, Kpai, N - Kpai, n)
+            data <- data.frame(moduleColors = i,
                 moduleLable = module.id$label[module.id$color == i],
                 background.size = N, module.size = n,
                 DEG.size = Kpai, share.gene = kpai,
                 pvalue = pvalue)
         }
     result$qvalue = p.adjust(result$pvalue, adjust.method)
-    result.sig = result[which(result$qvalue <= cutoff), ]
+    result.sig <- result[which(result$qvalue <= cutoff), ]
     if (dim(result.sig)[1] == 0) {
         print("No module significantly enriched  by DEGs")
-        result.used = result[which(result$share.gene > 0), ]
+        result.used <- result[which(result$share.gene > 0), ]
         if (dim(result.used)[1] == 0) {
             print("No common genes. Quitting.")
         } else {
-            color.points = as.character(result.used$moduleColors)
-            names(color.points) = color.points
-            module.size=NULL
-            share.gene=NULL
-            moduleColors=NULL
-            g = ggplot(data = result.used, aes(x = module.size,
+            color.points <- as.character(result.used$moduleColors)
+            names(color.points) <- color.points
+            module.size<-NULL
+            share.gene<-NULL
+            moduleColors<-NULL
+            g <- ggplot(data = result.used, aes(x = module.size,
                 y = share.gene/module.size, color = moduleColors,
                 label = share.gene)) + geom_point(shape = 19, size = 3) +
                 geom_text(hjust = 0.5, vjust = -0.5) +
                 scale_color_manual(values = color.points)
-            g = g + labs(x = "Module size", y = "Percentage of DEGs") +
+            g <- g + labs(x = "Module size", y = "Percentage of DEGs") +
                 theme(legend.title = element_blank()) +
                 theme(legend.position = "none")
-            g = g + theme(axis.text.x = element_text(size = 10,
+            g <- g + theme(axis.text.x = element_text(size = 10,
                 colour = "black"),
                 axis.text.y = element_text(size = 10,colour = "black"),
                 axis.title = element_text(size = 10,colour = "black"))+
@@ -96,20 +97,20 @@ moduleAnno = function(DEG, background, module.gene,
             }
         }
     } else {
-        color.points = as.character(result.sig$moduleColors)
-        names(color.points) = color.points
-        module.size=NULL
-        share.gene=NULL
-        moduleColors=NULL
-        g = ggplot(data = result.sig, aes(x = module.size,
+        color.points <- as.character(result.sig$moduleColors)
+        names(color.points) <- color.points
+        module.size<-NULL
+        share.gene<-NULL
+        moduleColors<-NULL
+        g <- ggplot(data = result.sig, aes(x = module.size,
             y = -log10(qvalue), color = moduleColors,
             label = share.gene)) + geom_point(shape = 19,
             size = 3) + geom_text(hjust = 0.5, vjust = -0.5) +
             scale_color_manual(values = color.points)
-        g = g + labs(x = "Module size", y = "-log10 (adjusted p-value)") +
+        g <- g + labs(x = "Module size", y = "-log10 (adjusted p-value)") +
             theme(legend.title = element_blank()) +
             theme(legend.position = "none")
-        g = g + theme(axis.text.x = element_text(size = 10,
+        g <- g + theme(axis.text.x = element_text(size = 10,
             colour = "black"), axis.text.y = element_text(size = 10,
             colour = "black"), axis.title = element_text(size = 10,
             colour = "black")) + theme(axis.line = element_line(size = 0.5,

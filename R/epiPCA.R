@@ -29,10 +29,10 @@
 #' @return A PCA plot
 #' @examples
 #' library(ggfortify)
-#' comp.Matrix=data.frame(
-#' p1=c(0.6,0.3,0.5,0.5,0.5,0.6,0.45,0.57,0.45,0.63,0.58,0.67,0.5,0.42,0.67),
-#' p2=c(0.62,0.63,0.55,0.75,0.84,0.58,1,0.33,1,0.97,0.57,0.68,0.73,0.72,0.82),
-#' p3=c(0.72,0.53,0.62,0.69,0.37,0.85,1,0.63,0.87,0.87,0.82,0.81,0.79,
+#' comp.Matrix<-data.frame(
+#' p1 = c(0.6,0.3,0.5,0.5,0.5,0.6,0.45,0.57,0.45,0.63,0.58,0.67,0.5,0.42,0.67),
+#' p2 = c(0.62,0.63,0.55,0.75,0.84,0.58,1,0.33,1,0.97,0.57,0.68,0.73,0.72,0.82),
+#' p3 = c(0.72,0.53,0.62,0.69,0.37,0.85,1,0.63,0.87,0.87,0.82,0.81,0.79,
 #' 0.62,0.68),
 #' N1=c(0.15,0.24,0.15,0.26,0.34,0.32,0.23,0.14,0.26,0.32,0.12,0.16,0.31,
 #' 0.24,0.32),
@@ -45,7 +45,7 @@
 #' "chr22-761:771:773:781","chr22-821:837:844:849","chr22-838:845:850:858"),
 #' 3),stringsAsFactors =FALSE )
 #'
-#' subtype = data.frame(Type= c(rep('CEBPA_sil', 3), rep('Normal', 3)),
+#' subtype <- data.frame(Type= c(rep('CEBPA_sil', 3), rep('Normal', 3)),
 #' row.names = colnames(comp.Matrix)[1:6],stringsAsFactors = FALSE)
 #'
 #'epiPCA(compare.matrix = comp.Matrix, value = 'epipoly',
@@ -54,55 +54,54 @@
 #'             probability = FALSE, pdf.height = 10,
 #'             pdf.width = 10, sve = TRUE)
 #' @export
-epiPCA = function(compare.matrix, value, type, points.colors = NULL,
+epiPCA <- function(compare.matrix, value, type, points.colors = NULL,
     frames = FALSE, frames.colors = NULL, probability = FALSE,
     pdf.height = 10, pdf.width = 10, sve = FALSE) {
     # requireNamespace(ggfortify)
-    values = c("read", "pdr", "meth", "epipoly", "shannon")
+    values <- c("read", "pdr", "meth", "epipoly", "shannon")
     if (!(value %in% values)) {
         stop("Invalid value '", value, "': Possible values are 'read',
              'pdr', 'meth', 'epipoly', or 'shannon'")
     }
-    stopifnot(is(type,"data.frame"))
-    value.matrix = compare.matrix[compare.matrix$type == value,
+    value.matrix <- compare.matrix[compare.matrix$type == value,
         -(length(compare.matrix) - 1)]
-    rownames(value.matrix) = value.matrix$location
-    value.matrix = value.matrix[, -length(value.matrix)]
-    value.matrix = t(value.matrix)
-    merge.matrix = merge(type, value.matrix, by = 0, all = TRUE)
+    rownames(value.matrix) <- value.matrix$location
+    value.matrix <- value.matrix[, -length(value.matrix)]
+    value.matrix <- t(value.matrix)
+    merge.matrix <- merge(type, value.matrix, by = 0, all = TRUE)
     rownames(merge.matrix) = merge.matrix[, 1]
-    full.matrix = merge.matrix[, -1]
-    sample.matrix = full.matrix[, -1]
-    pca.matrix = prcomp(sample.matrix)
-    colnames(full.matrix)[1] = "Type"
-    curTheme = theme(panel.background = element_rect(fill = "white",
+    full.matrix <- merge.matrix[, -1]
+    sample.matrix <- full.matrix[, -1]
+    pca.matrix <- prcomp(sample.matrix)
+    colnames(full.matrix)[1] <- "Type"
+    curTheme <- theme(panel.background = element_rect(fill = "white",
         colour = "darkgrey"), plot.background = element_rect(fill = "white",
         colour = "white"), strip.text = element_text(size = 8,
         colour = "black"), strip.background = element_rect(fill = "white",
         colour = "black"))
     if (frames) {
         if (probability) {
-            pca.plot = autoplot(pca.matrix, data = full.matrix,
+            pca.plot <- autoplot(pca.matrix, data = full.matrix,
                 size = 2, shape = 19, colour = "Type",
                 frame = TRUE, frame.type = "norm") +
                 curTheme
         } else {
-            pca.plot = autoplot(pca.matrix, data = full.matrix,
+            pca.plot <- autoplot(pca.matrix, data = full.matrix,
                 size = 2, shape = 19, colour = "Type", frame = TRUE) +
                 curTheme
         }
         if (!is.null(frames.colors)) {
-            pca.plot = pca.plot + scale_fill_manual(values = frames.colors)
+            pca.plot <- pca.plot + scale_fill_manual(values = frames.colors)
         }
     } else {
-        pca.plot = autoplot(pca.matrix, data = full.matrix,
+        pca.plot <- autoplot(pca.matrix, data = full.matrix,
             size = 2, shape = 19, colour = "Type") +
             curTheme
     }
     if (!is.null(points.colors)) {
-        pca.plot = pca.plot + scale_color_manual(values = points.colors)
+        pca.plot <- pca.plot + scale_color_manual(values = points.colors)
     }
-    title = paste0("PCA Plot of ", value)
+    title <- paste0("PCA Plot of ", value)
     if (sve) {
         ggsave(paste0(value, "_pca.pdf"), plot = pca.plot +
             ggtitle(title), width = pdf.width, height = pdf.height)

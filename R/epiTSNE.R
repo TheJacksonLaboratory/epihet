@@ -32,7 +32,7 @@
 #' labs scale_color_manual xlab ylab
 #' @return A T-SNE plot
 #' @examples
-#' comp.Matrix=data.frame(
+#' comp.Matrix<-data.frame(
 #' p1=c(0.6,0.3,0.5,0.5,0.5,0.6,0.45,0.57,0.45,0.63,0.58,0.67,0.5,0.42,0.67),
 #' p2=c(0.62,0.63,0.55,0.75,0.84,0.58,1,0.33,1,0.97,0.57,0.68,0.73,0.72,0.82),
 #' p3=c(0.72,0.53,0.62,0.69,0.37,0.85,1,0.63,0.87,0.87,0.82,0.81,0.79,
@@ -48,7 +48,7 @@
 #' "chr22-761:771:773:781","chr22-821:837:844:849","chr22-838:845:850:858"),
 #' 3),stringsAsFactors =FALSE )
 #'
-#' subtype = data.frame(Type= c(rep('CEBPA_sil', 3), rep('Normal', 3)),
+#' subtype <- data.frame(Type= c(rep('CEBPA_sil', 3), rep('Normal', 3)),
 #' row.names = colnames(comp.Matrix)[1:6],stringsAsFactors = FALSE)
 #'
 #' epiTSNE(compare.matrix = comp.Matrix, value = 'epipoly',
@@ -56,20 +56,20 @@
 #' perplexity = 1, max_iter = 1000, pdf.height = 10,
 #' pdf.width = 10, sve = TRUE)
 #' @export
-epiTSNE = function(compare.matrix, value, type, points.colors = NULL,
+epiTSNE <- function(compare.matrix, value, type, points.colors = NULL,
     theta = 0.5, curTheme = NULL, perplexity = 5, max_iter = 1000,
     pdf.height = 10, pdf.width = 10, sve = FALSE) {
-    values = c("read", "pdr", "meth", "epipoly", "shannon")
+    values <- c("read", "pdr", "meth", "epipoly", "shannon")
     if (!(value %in% values)) {
         stop("Invalid value '", value, "': Possible values are 'read',
              'pdr', 'meth', 'epipoly', or 'shannon'")
     }
-    value.matrix = compare.matrix[compare.matrix$type == value,
+    value.matrix <- compare.matrix[compare.matrix$type == value,
         -(length(compare.matrix) - 1)]
     rownames(value.matrix) = value.matrix$location
-    value.matrix = value.matrix[, -length(value.matrix)]
+    value.matrix <- value.matrix[, -length(value.matrix)]
     if (ncol(value.matrix) - 1 < 3 * perplexity) {
-        perplexity = floor((ncol(value.matrix) - 1)/3)
+        perplexity <- floor((ncol(value.matrix) - 1)/3)
         if (perplexity >= 1) {
             print(paste0("Perplexity too large. Setting to ", perplexity))
         } else {
@@ -77,14 +77,14 @@ epiTSNE = function(compare.matrix, value, type, points.colors = NULL,
             return()
         }
     }
-    value.matrix = t(value.matrix)
-    merge.matrix = merge(type, value.matrix, by = 0, all = TRUE)
+    value.matrix <- t(value.matrix)
+    merge.matrix <- merge(type, value.matrix, by = 0, all = TRUE)
     rownames(merge.matrix) = merge.matrix[, 1]
-    full.matrix = merge.matrix[, -1]
-    colnames(full.matrix)[1] = "Type"
-    sample.matrix = as.matrix(full.matrix[, -1])
+    full.matrix <- merge.matrix[, -1]
+    colnames(full.matrix)[1] <- "Type"
+    sample.matrix <- as.matrix(full.matrix[, -1])
     if (is.null(curTheme)) {
-        curTheme = theme(legend.position = "right",
+        curTheme <- theme(legend.position = "right",
             legend.title = element_text(size = 10),
             legend.text = element_text(size = 10),
             axis.text.y = element_text(size = 10),
@@ -94,21 +94,21 @@ epiTSNE = function(compare.matrix, value, type, points.colors = NULL,
             strip.text.y = element_text(size = 10))
     }
     #set.seed(42)
-    tsne = Rtsne::Rtsne(sample.matrix, theta = theta,
+    tsne <- Rtsne::Rtsne(sample.matrix, theta = theta,
         verbose = TRUE, perplexity = perplexity, max_iter = max_iter)
-    tsne2 = tsne$Y
-    title = paste0("t-SNE Plot for ", value, "(perplexity=", perplexity, ")")
-    pcaRes = data.frame(Sample = rownames(sample.matrix),
+    tsne2 <- tsne$Y
+    title <- paste0("t-SNE Plot for ", value, "(perplexity=", perplexity, ")")
+    pcaRes <- data.frame(Sample = rownames(sample.matrix),
         Type = factor(full.matrix[, 1]), tsne2)
-    X1=NULL
-    X2=NULL
-    Type=NULL
-    tsne.plot = ggplot(pcaRes, aes(x = X1, y = X2,
+    X1<-NULL
+    X2<-NULL
+    Type<-NULL
+    tsne.plot <- ggplot(pcaRes, aes(x = X1, y = X2,
         color = Type)) + geom_point() + ggtitle(title) +
         xlab("t-SNE1") + ylab("t-SNE2")
-    tsne.plot = tsne.plot + theme_linedraw() + curTheme
+    tsne.plot <- tsne.plot + theme_linedraw() + curTheme
     if (!is.null(points.colors)) {
-        tsne.plot = tsne.plot + scale_color_manual(values = points.colors)
+        tsne.plot <- tsne.plot + scale_color_manual(values = points.colors)
     }
     if (sve) {
         ggsave(paste0(value, "_tsne.pdf"), plot = tsne.plot,

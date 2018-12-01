@@ -92,7 +92,7 @@ location=rep(c("chr22-327:350:361:364","chr22-755:761:771:773",
 3),stringsAsFactors =FALSE )
 
 subtype <- data.frame(Type= c(rep('CEBPA_sil', 3), rep('Normal', 3)),
-row.names <- colnames(comp.Matrix)[1:6],stringsAsFactors = FALSE)
+row.names = colnames(comp.Matrix)[1:6],stringsAsFactors = FALSE)
 
 pmap <- epiMap(compare.matrix = comp.Matrix,
 value = 'epipoly',annotate = subtype,
