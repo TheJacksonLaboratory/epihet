@@ -37,27 +37,27 @@ network topology
 }
 \examples{
 correlation.m<-matrix(0,12,12)
-correlation.m[1,c(2:10)]=c(0.006,0.054,0.079,0.078, 0.011,0.033,0.014,
+correlation.m[1,c(2:10)]<-c(0.006,0.054,0.079,0.078, 0.011,0.033,0.014,
 0.023,0.034)
-correlation.m[2,c(3:10)]=c(0.026,0.014,0.045,0.037, 0.026,0.011,0.034,
+correlation.m[2,c(3:10)]<-c(0.026,0.014,0.045,0.037, 0.026,0.011,0.034,
 0.012)
-correlation.m[3,c(4:10)]=c(0.016,0.024,0.039,0.045, 0.009,0.003,0.028)
-correlation.m[4,c(5:10)]=c(0.039,0.002,0.053,0.066, 0.012,0.039)
-correlation.m[5,c(6:10)]=c(0.019,0.016,0.047,0.046, 0.013)
-correlation.m[6,c(7:10)]=c(0.017,0.057,0.029,0.056)
-correlation.m[7,c(8:10)]=c(0.071,0.018,0.001)
-correlation.m[8,c(9:10)]=c(0.046,0.014)
-correlation.m[9,10]=0.054
-correlation.m[lower.tri(correlation.m)] =
+correlation.m[3,c(4:10)]<-c(0.016,0.024,0.039,0.045, 0.009,0.003,0.028)
+correlation.m[4,c(5:10)]<-c(0.039,0.002,0.053,0.066, 0.012,0.039)
+correlation.m[5,c(6:10)]<-c(0.019,0.016,0.047,0.046, 0.013)
+correlation.m[6,c(7:10)]<-c(0.017,0.057,0.029,0.056)
+correlation.m[7,c(8:10)]<-c(0.071,0.018,0.001)
+correlation.m[8,c(9:10)]<-c(0.046,0.014)
+correlation.m[9,10]<-0.054
+correlation.m[lower.tri(correlation.m)] <-
 t(correlation.m)[lower.tri(correlation.m)]
 
 matrix.v<-matrix(0.5,5,12)
 matrix.v<-as.data.frame(matrix.v)
-colnames(matrix.v)=c("NM_052960","NR_138250","NM_015074","NM_183416",
+colnames(matrix.v)<-c("NM_052960","NR_138250","NM_015074","NM_183416",
 "NM_017891","NM_001330306","NM_014917","NM_001312688","NM_001330665",
 "NM_017766","NM_001079843","NM_001040709")
 modulecolor<-c(rep(c("yellow","cyan"),c(10,2)))
-module.topology=epihet::moduleVisual(correlation.m,
+module.topology<-epihet::moduleVisual(correlation.m,
                                      value.matrix=matrix.v,
                                      moduleColors=modulecolor,
                                      mymodule="yellow",cutoff=0.02,

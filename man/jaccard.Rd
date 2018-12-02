@@ -27,5 +27,5 @@ modules from two subtypes.
 \examples{
 data(modulesil)
 data(moduledm)
-jaccard.matrix = jaccard(modulesil, moduledm)
+jaccard.matrix <- jaccard(modulesil, moduledm)
 }

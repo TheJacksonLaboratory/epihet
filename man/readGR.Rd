@@ -21,10 +21,10 @@ Shannon entropy values for the nth file
 Creates a GenomicRanges file for a singular methclone ouput file
 }
 \examples{
-files = c(system.file("extdata","D-2238.chr22.region.methClone_out.gz",package = "epihet"),
+files <- c(system.file("extdata","D-2238.chr22.region.methClone_out.gz",package = "epihet"),
 system.file("extdata","D-2668.chr22.region.methClone_out.gz",package = "epihet"),
 system.file("extdata","N-1.chr22.region.methClone_out.gz",package = "epihet"),
 system.file("extdata","N-2.chr22.region.methClone_out.gz",package = "epihet"))
-ids = epihet::splitn(basename(files),"[.]",1)
-GR.Object = epihet::readGR(files = files, ids = ids, n = 3)
+ids <- epihet::splitn(basename(files),"[.]",1)
+GR.Object <- epihet::readGR(files = files, ids = ids, n = 3)
 }

@@ -16,6 +16,6 @@ The Shannon entropy value
 Calculates the Shannon entropy value
 }
 \examples{
-a=c(rep(0,13),60.86960,0.00000,39.1304)
+a<-c(rep(0,13),60.86960,0.00000,39.1304)
 shannon(a)
 }

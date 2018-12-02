@@ -21,6 +21,6 @@ Extract the subtrings of a character vector according to
 the matches to substring split within them.
 }
 \examples{
-x='chr1:10000-10005'
+x<-'chr1:10000-10005'
 splitn(x,':',1)
 }

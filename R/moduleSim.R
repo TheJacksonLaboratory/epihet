@@ -17,19 +17,20 @@
 #' @examples
 #' data(modulesil,package = "epihet")
 #' data(moduledm,package = "epihet")
-#' sim.score=epihet::moduleSim(module.subtype1=modulesil,
+#' sim.score<-epihet::moduleSim(module.subtype1=modulesil,
 #'                             module.subtype2=moduledm,
 #'                             pdf.height = 10,pdf.width = 10,
 #'                             sve = TRUE)
 #' @export
-moduleSim = function(module.subtype1, module.subtype2,
+moduleSim <- function(module.subtype1, module.subtype2,
     pdf.height = 10, pdf.width = 10, sve = FALSE) {
-
-    jaccard.matrix = jaccard(module.subtype1, module.subtype2)
-    jaccard.matrix[jaccard.matrix == 0] = NA
-    rownames(jaccard.matrix) = paste("subtype1_ME",
+    stopifnot(ncol(module.subtype1)==3)
+    stopifnot(ncol(module.subtype2)==3)
+    jaccard.matrix <- jaccard(module.subtype1, module.subtype2)
+    jaccard.matrix[jaccard.matrix == 0] <- NA
+    rownames(jaccard.matrix) <- paste("subtype1_ME",
         rownames(jaccard.matrix), sep = "")
-    colnames(jaccard.matrix) = paste("subtype2_ME",
+    colnames(jaccard.matrix) <- paste("subtype2_ME",
         colnames(jaccard.matrix), sep = "")
     # Heatmap
     if (sve) {
@@ -58,26 +59,26 @@ moduleSim = function(module.subtype1, module.subtype2,
 #' @examples
 #' data(modulesil)
 #' data(moduledm)
-#' jaccard.matrix = jaccard(modulesil, moduledm)
+#' jaccard.matrix <- jaccard(modulesil, moduledm)
 #' @export
-jaccard = function(module.subtype1, module.subtype2) {
-    moduleid.1 = unique(module.subtype1[, 3])
-    moduleid.2 = unique(module.subtype2[, 3])
-    row.num = length(moduleid.1)
-    col.num = length(moduleid.2)
-    jaccard.matrix = matrix(0, nrow = row.num, ncol = col.num)
-    rownames(jaccard.matrix) = moduleid.1
-    colnames(jaccard.matrix) = moduleid.2
+jaccard <- function(module.subtype1, module.subtype2) {
+    moduleid.1 <- unique(module.subtype1[, 3])
+    moduleid.2 <- unique(module.subtype2[, 3])
+    row.num <- length(moduleid.1)
+    col.num <- length(moduleid.2)
+    jaccard.matrix <- matrix(0, nrow = row.num, ncol = col.num)
+    rownames(jaccard.matrix) <- moduleid.1
+    colnames(jaccard.matrix) <- moduleid.2
     for (i in 1:row.num) {
         for (j in 1:col.num) {
-            moduleid.row = moduleid.1[i]
-            moduleid.col = moduleid.2[j]
-            gene.row = module.subtype1$gene[which(module.subtype1$color ==
+            moduleid.row <- moduleid.1[i]
+            moduleid.col <- moduleid.2[j]
+            gene.row <- module.subtype1$gene[which(module.subtype1$color ==
                 moduleid.row)]
-            gene.col = module.subtype2$gene[which(module.subtype2$color ==
+            gene.col <- module.subtype2$gene[which(module.subtype2$color ==
                 moduleid.col)]
-            gene.share = intersect(gene.row, gene.col)
-            gene.union = union(gene.row, gene.col)
+            gene.share <- intersect(gene.row, gene.col)
+            gene.union <- union(gene.row, gene.col)
             jaccard.matrix[moduleid.row, moduleid.col] =
                 length(gene.share)/length(gene.union)
         }

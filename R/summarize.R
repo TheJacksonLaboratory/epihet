@@ -28,17 +28,17 @@
 #' values.pdr=c(0.38,1,0.97,1,0.13),
 #' values.epipoly=c(0.57,0.42,0.28,0.18,0.23))
 #'
-#' GR.List=list(p1=p1.GR,p2=p2.GR)
-#' summary = summarize(gr1 = GR.List[[1]], gr2 = GR.List[[2]],
+#' GR.List<-list(p1=p1.GR,p2=p2.GR)
+#' summary <- summarize(gr1 = GR.List[[1]], gr2 = GR.List[[2]],
 #' value1 = 'pdr', value2 = 'epipoly',
 #' cutoff1 = 10, cutoff2 = 60)
 #' @importFrom stats cor
 #' @importFrom GenomicRanges findOverlaps values
 #' @importFrom S4Vectors queryHits
 #' @export
-summarize = function(gr1, gr2, value1, value2, cutoff1 = 10,
+summarize <- function(gr1, gr2, value1, value2, cutoff1 = 10,
     cutoff2 = 60) {
-    values = c("pdr", "shannon", "epipoly")
+    values <- c("pdr", "shannon", "epipoly")
     if (!(value1 %in% values)) {
         stop("Invalid value '", value1, "': Possible values are 'pdr',
              'epipoly', or 'shannon'")
@@ -47,23 +47,21 @@ summarize = function(gr1, gr2, value1, value2, cutoff1 = 10,
         stop("Invalid value '", value2, "': Possible values are 'pdr',
              'epipoly', or 'shannon'")
     }
-    stopifnot(is(gr1,"GRanges"))
-    stopifnot(is(gr2,"GRanges"))
-    o = findOverlaps(gr1, gr2)
-    x.anno = values(gr1[unique(queryHits(o))])
-    sub1 = x.anno[x.anno$values.read1 >= cutoff1, ]
-    sub2 = x.anno[x.anno$values.read1 >= cutoff2, ]
-    mean.value1.c1 = mean(sub1$values.pdr)
-    mean.value2.c1 = mean(sub1$values.epi)
-    mean.value1.c2 = mean(sub2$values.pdr)
-    mean.value2.c2 = mean(sub2$values.epi)
-    name = c(paste0("mean.", value1, ".", cutoff1),
+    o <- findOverlaps(gr1, gr2)
+    x.anno <- values(gr1[unique(queryHits(o))])
+    sub1 <- x.anno[x.anno$values.read1 >= cutoff1, ]
+    sub2 <- x.anno[x.anno$values.read1 >= cutoff2, ]
+    mean.value1.c1 <- mean(sub1$values.pdr)
+    mean.value2.c1 <- mean(sub1$values.epi)
+    mean.value1.c2 <- mean(sub2$values.pdr)
+    mean.value2.c2 <- mean(sub2$values.epi)
+    name <- c(paste0("mean.", value1, ".", cutoff1),
         paste0("mean.", value2, ".", cutoff1), paste0("mean.",
             value1, ".", cutoff2), paste0("mean.",
             value2, ".", cutoff2), paste0("corr.",
             cutoff1), paste0("corr.", cutoff2), paste0("loci.",
             cutoff1), paste0("loci.", cutoff2))
-    df = data.frame(mean.value1.cutoff1 = mean.value1.c1,
+    df <- data.frame(mean.value1.cutoff1 = mean.value1.c1,
         mean.value2.cutoff1 = mean.value2.c1,
         mean.value1.cutoff2 = mean.value1.c2,
         mean.value2.cutoff2 = mean.value2.c2,
@@ -71,6 +69,6 @@ summarize = function(gr1, gr2, value1, value2, cutoff1 = 10,
             sub1$values.epi), corr.cutoff2 = cor(sub2$values.pdr,
             sub2$values.epi), loci.cutoff1 = nrow(sub1),
         loci.cutoff2 = nrow(sub2))
-    colnames(df) = name
+    colnames(df) <- name
     df
 }
