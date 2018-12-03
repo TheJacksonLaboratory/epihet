@@ -127,12 +127,12 @@ diffHet <- function(compare.matrix, value, group1, group2,
     print("Finish p value calculation")
     p.vals$p.adjust = p.adjust(p.vals$p.value, p.adjust.method)
     p.vals$type = value
-    if (length(loci.filter)>0){
+    if (length(loci.filter)){
         p.vals <- rbind(p.vals, nopvals)
     }
     rownames(p.vals) <- seq_len(nrow(p.vals))
     column3 <- paste0(group1, ".mean")
     column4 <- paste0(group2, ".mean")
-    colnames(p.vals)[3:4] = c(column3, column4)
+    colnames(p.vals)[3:4] <- c(column3, column4)
     p.vals
 }

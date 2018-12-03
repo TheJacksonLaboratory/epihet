@@ -69,7 +69,7 @@ epiPCA <- function(compare.matrix, value, type, points.colors = NULL,
     value.matrix <- value.matrix[, -length(value.matrix)]
     value.matrix <- t(value.matrix)
     merge.matrix <- merge(type, value.matrix, by = 0, all = TRUE)
-    rownames(merge.matrix) = merge.matrix[, 1]
+    rownames(merge.matrix) <- merge.matrix[, 1]
     full.matrix <- merge.matrix[, -1]
     sample.matrix <- full.matrix[, -1]
     pca.matrix <- prcomp(sample.matrix)

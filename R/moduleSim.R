@@ -69,8 +69,8 @@ jaccard <- function(module.subtype1, module.subtype2) {
     jaccard.matrix <- matrix(0, nrow = row.num, ncol = col.num)
     rownames(jaccard.matrix) <- moduleid.1
     colnames(jaccard.matrix) <- moduleid.2
-    for (i in 1:row.num) {
-        for (j in 1:col.num) {
+    for (i in seq_len(row.num)) {
+        for (j in seq_len(col.num)) {
             moduleid.row <- moduleid.1[i]
             moduleid.col <- moduleid.2[j]
             gene.row <- module.subtype1$gene[which(module.subtype1$color ==

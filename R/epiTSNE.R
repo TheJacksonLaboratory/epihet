@@ -66,11 +66,11 @@ epiTSNE <- function(compare.matrix, value, type, points.colors = NULL,
     }
     value.matrix <- compare.matrix[compare.matrix$type == value,
         -(length(compare.matrix) - 1)]
-    rownames(value.matrix) = value.matrix$location
+    rownames(value.matrix) <- value.matrix$location
     value.matrix <- value.matrix[, -length(value.matrix)]
     if (ncol(value.matrix) - 1 < 3 * perplexity) {
         perplexity <- floor((ncol(value.matrix) - 1)/3)
-        if (perplexity >= 1) {
+        if (perplexity) {
             print(paste0("Perplexity too large. Setting to ", perplexity))
         } else {
             print("Not enough samples for t-SNE.Quitting.")
@@ -79,7 +79,7 @@ epiTSNE <- function(compare.matrix, value, type, points.colors = NULL,
     }
     value.matrix <- t(value.matrix)
     merge.matrix <- merge(type, value.matrix, by = 0, all = TRUE)
-    rownames(merge.matrix) = merge.matrix[, 1]
+    rownames(merge.matrix) <- merge.matrix[, 1]
     full.matrix <- merge.matrix[, -1]
     colnames(full.matrix)[1] <- "Type"
     sample.matrix <- as.matrix(full.matrix[, -1])

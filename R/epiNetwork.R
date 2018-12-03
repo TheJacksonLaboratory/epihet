@@ -53,7 +53,7 @@ epiNetwork <- function(node.type = "locus", DEH, compare.matrix,
     value.matrix <- group.matrix[DEH.loci, ]
     value.matrix <- t(value.matrix)
     DEH.loci <- data.frame(loci = DEH.loci, stringsAsFactors = FALSE)
-    userset = userobj(DEH)
+    userset <- userobj(DEH)
     o <- GenomicRanges::findOverlaps(userset, annotation.obj)
     hit.matrix <- as.matrix(o)
     if (node.type == "locus") {
@@ -164,15 +164,15 @@ epiNetwork <- function(node.type = "locus", DEH, compare.matrix,
     save(net, module, MEs0,
         file = paste("./", prefix,"networkConstruction_auto.rda", sep = ""))
     # cilinical traits
-    if (length(datTraits) >= 1) {
+    if (length(datTraits)) {
         print("Relating modules to external clinical traits:")
-        MEs = WGCNA::orderMEs(MEs0)
+        MEs <- WGCNA::orderMEs(MEs0)
         moduleTraitCor <- WGCNA::cor(MEs, datTraits,use = "p")
         moduleTraitPvalue <- WGCNA::corPvalueStudent(moduleTraitCor,nSamples)
         # Will display correlations and their p-values
         textMatrix <- paste(signif(moduleTraitCor, 2),
             "\n(", signif(moduleTraitPvalue, 1), ")",sep = "")
-        dim(textMatrix) = dim(moduleTraitCor)
+        dim(textMatrix) <- dim(moduleTraitCor)
         pdf(paste(prefix, "clinicaltrait_heatmap.pdf",sep = ""))
         par(mar = c(6, 8.5, 3, 3))
         # Display the correlation values within a heatmap

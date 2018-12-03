@@ -47,7 +47,7 @@ moduleAnno <- function(DEG, background, module.gene,
     i<-NULL
     result <- foreach(i = module.id$color, .combine = rbind) %do%
         {
-            n = gene.num$Freq[gene.num$Var1 == i]
+            n <- gene.num$Freq[gene.num$Var1 == i]
             geneset <- module.gene[which(module.gene[, 3] == i), 1]
             kpai <- length(intersect(DEG, geneset))
             pvalue <- 1 - phyper(kpai - 1, Kpai, N - Kpai, n)
