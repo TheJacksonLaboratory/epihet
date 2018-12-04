@@ -30,7 +30,7 @@
 #' pch = ".", sve = TRUE)
 #' @export
 epiMA <- function(pval.matrix, padjust.cutoff = 0.05, pch = ".", sve = FALSE) {
-    if (class(pval.matrix[,3])!="numeric" | class(pval.matrix[,4])!="numeric"){
+    if (!is(pval.matrix[,3],"numeric") | !is(pval.matrix[,4],"numeric")){
       stop("Error: The third and forth column should be the mean value of epigenetic heterogeneity in cancer or normal samples")
     }
     sig.values <- pval.matrix[pval.matrix$p.adjust <= padjust.cutoff, ]
