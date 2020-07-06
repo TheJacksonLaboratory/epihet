@@ -73,7 +73,7 @@ compMatrix <- function(epi.gr, outprefix = NULL, readNumber = 60,
     print("Getting all loci")
     sub.ids <- foreach(x = epi.gr, .combine = c) %do% {
         x <- x[values(x)$values.read1 >= readNumber,]
-        paste(seqnames(x), values(x)$values.loci, sep = "-")
+        paste(seqnames(x), strand(x) ,values(x)$values.loci, sep = "-")
     }
     print(paste0("Shared ids by ", p * 100, "% samples"))
     shared.ids <- names(which(table(sub.ids) >= p * length(epi.gr)))
