@@ -83,10 +83,10 @@ compMatrix <- function(epi.gr, outprefix = NULL, readNumber = 60,
     doParallel::registerDoParallel(cores = cores)
     epi.shared.matrix <- foreach(x = epi.gr, .combine = cbind) %dopar% {
         x <- x[values(x)$values.read1 >= readNumber,]
-        ids <- paste(seqnames(x), values(x)$values.loci, sep = "-")
+        ids <- paste(seqnames(x), strand(x), values(x)$values.loci, sep = "-")
         x1 <- x[ids %in% shared.ids, ]
         x2 <- values(x1)[, 2:6]
-        rownames(x2) <- paste(seqnames(x1), values(x1)[,1], sep = "-")
+        rownames(x2) <- paste(seqnames(x1), strand(x1), values(x1)[,1], sep = "-")
         use.ids <- intersect(ids, shared.ids)
         i <- NULL
         res <- foreach(i = colnames(values(x1))[2:6],.combine = rbind) %dopar% {
