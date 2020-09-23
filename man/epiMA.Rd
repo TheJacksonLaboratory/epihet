@@ -18,6 +18,8 @@ to confirm a significant value. (default: 0.05)}
 MA plot (default: '.')}
 
 \item{sve}{A boolean to save the plot (default: FALSE)}
+  
+\item{pointsize}{a numeric value to adjust point size (default: 1.5)}  
 }
 \value{
 A figure
