@@ -14,6 +14,7 @@
 #' @param pch The plotting character to be used in the
 #' MA plot (default: '.')
 #' @param sve A boolean to save the plot (default: FALSE)
+#' @param pointsize a numeric value to adjust point size (default:1.5)
 #' @return A figure
 #' @examples
 #' diff.het.matrix<-data.frame(chromosome=c(rep("1",10)),
@@ -29,7 +30,7 @@
 #' epiMA(pval.matrix = diff.het.matrix, padjust.cutoff = 0.05,
 #' pch = ".", sve = TRUE)
 #' @export
-epiMA <- function(pval.matrix, padjust.cutoff = 0.05, pch = ".", sve = FALSE) {
+epiMA <- function(pval.matrix, padjust.cutoff = 0.05, pch = ".", sve = FALSE,pointsize=1.5) {
     if (!is(pval.matrix[,3],"numeric") | !is(pval.matrix[,4],"numeric")){
       stop("Error: The third and forth column should be the mean value of epigenetic heterogeneity in cancer or normal samples")
     }
@@ -50,14 +51,14 @@ epiMA <- function(pval.matrix, padjust.cutoff = 0.05, pch = ".", sve = FALSE) {
         plot(means, pval.matrix$het.dif, col = "grey",
             xlab = x.label, ylab = "Heterogeneity Difference",
             pch = pch, ylim = c(-max.het.dif, max.het.dif),
-            main = title)
-        points(sig.means, sig.values$het.dif, col = "red",pch = pch)
+            main = title,cex=pointsize)
+        points(sig.means, sig.values$het.dif, col = "red",pch = pch,cex=pointsize)
         dev.off()
     } else {
         plot(means, pval.matrix$het.dif, col = "grey",
             xlab = x.label, ylab = "Heterogeneity Difference",
             pch = pch, ylim = c(-max.het.dif, max.het.dif),
-            main = title)
-        points(sig.means, sig.values$het.dif, col = "red",pch = pch)
+            main = title,cex=pointsize)
+        points(sig.means, sig.values$het.dif, col = "red",pch = pch,cex=pointsize)
     }
 }
