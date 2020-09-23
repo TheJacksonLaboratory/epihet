@@ -95,7 +95,7 @@ library(epihet)
   
   \subsection{Important Variables for Analysis}
   To determine epigenetic heterogeneity, epihet uses the following three
-  variables:proportion of discordant reads (PDR), epipolymorphism, and Shannon
+  variables: proportion of discordant reads (PDR), epipolymorphism, and Shannon
   entropy values. By comparing the similarities and differences between these
   values at the same epiallele across multiple samples, the extent of
   heterogeneity between the samples can be analyzed
@@ -103,30 +103,28 @@ library(epihet)
 
     \subsubsection{Proportion of Discordant Reads (PDR)}
     One important variable to analyze for heterogeneity between cells is the
-    proportion of discordant reads (PDR). PDR at each locus is defined as a
+    proportion of discordant reads (PDR). PDR at each locus is defined as the
     proportion of discordant reads compared to the number of total reads from
     that locus (Landau et al, 2014). A bisulfite sequencing read at a given
-    locus, a concordant read is one that shows all unmethlated or all methylated sites at a given loci, such as a four methylated cytosines. A discordant
+    locus was classified as a concordant read or a discordant read. Here, a concordant read is one that shows all unmethlated or all methylated sites at a given loci, such as a four methylated cytosines. A discordant
     read is one that shows varying states of methylated and unmethylated regions at a given loci, such as a methylated cytosine followed by three
-    unmethylated cytosines. After finding the number of discordant reads at
-    a given loci, a proportion can be calculated by dividing by the number of
-    total reads from that locus. PDR values can then be used for analyzing
+    unmethylated cytosines. PDR values can then be used for analyzing
     epigenetic heterogeneity because a greater value for PDR corresponds
     to a greater amount of discord within the sample. With a greater level of discord, the sample is considered
     to be more heterogeneous in nature and could lead to adverse clinical outcomes upon treatment.
-    \\In this package, epihet calculates PDR value for each locus of one sample from the percentages of each methylation pattern.
+    \\In this package, epihet calculates PDR value for each locus of one sample from the proportion of each methylation pattern.
     For a given locus, epihet sums the percentage of reads support all discordant methylation patterns to obtain PDR value. The resulting value is between 0 and 1.
 
     \subsubsection{Epipolymorphism}
     When analyzing epigenetic heterogeneity, epigenetic polymorphism, or epipolymorphism, is an important variable
     to calculate. Epipolymorphism is defined as \enquote{the probability that two epialleles randomly sampled from
     the locus differ from each other} (Landan et al, 2012). Calculating the epipolymorphism value for a given locus
-    uses the proportions of each methylation pattern to determine how frequently the methylation patterns change
+    uses the proportion of each methylation pattern to determine how likely the methylation patterns differ
     across multiple reads. Epipolymorphism value ranges from 0 to 1 with larger values being associated
     with larger differences in methylation patterns.
     \\In this package, epipolymorphism value for each locus is calculated based on the formula described by Landen
-    \textit{et al.} (Landan et al, 2012). For each locus, the proportions of each methylation pattern are squared then
-    added together and subtracted from 1. The resulting value is the epipolymorphism value for the given locus.
+    \textit{et al.} (Landan et al, 2012). For each locus, the proportion of each methylation pattern is squared then
+    summed together and subtracted from 1. The resulting value is the epipolymorphism value for the given locus.
 
     \subsubsection{Shannon Entropy}
     An important aspect of epigenetic heterogeneity is knowing how diverse a given epiallele is compared to other epialleles.
@@ -138,7 +136,7 @@ library(epihet)
     A large value for Shannon entropy corresponds to a greater number of epiallele patterns needed and would be considered
     more diverse and, therefore, more heterogeneous. A low value for Shannon entropy corresponds to a lesser amount of epiallele
     patterns needed and be considered less heterogeneous based on its epigenetics. A value of 0 for Shannon entropy shows that
-    only an epialle only contained a single methylation pattern across multiple reads.
+    the epialle only contained a single methylation pattern across multiple reads.
 
 \section{Building the Comparison Matrix}
   In order to prepare for analysis, epihet has built\-in functions that take in multiple txt files for multiple
@@ -172,7 +170,7 @@ GR.List = epihet::makeGR(files = files, ids = ids,
                          cores = 1, sve = FALSE)
 @
 
-  One row in each GenomicRanges object in the list cotains the information of one locus,including chromosome number, range of
+  One row in each GenomicRanges object in the list cotains the information of one locus, including chromosome number, range of
   the strand, and strand type, as well as six additional columns that includes the locus ID, number of
   reads, average methylation percentage of the locus, and PDR, epipolymorphism, and Shannon entropy values of the locus. If makeGR is being used to process many files, the variable 'cores' can be changed to specify the number of cores to
   use for parallel execution. If the resulting GenomicRanges list must be saved for later use, the variable 'sve' can be set to
@@ -180,7 +178,7 @@ GR.List = epihet::makeGR(files = files, ids = ids,
   \subsection{Generate Comparison Matrix}
   The list of GenomicRanges objects can be used to generate the comparison matrix that is used for the
   analysis functions included in epihet. The comparison matrix is created using the 'compMatrix' function which locates epialleles
-  that are shared by a certain percentage of the samples and organizing the data into sections for read number, average methylation
+  that are shared by at least a certain percentage of the samples and organizing the data into sections for read number, average methylation
   levels, PDR, epipolymorphism, and Shannon entropy values at these matching loci. The following code creates a comparison matrix from
   the GenomicRanges list created in the previous section and finds epialleles that are present in 100\% of the samples (p = 1):
 
@@ -190,7 +188,7 @@ comp.Matrix = epihet::compMatrix(epi.gr = GR.List, outprefix = NULL,
                                  cores = 1, sve = FALSE)
 @
 
-  The parameter 'p' can range from 0 to 1. The comparison matrix comp.Matrix contains epigenetic heterogeneity values of the locus shared by the 100p percentile samples. For example, the loci in comp.Matrix are shared by at least half of the samples, then 'p' should be set to 0.50.
+  The parameter 'p' takes values from 0 to 1. The comparison matrix comp.Matrix contains epigenetic heterogeneity values of the locus shared by at least 100p percent of samples. For example, the loci in comp.Matrix are shared by at least half of the samples, then 'p' should be set to 0.50.
   If the resulting comparison matrix needs to be saved, 'sve' can be set to TRUE and 'outprefix' can
   be specified to add a prefix to the resulting .rda file. If large files are being used, the matrix
   can be created using multiple cores to speed up the execution as specified by the 'cores' variable.
@@ -198,7 +196,7 @@ comp.Matrix = epihet::compMatrix(epi.gr = GR.List, outprefix = NULL,
   \subsection{Create Single GenomicRanges Object}
   Instead of creating a list of GenomicRanges objects, a single GenomicRanges object can be created
   using the 'readGR' function. The function takes a vector of files, 'files',  and a vector of IDs,
-  'ids', that correspond to the files. The index of the file, 'n', to be used for creating the
+  'ids', that corresponds to the files. The index of the file, 'n', to be used for creating the
   GenomicRanges object is also needed. The following code generates the GenomicRanges object for the
   third file in the vector:
 
@@ -347,8 +345,8 @@ epihet::epiTSNE(compare.matrix = comp.Matrix, value = 'epipoly',
 
   \subsection{Identifying Differential Epigenetic Heterogeneity locus}
   The diffHet functions is the main function to identify differential epigenetic heterogeneity (DEH) locus. Depending on the measures of epigenetic heterogeneity user investigates,
-  it will either use t\-tests or permutation test to calculate p values. p values will be adjusted using multiple test correction.
-  When you identify the loci with differential PDR or epipolymorphism comparing test versus control samples, the function will use t\-test.
+  it will either use t\- tests or permutation test to calculate p values. p values will be adjusted using multiple test correction.
+  When you identify the loci with differential PDR or epipolymorphism comparing test versus control samples, the function will use t\- test.
   Otherwise, the function will employ EntropyEXPLORER R package to perform the permutation test. And the function also return the mean epigenetic heterogeneity for each group
   and the mean epigenetic heterogeneity difference between test and control samples. The users can use the mean epigenetic heterogeneity difference and adjusted p values to identify DEH loci.
   The following code creates the dataframe for all the loci containing differential epipolymorphism between normal and CEBPA\_sil mutation samples for epipolymorphism values with a heterogeneity difference cutoff of 0.20:
@@ -366,14 +364,14 @@ diff.het.matrix = epihet::diffHet(compare.matrix = comp.Matrix,
                                   permutations = 1000,
                                   p.adjust.method = 'fdr', cores = 1)
 @
-  After calculating the heterogeneity difference and adjusted p\-values for each p\-values for each locus, an MA plot can be created.
+  After calculating the heterogeneity difference and adjusted p\-values for each p\- values for each locus, an MA plot can be created.
   For each locus, the average of the means heterogeneity for two groups versus the heterogeneity difference was plotted.
-  DEH loci (significant p\-values lower than the inputted cutoff) are highlighted in red. The following code creates the MA plot below using the above calculated
+  DEH loci (significant p\- values lower than the inputted cutoff) are highlighted in red. The following code creates the MA plot below using the above calculated
   differential heterogeneity matrix and an adjusted p\-value cutoff of 0.05:
 <<results='hide'>>=
 data(diffhetmatrix,package="epihet")
 epihet::epiMA(pval.matrix = diff.het.matrix, padjust.cutoff = 0.05,
-              pch = ".", sve = TRUE)
+              pch = ".", sve = TRUE,pointsize=4)
 @
 \begin{figure}[!htbp]
 \centering
@@ -393,12 +391,12 @@ epihet::epiMA(pval.matrix = diff.het.matrix, padjust.cutoff = 0.05,
 \section{Constructing co\-epigenetci heterogeneity network}
   \subsection{Network construction and module identification}
   We can construct co\-epigenetic heterogeneity network based on the DEH loci using WGCNA R package. For altorithm details, please refer to the tutorial of WGCNA.
-  Here,there are two menthods to construct network,which was decided by the parameter node.type. One method calculates the co\-epigenetic heterogeneity between any two DEH loci.
+  Here,there are two menthods to construct network, which was decided by the parameter node.type. One method calculates the co\-epigenetic heterogeneity between any two DEH loci.
   Another one is to identify genes with genome region annotated by DEH loci and calculates the co\-epigenetic heterogeneity between any two genes.
-  Genome region can be promoter,CpG islands,CpG shores and so on. The epigenetic heterogeneity of one gene was measured with the average epigenetic heterogeneity of loci associated with the gene.
-  At this case,annotation files in BED format are need for annotating your DEH loci. You can download annotation from UCSC table browser for your genome of interest.
-  Then you should save the BED file as the Granges object in R, and input it into the parameter annotation.obj.We also provide gene promoter files for Refseq genes.
-  Additionally,users can also supply the clinical traits of patients in dataframe to the parameter datTraits, such as age,gender,survival time, to identify clinically significant modules.
+  Genome region can be promoter, CpG islands, CpG shores and so on. The epigenetic heterogeneity of one gene was measured with the average epigenetic heterogeneity of loci associated with the gene.
+  At this case, annotation files in BED format are need for annotating your DEH loci. You can download annotation from UCSC table browser for your genome of interest.
+  Then you should save the BED file as the Granges object in R, and input it into the parameter annotation.obj. We also provide gene promoter files for Refseq genes.
+  Additionally, users can also supply the clinical traits of patients in dataframe to the parameter datTraits, such as age, gender, survival time, to identify clinically significant modules.
   Then network can be obtained as follows:
 <<results='hide'>>=
 library(GenomicRanges)
@@ -426,10 +424,10 @@ epi.network=epihet::epiNetwork(node.type = "gene",DEH,sharedmatrix,
 \caption{Clustering dendrogram of genes.}
 \end{figure}
   This function is used to generate the co\-epigenetic heterogeneity network and modules. It will return a list containing epigenetic heterogeneity matrix of patients, module information
-  and genes of each module.At the same time, the function save Topological Overlap Matrices(TOM) as RData format.And, it creates a clustering dendrogram of loci/genes showing module
+  and genes of each module. At the same time, the function save Topological Overlap Matrices(TOM) as RData format. And, it creates a clustering dendrogram of loci/genes showing module
   information through assigning different colors.
   \\The function also create a bar plot showing the number of genes associated with DEH loci in each module in the Figure 7.
-  \\When users provided the external clinical traits,the clinically significant modules were identified.The result was visualized by the heatmap plot in Figure 8.
+  \\When users provided the external clinical traits, the clinically significant modules were identified. The result was visualized by the heatmap plot in Figure 8.
   Each row in the table corresponds to a module,and each column to a trait.
   Numbers in the table report the correlations of the correspoinding module eigengenes and traits, with the p values printed below the correlations in parentheses. The color legend denotes correlation.
 \begin{figure}[!htbp]
@@ -457,7 +455,7 @@ module.topology=epihet::moduleVisual(TOM,
 \includegraphics[width=4in]{CEBPA_sil_epipoly_turquoise_3dsphere.pdf}
 \caption{The lightgreen module.}
 \end{figure}
- Here,TOM file is loaded into R workspace, which was created by the above function epiNetwork.This function can also generate an edge file and a node file as the txt format.
+ Here, TOM file is loaded into R workspace, which was created by the above function epiNetwork. This function can also generate an edge file and a node file as the txt format.
   Users can specify network layout and style using Cytoscape.
 
   \subsection{Module Annotation}
@@ -483,7 +481,7 @@ pathway = epihet::epiPathway(genelist,cutoff = 0.05,
 \caption{Bar plot of pathway enrichment results.}
 \end{figure}
   The function returns a dataframe containing pathways significantly enriched by genes of one module and a barplot enrichment map for visualization.
-  \\Furthermore, in this analysis we would like to investigate modules that are associated with transcription variance between cancer and normal sample. so we identify the modules significantly enriched by differentially expressed genes (DEGs)
+  \\Furthermore, in this analysis we would like to investigate modules that are associated with transcription variance in cancer compared to normal samples. So we identify the modules significantly enriched by differentially expressed genes (DEGs)
 <<results='hide'>>=
 data(DEG,package = "epihet")
 data(background,package = "epihet")
@@ -496,7 +494,7 @@ module.annotation=epihet::moduleAnno(DEG$refseq,background$gene,
 \begin{figure}[!htbp]
 \centering
 \includegraphics[width=3in]{epipolyDEG_module.pdf}
-\caption{Scatter plot showing the modules enriched by DEG. X\-axis is the number of genes in the module. Y\-axis is the log10(p value). p value is obtained from hypergeometric test. The label is the number of DEGs in the module.}
+\caption{Scatter plot showing the modules enriched by DEG. x-axis is the number of genes in the module. y-axis is the log10(p value). p value is obtained from hypergeometric test. The label is the number of DEGs in the module.}
 \end{figure}
   \subsection{Module comparison}
   Finally,we compare the similarity between modules using the Jaccard similarity score for different cancers or different sutypes of one cancer.
