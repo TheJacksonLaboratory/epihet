@@ -14,7 +14,7 @@
 #' @param pch The plotting character to be used in the
 #' MA plot (default: '.')
 #' @param sve A boolean to save the plot (default: FALSE)
-#' @param pointsize a numeric value to adjust point size (default:1.5)
+#' @param pointsize A numeric value to adjust point size (default:1.5)
 #' @return A figure
 #' @examples
 #' diff.het.matrix<-data.frame(chromosome=c(rep("1",10)),
