@@ -488,8 +488,8 @@ data(background,package = "epihet")
 module.annotation=epihet::moduleAnno(DEG$refseq,background$gene,
                                      module.gene=epi.network$module,
                                      cutoff=0.1,adjust.method = "fdr",
-                                     prefix='epipoly',pdf.height = 3,
-                                     pdf.width = 3, sve = TRUE)
+                                     prefix='epipoly',pdf.height = 5,
+                                     pdf.width = 5, sve = TRUE)
 @
 \begin{figure}[!htbp]
 \centering
