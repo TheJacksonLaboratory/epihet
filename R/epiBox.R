@@ -65,7 +65,7 @@ epiBox <- function(compare.matrix, value, type, box.colors = NULL,
     type.col <- location.col - 1
     value.matrix <- compare.matrix[compare.matrix$type == value,
         c(-type.col, -location.col)]
-    mean.value <- data.frame(colMeans(value.matrix))
+    mean.value <- data.frame(colMeans(value.matrix,na.rm=TRUE))
     mean.value <- merge(type, mean.value, by = 0, all = TRUE)
     mean.value <- mean.value[, -1]
     y.axis <- paste0("Mean of ", value)
