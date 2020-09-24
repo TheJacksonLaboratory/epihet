@@ -139,7 +139,7 @@ library(epihet)
     the epialle only contained a single methylation pattern across multiple reads.
 
 \section{Building the Comparison Matrix}
-  In order to prepare for analysis, epihet has built\-in functions that take in multiple txt files for multiple
+  In order to prepare for analysis, epihet has built-in functions that take in multiple txt files for multiple
   samples from the program methclone and transforms the data into a large matrix that contains the location information and PDR, epipolymorphism, and Shannon entropy
   values for each locus that is shared between the inputted samples. The following sections provide examples on how to use
   the functions in epihet to build the comparison matrix and prepare the data for analysis. 
@@ -226,7 +226,7 @@ summary = epihet::summarize(gr1 = GR.List[[1]], gr2 = GR.List[[2]],
 \section{Analyzing the Data}
 Once the comparison matrix has been generated for the sample data, the epigenetic heterogeneity can be
 analyzed by using epihet's built\-in analysis functions. With epihet, the data in the comparison matrix
-can be used to create boxplots, heat maps, and PCA, t\-SNE, and MA plots. For most of the functions used
+can be used to create boxplots, heat maps, and PCA, t-SNE, and MA plots. For most of the functions used
 for analysis in epihet, annotation information can be added as a parameter that will annotate or group the
 data based on the cancer type or subtype information provided by the user. The annotation information must be a dataframe
 with row names as the samples, data entries as the corresponding group annotations. For our example, the subtype groupings for the samples will be used
@@ -261,7 +261,7 @@ epihet::epiBox(compare.matrix = comp.Matrix, value = 'epipoly',
 
   \subsection{Generating a Heat Map}
   We can cluster the samples based on the epigenetic heterogeneity using the most variable genetic loci. The function epiMap used pheatmap function (default value) to create
-  a heatmap plot based the top user\-inputted percent of loci with the highest standard deviation across all samples.
+  a heatmap plot based the top user-inputted percent of loci with the highest standard deviation across all samples.
   In the exampple, the function use epipolymorphism values to cluster the sample based on the top 5\% of loci with highest standard deviation.
   user can create the appropriate input for the parameter annotate.colors to color the samples by subtype information:
 <<>>=
@@ -317,12 +317,12 @@ epihet::epiPCA(compare.matrix = comp.Matrix, value = 'epipoly',
   'frames' or 'probability', customizing the colors of the points and frames by adding a vector of colors to 'points.colors' and
   'frames.colors', and saving the plot as a .pdf file using 'sve', 'pdf.height', and 'pdf.width'.
 
-  \subsection{Graphing a t\-SNE Plot}
-  Another plot used to analyze how the samples are group based on a given value is a t\-distributed stochastic neighbor embedding
-  (t\-SNE) plot. Similar to a PCA plot, a t\-SNE plot is used for analyzing patterns in data by grouping points together, however,
-  a t\-SNE plot uses multiple dimensions for these groupings. The results are placed on a human\-readable plot in 2\-dimensions.
-  The function in epihet used for t\-SNE plot creation is epiTSNE. By using either PDR, epipolymorphism, or Shannon entropy values,
-  epiTSNE can create a t\-SNE plot and color them by an inputted annotation. The following code creates the t\-SNE
+  \subsection{Graphing a t-SNE Plot}
+  Another plot used to analyze how the samples are group based on a given value is a t-distributed stochastic neighbor embedding
+  (t-SNE) plot. Similar to a PCA plot, a t-SNE plot is used for analyzing patterns in data by grouping points together, however,
+  a t-SNE plot uses multiple dimensions for these groupings. The results are placed on a human-readable plot in 2-dimensions.
+  The function in epihet used for t-SNE plot creation is epiTSNE. By using either PDR, epipolymorphism, or Shannon entropy values,
+  epiTSNE can create a t-SNE plot and color them by an inputted annotation. The following code creates the t-SNE
   plot below using epipolymorphism values and colors the points based on their subtype information:
 <<results='hide'>>=
 set.seed(42)
@@ -336,17 +336,17 @@ epihet::epiTSNE(compare.matrix = comp.Matrix, value = 'epipoly',
 \includegraphics[width=4in]{epipoly_tsne.pdf}
 \caption{t\-SNE Plot of CEBPA\_sil and Normal sample.}
 \end{figure}
-  The t\-SNE plot shows the CEBPA\_sil and normal samples cluster two different groups. As these two grouping are at opposite ends of the t\-SNE plot, one can assume that the epipolymorphism values
+  The t-SNE plot shows the CEBPA\_sil and normal samples cluster two different groups. As these two grouping are at opposite ends of the t-SNE plot, one can assume that the epipolymorphism values
   for the CEBPA\_sil mutation samples differ widely in comparison to the normal samples. This corresponds to a large difference in the number
   of methylation patterns found in the two subtypes.
   \\Other features of epiTSNE include customizing the colors of the points by adding a vector of colors to 'points.colors', customizing the
-  parameters of the Rtsne function used to generate the data for the t\-SNE plot through 'theta', 'perplexity', and 'max\textunderscore iter',
+  parameters of the Rtsne function used to generate the data for the t-SNE plot through 'theta', 'perplexity', and 'max\textunderscore iter',
   and the option to save the resulting plot as a .pdf file using 'sve', 'pdf.height', and 'pdf.width'.
 
   \subsection{Identifying Differential Epigenetic Heterogeneity locus}
   The diffHet functions is the main function to identify differential epigenetic heterogeneity (DEH) locus. Depending on the measures of epigenetic heterogeneity user investigates,
-  it will either use t\- tests or permutation test to calculate p values. p values will be adjusted using multiple test correction.
-  When you identify the loci with differential PDR or epipolymorphism comparing test versus control samples, the function will use t\- test.
+  it will either use t-test or permutation test to calculate p values. p values will be adjusted using multiple test correction.
+  When you identify the loci with differential PDR or epipolymorphism comparing test versus control samples, the function will use t-test.
   Otherwise, the function will employ EntropyEXPLORER R package to perform the permutation test. And the function also return the mean epigenetic heterogeneity for each group
   and the mean epigenetic heterogeneity difference between test and control samples. The users can use the mean epigenetic heterogeneity difference and adjusted p values to identify DEH loci.
   The following code creates the dataframe for all the loci containing differential epipolymorphism between normal and CEBPA\_sil mutation samples for epipolymorphism values with a heterogeneity difference cutoff of 0.20:
@@ -364,10 +364,10 @@ diff.het.matrix = epihet::diffHet(compare.matrix = comp.Matrix,
                                   permutations = 1000,
                                   p.adjust.method = 'fdr', cores = 1)
 @
-  After calculating the heterogeneity difference and adjusted p\-values for each p\- values for each locus, an MA plot can be created.
+  After calculating the heterogeneity difference and adjusted p-values for each p-values for each locus, an MA plot can be created.
   For each locus, the average of the means heterogeneity for two groups versus the heterogeneity difference was plotted.
-  DEH loci (significant p\- values lower than the inputted cutoff) are highlighted in red. The following code creates the MA plot below using the above calculated
-  differential heterogeneity matrix and an adjusted p\-value cutoff of 0.05:
+  DEH loci (significant p-values lower than the inputted cutoff) are highlighted in red. The following code creates the MA plot below using the above calculated
+  differential heterogeneity matrix and an adjusted p-value cutoff of 0.05:
 <<results='hide'>>=
 data(diffhetmatrix,package="epihet")
 epihet::epiMA(pval.matrix = diff.het.matrix, padjust.cutoff = 0.05,
@@ -382,17 +382,17 @@ epihet::epiMA(pval.matrix = diff.het.matrix, padjust.cutoff = 0.05,
   the heterogeneity difference axis. This means that the average for epipolymorphism values for CEBPA\_sil mutation samples was larger than the average for
   epipolymorphism values for normal samples. It means the CEBPA\_sil mutation samples have greater epigenetic heterogeneity compared with normal samples.
   \\Other features of the diffHet function include specifying a cutoff for the heterogeneity difference through 'het.dif.cutoff', changing
-  the method used to calculate adjusted p\-values using 'p.adjust.method', and the ability to use multiple cores for parallel execution using
-  'cores'. If Shannon entropy values are to be examined, diffHet uses the EntropyExplorer function to calculate the appropriate p\-value for
+  the method used to calculate adjusted p-values using 'p.adjust.method', and the ability to use multiple cores for parallel execution using
+  'cores'. If Shannon entropy values are to be examined, diffHet uses the EntropyExplorer function to calculate the appropriate p-value for
   each locus. The variable for permutations in EntropyExplorer can be modified using 'permutations'.
-  \\Other features for epiMA include specifying the adjusted p\-value cutoff to find significant values using 'padjust.cutoff', changing the
+  \\Other features for epiMA include specifying the adjusted p-value cutoff to find significant values using 'padjust.cutoff', changing the
   individual point designs for the plot using 'pch', and the ability to save the plot as a .pdf file using 'sve'.
 
-\section{Constructing co\-epigenetci heterogeneity network}
+\section{Constructing co-epigenetci heterogeneity network}
   \subsection{Network construction and module identification}
-  We can construct co\-epigenetic heterogeneity network based on the DEH loci using WGCNA R package. For altorithm details, please refer to the tutorial of WGCNA.
-  Here,there are two menthods to construct network, which was decided by the parameter node.type. One method calculates the co\-epigenetic heterogeneity between any two DEH loci.
-  Another one is to identify genes with genome region annotated by DEH loci and calculates the co\-epigenetic heterogeneity between any two genes.
+  We can construct co-epigenetic heterogeneity network based on the DEH loci using WGCNA R package. For altorithm details, please refer to the tutorial of WGCNA.
+  Here,there are two menthods to construct network, which was decided by the parameter node.type. One method calculates the co-epigenetic heterogeneity between any two DEH loci.
+  Another one is to identify genes with genome region annotated by DEH loci and calculates the co-epigenetic heterogeneity between any two genes.
   Genome region can be promoter, CpG islands, CpG shores and so on. The epigenetic heterogeneity of one gene was measured with the average epigenetic heterogeneity of loci associated with the gene.
   At this case, annotation files in BED format are need for annotating your DEH loci. You can download annotation from UCSC table browser for your genome of interest.
   Then you should save the BED file as the Granges object in R, and input it into the parameter annotation.obj. We also provide gene promoter files for Refseq genes.
@@ -423,7 +423,7 @@ epi.network=epihet::epiNetwork(node.type = "gene",DEH,sharedmatrix,
 \includegraphics{epipolydengram_module.pdf}
 \caption{Clustering dendrogram of genes.}
 \end{figure}
-  This function is used to generate the co\-epigenetic heterogeneity network and modules. It will return a list containing epigenetic heterogeneity matrix of patients, module information
+  This function is used to generate the co-epigenetic heterogeneity network and modules. It will return a list containing epigenetic heterogeneity matrix of patients, module information
   and genes of each module. At the same time, the function save Topological Overlap Matrices(TOM) as RData format. And, it creates a clustering dendrogram of loci/genes showing module
   information through assigning different colors.
   \\The function also create a bar plot showing the number of genes associated with DEH loci in each module in the Figure 7.
@@ -494,7 +494,7 @@ module.annotation=epihet::moduleAnno(DEG$refseq,background$gene,
 \begin{figure}[!htbp]
 \centering
 \includegraphics[width=3in]{epipolyDEG_module.pdf}
-\caption{Scatter plot showing the modules enriched by DEG. x-axis is the number of genes in the module. y-axis is the log10(p value). p value is obtained from hypergeometric test. The label is the number of DEGs in the module.}
+\caption{Scatter plot showing the modules enriched by DEG. x-axis is the number of genes in the module. y-axis is the -log10(adjusted p-value). p value is obtained from hypergeometric test. The label is the number of DEGs in the module.}
 \end{figure}
   \subsection{Module comparison}
   Finally,we compare the similarity between modules using the Jaccard similarity score for different cancers or different sutypes of one cancer.
