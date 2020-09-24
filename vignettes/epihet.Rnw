@@ -82,22 +82,22 @@ library(epihet)
   patterns have been reported to associate with clinical outcome in acute
   myeloid leukemia (AML), chronic lymphocytic leukemia (CLL), diffuse large
   B cell lymphoma, and Ewing sarcoma (Sheffield et al, 2017). As the cancer
-  cell evolves from diagnosis to relapse, methylation patterns at a given loci
-  can further disrupt promoter sequences and gene regulation (Pan et al, 2015).
-  These differing methylation patterns on the same loci/gene are called
-  epialleles and are key to determining epigenetic heterogeneity. Previous
+  cell evolves from diagnosis to relapse, methylation patterns at a given locus
+  can further disrupt promoter regions and gene regulation (Pan et al, 2015).
+  These differing methylation patterns on the same locus/gene are called
+  epialleles and are key to determine epigenetic heterogeneity. Previous
   studies have shown that the methylation patterns of cancer cells on relapse
   can vastly differ from the patterns of the same cells on diagnosis
-  (Li et al, 2014). This package uses epialleles consisting of four cytosine
-  base pairs to create 16 (either a methylated or unmethylated cytosine across
-  four unique loci) distinct methylation patterns to analyze methylation
-  levels in the samples.
+  (Li et al, 2014). This package uses epialleles consisting of four adjacent cytosine
+  bases to create 16 (either a methylated or unmethylated cytosine across
+  four unique loci) distinct methylation patterns to analyze epigenetic
+  heterogeneity in the samples.
   
   \subsection{Important Variables for Analysis}
   To determine epigenetic heterogeneity, epihet uses the following three
   variables: proportion of discordant reads (PDR), epipolymorphism, and Shannon
   entropy values. By comparing the similarities and differences between these
-  values at the same epiallele across multiple samples, the extent of
+  values at the same locus across multiple samples, the extent of
   heterogeneity between the samples can be analyzed
   by the user.
 
@@ -106,8 +106,8 @@ library(epihet)
     proportion of discordant reads (PDR). PDR at each locus is defined as the
     proportion of discordant reads compared to the number of total reads from
     that locus (Landau et al, 2014). A bisulfite sequencing read at a given
-    locus was classified as a concordant read or a discordant read. Here, a concordant read is one that shows all unmethlated or all methylated sites at a given loci, such as a four methylated cytosines. A discordant
-    read is one that shows varying states of methylated and unmethylated regions at a given loci, such as a methylated cytosine followed by three
+    locus was classified as a concordant read or a discordant read. Here, a concordant read is one that shows all unmethlated or all methylated sites at a given locus, such as a four methylated cytosines. A discordant
+    read is one that shows varying states of methylated and unmethylated regions at a given locus, such as a methylated cytosine followed by three
     unmethylated cytosines. PDR values can then be used for analyzing
     epigenetic heterogeneity because a greater value for PDR corresponds
     to a greater amount of discord within the sample. With a greater level of discord, the sample is considered
