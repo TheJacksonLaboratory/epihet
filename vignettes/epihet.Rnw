@@ -428,7 +428,7 @@ epi.network=epihet::epiNetwork(node.type = "gene",DEH,sharedmatrix,
   information through assigning different colors.
   \\The function also create a bar plot showing the number of genes associated with DEH loci in each module in the Figure 7.
   \\When users provided the external clinical traits, the clinically significant modules were identified. The result was visualized by the heatmap plot in Figure 8.
-  Each row in the table corresponds to a module,and each column to a trait.
+  Each row in the table corresponds to a module, and each column to a trait.
   Numbers in the table report the correlations of the correspoinding module eigengenes and traits, with the p values printed below the correlations in parentheses. The color legend denotes correlation.
 \begin{figure}[!htbp]
 \centering
