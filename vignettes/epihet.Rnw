@@ -225,7 +225,7 @@ summary = epihet::summarize(gr1 = GR.List[[1]], gr2 = GR.List[[2]],
 
 \section{Analyzing the Data}
 Once the comparison matrix has been generated for the sample data, the epigenetic heterogeneity can be
-analyzed by using epihet's built\-in analysis functions. With epihet, the data in the comparison matrix
+analyzed by using epihet's built-in analysis functions. With epihet, the data in the comparison matrix
 can be used to create boxplots, heat maps, and PCA, t-SNE, and MA plots. For most of the functions used
 for analysis in epihet, annotation information can be added as a parameter that will annotate or group the
 data based on the cancer type or subtype information provided by the user. The annotation information must be a dataframe
@@ -311,7 +311,7 @@ epihet::epiPCA(compare.matrix = comp.Matrix, value = 'epipoly',
 \caption{PCA Plot of CEBPA\_sil and Normal sample by epipolymorphism value.}
 \end{figure}
   The PCA plot shows CEBPA\_sil and normal samples can separate each other very well. The normal samples are clustered close together,
-  which means the variance between the normal samples for epipolymorphism values is small. The CEBPA\_sil mutation samples are spaced out along the y\-axis,
+  which means the variance between the normal samples for epipolymorphism values is small. The CEBPA\_sil mutation samples are spaced out along the y-axis,
   which means the variance based on their epipolymorphism values is large.
   \\Other features of epiPCA include adding frames or probability ellipses to better define the groupings of annotations with
   'frames' or 'probability', customizing the colors of the points and frames by adding a vector of colors to 'points.colors' and
@@ -334,7 +334,7 @@ epihet::epiTSNE(compare.matrix = comp.Matrix, value = 'epipoly',
 \begin{figure}[h]
 \centering
 \includegraphics[width=4in]{epipoly_tsne.pdf}
-\caption{t\-SNE Plot of CEBPA\_sil and Normal sample.}
+\caption{t-SNE Plot of CEBPA\_sil and Normal sample.}
 \end{figure}
   The t-SNE plot shows the CEBPA\_sil and normal samples cluster two different groups. As these two grouping are at opposite ends of the t-SNE plot, one can assume that the epipolymorphism values
   for the CEBPA\_sil mutation samples differ widely in comparison to the normal samples. This corresponds to a large difference in the number
@@ -378,7 +378,7 @@ epihet::epiMA(pval.matrix = diff.het.matrix, padjust.cutoff = 0.05,
 \includegraphics[width=4in]{CEBPA_sil_Normal_epipoly_MAplot.pdf}
 \caption{MA Plot of CEBPA\_sil and Normal sample.}
 \end{figure}
-  Through analysis of the MA plot, the majority of coordinates with significant adjusted p\-values are found in the negative portion of
+  Through analysis of the MA plot, the majority of coordinates with significant adjusted p-values are found in the negative portion of
   the heterogeneity difference axis. This means that the average for epipolymorphism values for CEBPA\_sil mutation samples was larger than the average for
   epipolymorphism values for normal samples. It means the CEBPA\_sil mutation samples have greater epigenetic heterogeneity compared with normal samples.
   \\Other features of the diffHet function include specifying a cutoff for the heterogeneity difference through 'het.dif.cutoff', changing
