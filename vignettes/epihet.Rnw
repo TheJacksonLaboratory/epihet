@@ -364,7 +364,7 @@ diff.het.matrix = epihet::diffHet(compare.matrix = comp.Matrix,
                                   permutations = 1000,
                                   p.adjust.method = 'fdr', cores = 1)
 @
-  After calculating the heterogeneity difference and adjusted p-values for each p-values for each locus, an MA plot can be created.
+  After calculating the heterogeneity difference and adjusted p-value for each locus, an MA plot can be created.
   For each locus, the average of the means heterogeneity for two groups versus the heterogeneity difference was plotted.
   DEH loci (significant p-values lower than the inputted cutoff) are highlighted in red. The following code creates the MA plot below using the above calculated
   differential heterogeneity matrix and an adjusted p-value cutoff of 0.05:
