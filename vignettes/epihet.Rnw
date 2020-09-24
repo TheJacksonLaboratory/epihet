@@ -81,7 +81,7 @@ library(epihet)
   epigenetic heterogeneity and dynamics measured by the phased DNA methylation
   patterns have been reported to associate with clinical outcome in acute
   myeloid leukemia (AML), chronic lymphocytic leukemia (CLL), diffuse large
-  B\-cell lymphoma, and Ewing sarcoma (Sheffield et al, 2017). As the cancer
+  B cell lymphoma, and Ewing sarcoma (Sheffield et al, 2017). As the cancer
   cell evolves from diagnosis to relapse, methylation patterns at a given loci
   can further disrupt promoter sequences and gene regulation (Pan et al, 2015).
   These differing methylation patterns on the same loci/gene are called
