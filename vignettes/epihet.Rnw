@@ -364,8 +364,8 @@ diff.het.matrix = epihet::diffHet(compare.matrix = comp.Matrix,
 @
   After calculating the heterogeneity difference and adjusted p-value for each locus, an MA plot can be created.
   For each locus, the average of the means heterogeneity for two groups versus the heterogeneity difference was plotted.
-  DEH loci (significant p-values lower than the inputted cutoff) are highlighted in red. The following code creates the MA plot below using the above calculated
-  differential heterogeneity matrix and an adjusted p-value cutoff of 0.05:
+  DEH loci (significant p-values lower than the inputted cutoff) are highlighted in red. The following code creates the MA plot below using the heterogeneity
+  difference cutoff of 0.2 and an adjusted p-value cutoff of 0.05:
 <<results='hide'>>=
 data(diffhetmatrix,package="epihet")
 epihet::epiMA(pval.matrix = diffhetmatrix, padjust.cutoff = 0.05,
@@ -376,9 +376,8 @@ epihet::epiMA(pval.matrix = diffhetmatrix, padjust.cutoff = 0.05,
 \includegraphics[width=4in]{CEBPA_sil_Normal_epipoly_MAplot.pdf}
 \caption{MA Plot of CEBPA\_sil and Normal sample.}
 \end{figure}
-  Through analysis of the MA plot, the majority of coordinates with significant adjusted p-values are found in the negative portion of
-  the heterogeneity difference axis. This means that the average for epipolymorphism values for CEBPA\_sil mutation samples was larger than the average for
-  epipolymorphism values for normal samples. It means the CEBPA\_sil mutation samples have greater epigenetic heterogeneity compared with normal samples.
+  Through analysis of the MA plot, we can clearly see the distribution of the DEH loci. The red points with the negative heterogeneity difference values
+  are decrease DEH loci. The red points with the positive heterogeneity difference values are increase DEH loci.
   \\Other features of the diffHet function include specifying a cutoff for the heterogeneity difference through 'het.dif.cutoff', changing
   the method used to calculate adjusted p-values using 'p.adjust.method', and the ability to use multiple cores for parallel execution using
   'cores'. If Shannon entropy values are to be examined, diffHet uses the EntropyExplorer function to calculate the appropriate p-value for
