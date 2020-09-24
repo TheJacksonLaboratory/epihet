@@ -370,7 +370,7 @@ diff.het.matrix = epihet::diffHet(compare.matrix = comp.Matrix,
   differential heterogeneity matrix and an adjusted p-value cutoff of 0.05:
 <<results='hide'>>=
 data(diffhetmatrix,package="epihet")
-epihet::epiMA(pval.matrix = diff.het.matrix, padjust.cutoff = 0.05,
+epihet::epiMA(pval.matrix = diffhetmatrix, padjust.cutoff = 0.05,
               pch = ".", sve = TRUE,pointsize=4)
 @
 \begin{figure}[!htbp]
