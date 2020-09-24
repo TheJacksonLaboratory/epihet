@@ -49,12 +49,15 @@ summarize <- function(gr1, gr2, value1, value2, cutoff1 = 10,
     }
     o <- findOverlaps(gr1, gr2)
     x.anno <- values(gr1[unique(queryHits(o))])
+    x.anno <- as.data.frame(x.anno)
     sub1 <- x.anno[x.anno$values.read1 >= cutoff1, ]
     sub2 <- x.anno[x.anno$values.read1 >= cutoff2, ]
-    mean.value1.c1 <- mean(sub1$values.pdr)
-    mean.value2.c1 <- mean(sub1$values.epi)
-    mean.value1.c2 <- mean(sub2$values.pdr)
-    mean.value2.c2 <- mean(sub2$values.epi)
+    index1 <- which(colnames(x.anno)==paste0("values.",value1))
+    index2 <- which(colnames(x.anno)==paste0("values.",value2))
+    mean.value1.c1 <- mean(sub1[,index1],na.rm=TRUE)
+    mean.value2.c1 <- mean(sub1[,index2],na.rm=TRUE)
+    mean.value1.c2 <- mean(sub2[,index1],na.rm=TRUE)
+    mean.value2.c2 <- mean(sub2[,index2],na.rm=TRUE)
     name <- c(paste0("mean.", value1, ".", cutoff1),
         paste0("mean.", value2, ".", cutoff1), paste0("mean.",
             value1, ".", cutoff2), paste0("mean.",
@@ -65,9 +68,9 @@ summarize <- function(gr1, gr2, value1, value2, cutoff1 = 10,
         mean.value2.cutoff1 = mean.value2.c1,
         mean.value1.cutoff2 = mean.value1.c2,
         mean.value2.cutoff2 = mean.value2.c2,
-        corr.cutoff1 = cor(sub1$values.pdr,
-            sub1$values.epi), corr.cutoff2 = cor(sub2$values.pdr,
-            sub2$values.epi), loci.cutoff1 = nrow(sub1),
+        corr.cutoff1 = cor(sub1[,index1],
+            sub1[,index2]), corr.cutoff2 = cor(sub2[,index1],
+            sub2[,index2]), loci.cutoff1 = nrow(sub1),
         loci.cutoff2 = nrow(sub2))
     colnames(df) <- name
     df
