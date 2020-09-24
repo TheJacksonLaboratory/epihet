@@ -40,7 +40,7 @@ makeGR <- function(files, ids, cores = 5, sve = FALSE) {
   n <- NULL
   epi.gr <- foreach(n = seq_len(length(files))) %dopar% {
     f <- files[n]
-    x <- data.table::fread(paste("gzip -dc", f), sep = "\t")  #[,-27]
+    x <- suppressMessages(data.table::fread(paste("gzip -dc", f), sep = "\t"))  #[,-27]
     x<-x[,-27]
     x$pdr = rowSums(x[, c(12:25), with = FALSE])/100
     x$epipoly = 1 - rowSums((x[, c(11:26), with = FALSE]/100)^2)
