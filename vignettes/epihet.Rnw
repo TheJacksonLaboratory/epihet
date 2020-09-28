@@ -188,7 +188,7 @@ comp.Matrix = epihet::compMatrix(epi.gr = GR.List, outprefix = NULL,
                                  cores = 1, sve = FALSE)
 @
 
-  The parameter 'p' takes values from 0 to 1. The comparison matrix comp.Matrix contains epigenetic heterogeneity values of the locus shared by at least 100p percent of samples. For example, the loci in comp.Matrix are shared by at least half of the samples, then 'p' should be set to 0.50.
+  The parameter 'p' takes values from 0 to 1. The comparison matrix comp.Matrix contains epigenetic heterogeneity values of the locus shared by at least 100p percent of samples. For example, if the loci in comp.Matrix are to be shared by at least half of the samples, then 'p' should be set to 0.50.
   If the resulting comparison matrix needs to be saved, 'sve' can be set to TRUE and 'outprefix' can
   be specified to add a prefix to the resulting .rda file. If large files are being used, the matrix
   can be created using multiple cores to speed up the execution as specified by the 'cores' variable.
@@ -258,7 +258,7 @@ epihet::epiBox(compare.matrix = comp.Matrix, value = 'epipoly',
   'pdf.height', and 'pdf.width'.
 
   \subsection{Generating a Heat Map}
-  We can cluster the samples based on the epigenetic heterogeneity using the most variable genetic loci. The function epiMap used pheatmap function (default value) to create
+  We can cluster the samples based on the epigenetic heterogeneity using the most variable genetic loci. The function epiMap uses pheatmap function (default value) to create
   a heatmap plot based the top user-inputted percent of loci with the highest standard deviation across all samples.
   In the exampple, the function use epipolymorphism values to cluster the sample based on the top 5\% of loci with highest standard deviation.
   user can create the appropriate input for the parameter annotate.colors to color the samples by subtype information:
@@ -426,7 +426,7 @@ epi.network=epihet::epiNetwork(node.type = "gene",DEH,sharedmatrix,
   \\The function also creates a bar plot showing the number of genes associated with DEH loci in each module in the Figure 7.
   \\When users provided the external clinical traits, the clinically significant modules were identified. The result was visualized by the heatmap plot in Figure 8.
   Each row in the table corresponds to a module, and each column to a trait.
-  Numbers in the table report the correlations of the correspoinding module eigengenes and traits, with the p values printed below the correlations in parentheses. The color legend denotes correlation.
+  Numbers in the table report the correlations of the corresponding module eigengenes and traits, with the p values printed below the correlations in parentheses. The color legend denotes correlation.
 \begin{figure}[!htbp]
 \centering
 \includegraphics[width=4in]{epipolyclinicaltrait_heatmap.pdf}
@@ -491,7 +491,7 @@ module.annotation=epihet::moduleAnno(DEG$refseq,background$gene,
 \begin{figure}[!htbp]
 \centering
 \includegraphics[width=3in]{epipolyDEG_module.pdf}
-\caption{Scatter plot showing the modules enriched by DEGs. x-axis is the number of genes in the module. y-axis is the -log10(adjusted p-value). p value is obtained from hypergeometric test. The label is the number of DEGs in the module.}
+\caption{Scatter plot showing the modules enriched by DEGs. x-axis is the number of genes in the module. y-axis is the -log10(adjusted p-value). p-value is obtained from hypergeometric test. The label is the number of DEGs in the module.}
 \end{figure}
   \subsection{Module comparison}
   Finally, we compare the similarity between modules using the Jaccard similarity score for different cancers or different sutypes of one cancer.
