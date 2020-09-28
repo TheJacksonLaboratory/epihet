@@ -4,7 +4,7 @@
 \alias{epiMA}
 \title{Make MA Plot}
 \usage{
-epiMA(pval.matrix, padjust.cutoff = 0.05, pch = ".", sve = FALSE)
+epiMA(pval.matrix, padjust.cutoff = 0.05, pch = ".", sve = FALSE, pointsize = 1.5)
 }
 \arguments{
 \item{pval.matrix}{The data frame returned from the
