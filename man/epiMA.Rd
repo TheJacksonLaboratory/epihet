@@ -44,5 +44,5 @@ loci=paste("loci",seq_len(10),sep="-"),subtype.mean=c(0.21,0.23,0.37,0.26,
 1.06e-08),type=rep("pdr",10))
 
 epiMA(pval.matrix = diff.het.matrix, padjust.cutoff = 0.05,
-pch = ".", sve = TRUE , pointsize = 1.5)
+pch = ".", sve = TRUE, pointsize = 1.5)
 }
