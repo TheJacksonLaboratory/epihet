@@ -51,14 +51,14 @@ epiMA <- function(pval.matrix, padjust.cutoff = 0.05, pch = ".", sve = FALSE,poi
         plot(means, pval.matrix$het.dif, col = "grey",
             xlab = x.label, ylab = "Heterogeneity Difference",
             pch = pch, ylim = c(-max.het.dif, max.het.dif),
-            main = title,cex=pointsize)
+            main = title,cex=pointsize,cex.lab=1.5,cex.axis=1.5)
         points(sig.means, sig.values$het.dif, col = "red",pch = pch,cex=pointsize)
         dev.off()
     } else {
         plot(means, pval.matrix$het.dif, col = "grey",
             xlab = x.label, ylab = "Heterogeneity Difference",
             pch = pch, ylim = c(-max.het.dif, max.het.dif),
-            main = title,cex=pointsize)
+            main = title,cex=pointsize,cex.lab=1.5,cex.axis=1.5)
         points(sig.means, sig.values$het.dif, col = "red",pch = pch,cex=pointsize)
     }
 }
