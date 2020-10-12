@@ -73,7 +73,7 @@ library(epihet)
   considered to be hypermethylated and have been associated with the silencing
   of certain tumor-suppressor genes. Areas with lower percentages of
   methylation are called hypomethylated and are associated with cell transformation.
-  \\Recently, cell to cell variations in cancer patients have been proposed to
+  \\Recently, cell-to-cell variations in cancer patients have been proposed to
   contribute to the treatment failure as it may provide an alternative
   trajectory for the cancer cells to escape therapy. In addition to the genetic
   allelic heterogeneity, it has been reported that cancer cells may display
@@ -239,7 +239,7 @@ subtype = data.frame(Type= c(rep('CEBPA_sil', 2), rep('Normal', 2)),
 <<results='hide'>>=
 epihet::epiBox(compare.matrix = comp.Matrix, value = 'epipoly',
                type = subtype, box.colors = NULL, add.points = FALSE,
-               points.colors = NULL, pdf.height = 10, pdf.width = 10,
+               points.colors = NULL, pdf.height = 4, pdf.width = 4,
                sve = TRUE)
 @
 \begin{figure}[!htbp]
@@ -249,9 +249,7 @@ epihet::epiBox(compare.matrix = comp.Matrix, value = 'epipoly',
 \end{figure}
   As the figure 1 shows, the CEBPA\_sil mutation samples have a range in epipolymorphism values ranging from 0.08 to 0.55, while the normal
   samples have a very small range with all average epipolymorphism values being around 0.78. The figure also shows a relatively large
-  difference between the median epipolymorphism values between the two subtypes with CEBPA\_sil mutation at 0.3133 and normal at 0.7833. Overall,
-  this figure shows that the CEBPA\_sil mutation samples have greater epipolymorphism values than the normal samples. It means that the epigenetic heterogeneity of the CEBPA\_sil samples is greater than the
-  normal samples due to the varying methylation status.
+  difference between the median epipolymorphism values between the two subtypes with CEBPA\_sil mutation at 0.3133 and normal at 0.7833.
   \\Some other important features of the epiBox function are adding the individual data points for each sample to
   the boxplots through the 'add.points' parameter, customizing colors of both the boxes and points by adding a vector
   of colors to both 'box.colors' and 'points.colors', and saving the resulting figure as a .pdf file using 'sve',
@@ -260,7 +258,7 @@ epihet::epiBox(compare.matrix = comp.Matrix, value = 'epipoly',
   \subsection{Generating a Heat Map}
   We can cluster the samples based on the epigenetic heterogeneity using the most variable genetic loci. The function epiMap uses pheatmap function (default value) to create
   a heatmap plot based the top user-inputted percent of loci with the highest standard deviation across all samples.
-  In the exampple, the function use epipolymorphism values to cluster the sample based on the top 5\% of loci with highest standard deviation.
+  In the example, the function uses epipolymorphism values to cluster the sample based on all the loci. The
   user can create the appropriate input for the parameter annotate.colors to color the samples by subtype information:
 <<>>=
 pmap = epihet::epiMap(compare.matrix = comp.Matrix,
