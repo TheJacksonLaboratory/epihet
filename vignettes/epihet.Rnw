@@ -306,9 +306,7 @@ epihet::epiPCA(compare.matrix = comp.Matrix, value = 'epipoly',
 \includegraphics[width=4in]{epipoly_pca.pdf}
 \caption{PCA Plot of CEBPA\_sil and Normal sample by epipolymorphism value.}
 \end{figure}
-  The PCA plot shows CEBPA\_sil and normal samples can separate each other very well. The normal samples are clustered close together,
-  which means the variance between the normal samples for epipolymorphism values is small. The CEBPA\_sil mutation samples are spaced out along the y-axis,
-  which means the variance based on their epipolymorphism values is large.
+  The PCA plot shows CEBPA\_sil and normal samples can separate each other very well.
   \\Other features of epiPCA include adding frames or probability ellipses to better define the groupings of annotations with
   'frames' or 'probability', customizing the colors of the points and frames by adding a vector of colors to 'points.colors' and
   'frames.colors', and saving the plot as a .pdf file using 'sve', 'pdf.height', and 'pdf.width'.
@@ -343,7 +341,7 @@ epihet::epiTSNE(compare.matrix = comp.Matrix, value = 'epipoly',
   The diffHet functions is the main function to identify differential epigenetic heterogeneity (DEH) locus. Depending on the measures of epigenetic heterogeneity user investigates,
   it will either use t-test or permutation test to calculate p values. p values will be adjusted using multiple test correction.
   When you identify the loci with differential PDR or epipolymorphism comparing test versus control samples, the function will use t-test.
-  Otherwise, the function will employ EntropyEXPLORER R package to perform the permutation test. And the function also return the mean epigenetic heterogeneity for each group
+  Otherwise, the function will employ EntropyExplorer R package to perform the permutation test. And the function also returns the mean epigenetic heterogeneity for each group
   and the mean epigenetic heterogeneity difference between test and control samples. The users can use the mean epigenetic heterogeneity difference and adjusted p values to identify DEH loci.
   The following code creates the dataframe for all the loci containing differential epipolymorphism between normal and CEBPA\_sil mutation samples for epipolymorphism values with a heterogeneity difference cutoff of 0.20:
 <<>>=
@@ -362,7 +360,7 @@ diff.het.matrix = epihet::diffHet(compare.matrix = comp.Matrix,
 @
   After calculating the heterogeneity difference and adjusted p-value for each locus, an MA plot can be created.
   For each locus, the average of the means heterogeneity for two groups versus the heterogeneity difference was plotted.
-  DEH loci (significant p-values lower than the inputted cutoff) are highlighted in red. The following code creates the MA plot below using the heterogeneity
+  DEH loci (adjusted p-values lower than the inputted cutoff) are highlighted in red. The following code creates the MA plot below using the heterogeneity
   difference cutoff of 0.2 and an adjusted p-value cutoff of 0.05:
 <<results='hide'>>=
 data(diffhetmatrix,package="epihet")
@@ -372,7 +370,7 @@ epihet::epiMA(pval.matrix = diffhetmatrix, padjust.cutoff = 0.05,
 \begin{figure}[!htbp]
 \centering
 \includegraphics[width=4in]{CEBPA_sil_Normal_epipoly_MAplot.pdf}
-\caption{MA Plot of CEBPA\_sil and Normal sample. Red dots represent DEH loci. Gray dots indicate non-DEH loci.}
+\caption{MA Plot of CEBPA\_sil and Normal samples. Red dots represent DEH loci. Gray dots indicate non-DEH loci.}
 \end{figure}
   Through analysis of the MA plot, we can clearly see the distribution of the DEH loci. The red points with the negative heterogeneity difference values
   are decrease DEH loci. The red points with the positive heterogeneity difference values are increase DEH loci.
@@ -386,7 +384,7 @@ epihet::epiMA(pval.matrix = diffhetmatrix, padjust.cutoff = 0.05,
 \section{Constructing co-epigenetci heterogeneity network}
   \subsection{Network construction and module identification}
   We can construct co-epigenetic heterogeneity network based on the DEH loci using WGCNA R package. For altorithm details, please refer to the tutorial of WGCNA.
-  Here,there are two menthods to construct network, which was decided by the parameter node.type. One method calculates the co-epigenetic heterogeneity between any two DEH loci.
+  Here, there are two menthods to construct network, which was decided by the parameter node.type. One method calculates the co-epigenetic heterogeneity between any two DEH loci.
   Another one is to identify genes with genome region annotated by DEH loci and calculates the co-epigenetic heterogeneity between any two genes.
   Genome region can be promoter, CpG islands, CpG shores and so on. The epigenetic heterogeneity of one gene was measured with the average epigenetic heterogeneity of loci associated with the gene.
   At this case, annotation files in BED format are need for annotating your DEH loci. You can download annotation from UCSC table browser for your genome of interest.
@@ -454,7 +452,7 @@ module.topology=epihet::moduleVisual(TOM,
   Users can specify network layout and style using Cytoscape.
 
   \subsection{Module Annotation}
-  The epihet package contains a function to perform pathway enrichment analysis using a simple,single step. To run the function, ReactomePA needs to be installed before running the code.
+  The epihet package contains a function to perform pathway enrichment analysis using a simple, single step. To run the function, ReactomePA needs to be installed before running the code.
   Here, ReactomePA needs entrez ID, so we firstly transform refseq ID to entrez ID using function bitr() in R package clusterProfiler.
 <<results='hide'>>=
 library(clusterProfiler)
