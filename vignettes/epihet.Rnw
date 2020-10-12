@@ -106,7 +106,7 @@ library(epihet)
     proportion of discordant reads (PDR). PDR at each locus is defined as the
     proportion of discordant reads compared to the number of total reads from
     that locus (Landau et al, 2014). A bisulfite sequencing read at a given
-    locus was classified as a concordant read or a discordant read. Here, a concordant read is one that shows all unmethlated or all methylated sites at a given locus, such as a four methylated cytosines. A discordant
+    locus is classified as a concordant read or a discordant read. Here, a concordant read is one that shows fully unmethylated or fully methylated sites at a given locus, such as a four methylated cytosines. A discordant
     read is one that shows varying states of methylated and unmethylated regions at a given locus, such as a methylated cytosine followed by three
     unmethylated cytosines. PDR values can then be used for analyzing
     epigenetic heterogeneity because a greater value for PDR corresponds
@@ -136,7 +136,7 @@ library(epihet)
     A large value for Shannon entropy corresponds to a greater number of epiallele patterns needed and would be considered
     more diverse and, therefore, more heterogeneous. A low value for Shannon entropy corresponds to a lesser amount of epiallele
     patterns needed and be considered less heterogeneous based on its epigenetics. A value of 0 for Shannon entropy shows that
-    the epialle only contained a single methylation pattern across multiple reads.
+    the locus only contains a single methylation pattern across all the reads.
 
 \section{Building the Comparison Matrix}
   In order to prepare for analysis, epihet has built-in functions that take in multiple txt files for multiple
@@ -170,7 +170,7 @@ GR.List = epihet::makeGR(files = files, ids = ids,
                          cores = 1, sve = FALSE)
 @
 
-  One row in each GenomicRanges object in the list cotains the information of one locus, including chromosome number, range of
+  One row in each GenomicRanges object in the list contains the information of one locus, including chromosome number, range of
   the strand, and strand type, as well as six additional columns that includes the locus ID, number of
   reads, average methylation percentage of the locus, and PDR, epipolymorphism, and Shannon entropy values of the locus. If makeGR is being used to process many files, the variable 'cores' can be changed to specify the number of cores to
   use for parallel execution. If the resulting GenomicRanges list must be saved for later use, the variable 'sve' can be set to
@@ -374,7 +374,7 @@ epihet::epiMA(pval.matrix = diffhetmatrix, padjust.cutoff = 0.05,
 \begin{figure}[!htbp]
 \centering
 \includegraphics[width=4in]{CEBPA_sil_Normal_epipoly_MAplot.pdf}
-\caption{MA Plot of CEBPA\_sil and Normal sample.}
+\caption{MA Plot of CEBPA\_sil and Normal sample. Red dots represent DEH loci. Gray dots indicate non-DEH loci.}
 \end{figure}
   Through analysis of the MA plot, we can clearly see the distribution of the DEH loci. The red points with the negative heterogeneity difference values
   are decrease DEH loci. The red points with the positive heterogeneity difference values are increase DEH loci.
