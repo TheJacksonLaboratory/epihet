@@ -69,7 +69,7 @@ library(epihet)
   Methylation occurs on the DNA strand where a methyl group attaches to the
   cytosine of a bonded cytosine and guanine pairing. Normal methylation
   patterns assure the proper regulation of gene expression and stable gene
-  siliencing. Areas of DNA that have a high percentage of methylation are
+  silencing. Areas of DNA that have a high percentage of methylation are
   considered to be hypermethylated and have been associated with the silencing
   of certain tumor-suppressor genes. Areas with lower percentages of
   methylation are called hypomethylated and are associated with cell transformation.
