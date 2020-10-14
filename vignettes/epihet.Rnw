@@ -294,12 +294,12 @@ pmap = epihet::epiMap(compare.matrix = comp.Matrix,
   values and colors the points by an inputted annotation. The following code creates the PCA plot seen
   below for epipolymorphism values and colors the points on the plot based on subtype groupings:
 <<>>=
-library(ggfortify)
+suppressPackageStartupMessages(library(ggfortify))
 epihet::epiPCA(compare.matrix = comp.Matrix, value = 'epipoly',
                type = subtype, points.colors = NULL,
                frames = FALSE, frames.colors = NULL,
-               probability = FALSE, pdf.height = 10,
-               pdf.width = 10, sve = TRUE)
+               probability = FALSE, pdf.height = 4,
+               pdf.width = 4, sve = TRUE)
 @
 \begin{figure}[h]
 \centering
@@ -322,8 +322,8 @@ epihet::epiPCA(compare.matrix = comp.Matrix, value = 'epipoly',
 set.seed(42)
 epihet::epiTSNE(compare.matrix = comp.Matrix, value = 'epipoly',
                 type = subtype, points.colors = NULL, theta = 0.5,
-                perplexity = 1, max_iter = 1000, pdf.height = 10,
-                pdf.width = 10, sve = TRUE)
+                perplexity = 1, max_iter = 1000, pdf.height = 4,
+                pdf.width = 4, sve = TRUE)
 @
 \begin{figure}[h]
 \centering
@@ -365,7 +365,7 @@ diff.het.matrix = epihet::diffHet(compare.matrix = comp.Matrix,
 <<results='hide'>>=
 data(diffhetmatrix,package="epihet")
 epihet::epiMA(pval.matrix = diffhetmatrix, padjust.cutoff = 0.05,
-              pch = ".", sve = TRUE,pointsize=4)
+              pch = 19, sve = TRUE,pointsize=1.5)
 @
 \begin{figure}[!htbp]
 \centering
@@ -392,8 +392,8 @@ epihet::epiMA(pval.matrix = diffhetmatrix, padjust.cutoff = 0.05,
   Additionally, users can also supply the clinical traits of patients in dataframe to the parameter datTraits, such as age, gender, survival time, to identify clinically significant modules.
   Then network can be obtained as follows:
 <<results='hide'>>=
-library(GenomicRanges)
-library(doParallel)
+suppressPackageStartupMessages(library(GenomicRanges))
+suppressPackageStartupMessages(library(doParallel))
 registerDoParallel(cores=1)
 data(sharedmatrix,package="epihet")
 data(DEH,package = "epihet")
@@ -455,7 +455,7 @@ module.topology=epihet::moduleVisual(TOM,
   The epihet package contains a function to perform pathway enrichment analysis using a simple, single step. To run the function, ReactomePA needs to be installed before running the code.
   Here, ReactomePA needs entrez ID, so we firstly transform refseq ID to entrez ID using function bitr() in R package clusterProfiler.
 <<results='hide'>>=
-library(clusterProfiler)
+suppressPackageStartupMessages(library(clusterProfiler))
 gene=unique(epi.network$module$gene)
 entrez=bitr(gene,fromType = "REFSEQ",toType = "ENTREZID",
             OrgDb = "org.Hs.eg.db")
@@ -470,7 +470,7 @@ pathway = epihet::epiPathway(genelist,cutoff = 0.05,
 @
 \begin{figure}[!htbp]
 \centering
-\includegraphics[width=2in]{CEBPA_sil_turquoise_pathway.pdf}
+\includegraphics[width=4in]{CEBPA_sil_turquoise_pathway.pdf}
 \caption{Bar plot of pathway enrichment results.}
 \end{figure}
   The function returns a dataframe containing pathways significantly enriched by genes of one module and a barplot enrichment map for visualization.
