@@ -68,6 +68,6 @@ modulesil: Module information for CEBPA-sil mutation samples
 
 promoter: The promoter region annotation file
 
-sharedmatrix: Epipolymorphism values for 6 patients on DEH loci
+sharedmatrix: Epigenetic heterogeneity values for 6 patients on DEH loci
 }
 \keyword{datasets}
