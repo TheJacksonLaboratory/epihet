@@ -13,6 +13,8 @@
 #' 'sve' must be set to TRUE (default: NULL)
 #' @param readNumber The lowest number of reads required for each loci
 #' (default: 60)
+#' @param metrics The epigenetic heterogeneity metrics included in comp.Matrix
+#' (default: read,meth,pdr,epipoly,shannon)
 #' @param p Percentage (as decimal) of matching samples required
 #' to determine a match at a given locus, e.g. a value of 0.75
 #' requires 75\% of the samples to have an epiallele at a common
@@ -66,10 +68,12 @@
 #' readNumber = 60, p = 1, cores = 1, sve = FALSE)
 #' @export
 compMatrix <- function(epi.gr, outprefix = NULL, readNumber = 60,
-    p = 1, cores = 5, sve = FALSE) {
+                       metrics = c("read1","meth1","pdr","epipoly","shannon"),#add new
+                       p = 1, cores = 5, sve = FALSE) {
     for (i in seq_len(length(epi.gr))) {
       stopifnot( is(epi.gr[[i]], "GRanges") )
     }
+    metrics <- paste("values", metrics, sep = ".")#add new
     print("Getting all loci")
     sub.ids <- foreach(x = epi.gr, .combine = c) %do% {
         x <- x[values(x)$values.read1 >= readNumber,]
@@ -85,11 +89,11 @@ compMatrix <- function(epi.gr, outprefix = NULL, readNumber = 60,
         x <- x[values(x)$values.read1 >= readNumber,]
         ids <- paste(seqnames(x), values(x)$values.loci, sep = "-")
         x1 <- x[ids %in% shared.ids, ]
-        x2 <- values(x1)[, 2:6]
-        rownames(x2) <- paste(seqnames(x1), values(x1)[,1], sep = "-")
+        x2 <- values(x1)[, metrics] #new add
+        rownames(x2) <- paste(seqnames(x1), values(x1)$values.loci, sep = "-")
         use.ids <- intersect(ids, shared.ids)
         i <- NULL
-        res <- foreach(i = colnames(values(x1))[2:6],.combine = rbind) %dopar% {
+        res <- foreach(i = metrics,.combine = rbind) %dopar% {#new add
             dat <- dat.na
             # dat$type=gsub('values.|1','',i)
             dat[use.ids, "value"] = x2[use.ids, i]
@@ -99,11 +103,11 @@ compMatrix <- function(epi.gr, outprefix = NULL, readNumber = 60,
     }
     colnames(epi.shared.matrix) <- names(epi.gr)
     epi.shared.matrix$type = rep(gsub("values.|1", "",
-        colnames(values(epi.gr[[1]]))[2:6]), each = length(shared.ids))
+                                      metrics), each = length(shared.ids))
     epi.shared.matrix$location = rownames(epi.shared.matrix)
     epi.shared.matrix[epi.shared.matrix$type != "read", "location"] =
-        gsub(".{1}$", "", epi.shared.matrix[epi.shared.matrix$type !=
-        "read", "location"])
+      gsub(".{1}$", "", epi.shared.matrix[epi.shared.matrix$type !=
+                                            "read", "location"])
     rownames(epi.shared.matrix) <- seq_len(nrow(epi.shared.matrix))
     if (sve) {
         save(epi.shared.matrix, file = paste0(outprefix,

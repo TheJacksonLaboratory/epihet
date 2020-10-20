@@ -41,7 +41,8 @@ makeGR <- function(files, ids, cores = 5, sve = FALSE) {
   epi.gr <- foreach(n = seq_len(length(files))) %dopar% {
     f <- files[n]
     x <- suppressMessages(data.table::fread(paste("gzip -dc", f), sep = "\t"))  #[,-27]
-    x<-x[,-27]
+    myVar = c(grep("s1:",colnames(x),value=T),"V27")#new add
+    x[, (myVar):=NULL]#new add
     x$pdr = rowSums(x[, c(12:25), with = FALSE])/100
     x$epipoly = 1 - rowSums((x[, c(11:26), with = FALSE]/100)^2)
     x$shannon = apply(x[, c(11:26), with = FALSE], 1, shannon)

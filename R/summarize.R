@@ -38,14 +38,14 @@
 #' @export
 summarize <- function(gr1, gr2, value1, value2, cutoff1 = 10,
     cutoff2 = 60) {
-    values <- c("pdr", "shannon", "epipoly")
+    values <- c("pdr", "shannon", "epipoly","myValues")#new add
     if (!(value1 %in% values)) {
         stop("Invalid value '", value1, "': Possible values are 'pdr',
-             'epipoly', or 'shannon'")
+             'epipoly', 'myValues' or 'shannon'")#new add
     }
     if (!(value2 %in% values)) {
         stop("Invalid value '", value2, "': Possible values are 'pdr',
-             'epipoly', or 'shannon'")
+             'epipoly', 'myValues' or 'shannon'")#new add
     }
     o <- findOverlaps(gr1, gr2)
     x.anno <- values(gr1[unique(queryHits(o))])
