@@ -192,6 +192,31 @@ comp.Matrix = epihet::compMatrix(epi.gr = GR.List, outprefix = NULL,
   If the resulting comparison matrix needs to be saved, 'sve' can be set to TRUE and 'outprefix' can
   be specified to add a prefix to the resulting .rda file. If large files are being used, the matrix
   can be created using multiple cores to speed up the execution as specified by the 'cores' variable.
+  \\Additionally, the users can add other epigenetic heterogeneity metrics they develop or interest
+in this step. If there are multiple customized metrics, all the analysis will be performed one measurement
+one time. Firstly, the customized metrics on all the loci for one sample are saved as an elements of a list.
+The example data 'myValues' provided by epihet. Here we denoted the customized metrics as myValues.
+Then, we added the myValues into the metadata of Granges object from GR.List sample by sample.
+Finally, the users can get the comparison matrix including the customized
+metrics through setting the argument 'metrics' to a vector including value 'myValues'. When the comparison matrix
+is generated, the users can also perform other downstream analysis using the customized metircs
+through setting the argument 'value' to 'myValues'.
+
+<<eval=FALSE>>=
+data(myValues,package = "epihet")
+myGR.List<-list()
+for (n in names(GR.List)) {
+  tmp<-GR.List[[n]]
+  tmp$values.myValues<-myValues[[n]]
+  myGR.List[[n]]<-tmp
+}
+mycomp.Matrix = epihet::compMatrix(epi.gr = myGR.List, outprefix = NULL,
+                                 readNumber = 60, p = 1,
+                                 metrics = c("read1","meth1", "pdr", "epipoly", 
+                                             "shannon","myValues"),
+                                 cores = 1, sve = FALSE)
+@
+  
 
   \subsection{Create Single GenomicRanges Object}
   Instead of creating a list of GenomicRanges objects, a single GenomicRanges object can be created
@@ -293,13 +318,13 @@ pmap = epihet::epiMap(compare.matrix = comp.Matrix,
   coordinates based on variance. The epiPCA function creates a PCA plot for either PDR, epipolymorphism, or Shannon entropy
   values and colors the points by an inputted annotation. The following code creates the PCA plot seen
   below for epipolymorphism values and colors the points on the plot based on subtype groupings:
-<<>>=
+<<message=FALSE>>=
 suppressPackageStartupMessages(library(ggfortify))
 epihet::epiPCA(compare.matrix = comp.Matrix, value = 'epipoly',
                type = subtype, points.colors = NULL,
                frames = FALSE, frames.colors = NULL,
                probability = FALSE, pdf.height = 4,
-               pdf.width = 4, sve = TRUE)
+               pdf.width = 5, sve = TRUE)
 @
 \begin{figure}[h]
 \centering
@@ -323,7 +348,7 @@ set.seed(42)
 epihet::epiTSNE(compare.matrix = comp.Matrix, value = 'epipoly',
                 type = subtype, points.colors = NULL, theta = 0.5,
                 perplexity = 1, max_iter = 1000, pdf.height = 4,
-                pdf.width = 4, sve = TRUE)
+                pdf.width = 5, sve = TRUE)
 @
 \begin{figure}[h]
 \centering
@@ -339,10 +364,10 @@ epihet::epiTSNE(compare.matrix = comp.Matrix, value = 'epipoly',
 
   \subsection{Identifying Differential Epigenetic Heterogeneity locus}
   The diffHet functions is the main function to identify differential epigenetic heterogeneity (DEH) locus. Depending on the measures of epigenetic heterogeneity user investigates,
-  it will either use t-test or permutation test to calculate p values. p values will be adjusted using multiple test correction.
+  it will either use t-test or permutation test to calculate p-values. p-values will be adjusted using multiple test correction.
   When you identify the loci with differential PDR or epipolymorphism comparing test versus control samples, the function will use t-test.
   Otherwise, the function will employ EntropyExplorer R package to perform the permutation test. And the function also returns the mean epigenetic heterogeneity for each group
-  and the mean epigenetic heterogeneity difference between test and control samples. The users can use the mean epigenetic heterogeneity difference and adjusted p values to identify DEH loci.
+  and the mean epigenetic heterogeneity difference between test and control samples. The users can use the mean epigenetic heterogeneity difference and adjusted p-values to identify DEH loci.
   The following code creates the dataframe for all the loci containing differential epipolymorphism between normal and CEBPA\_sil mutation samples for epipolymorphism values with a heterogeneity difference cutoff of 0.20:
 <<>>=
 samples=data.frame(Sample=colnames(comp.Matrix)[1:(length(comp.Matrix)-2)],
@@ -454,7 +479,7 @@ module.topology=epihet::moduleVisual(TOM,
   \subsection{Module Annotation}
   The epihet package contains a function to perform pathway enrichment analysis using a simple, single step. To run the function, ReactomePA needs to be installed before running the code.
   Here, ReactomePA needs entrez ID, so we firstly transform refseq ID to entrez ID using function bitr() in R package clusterProfiler.
-<<results='hide'>>=
+<<results='hide', message=FALSE, warning=FALSE>>=
 suppressPackageStartupMessages(library(clusterProfiler))
 gene=unique(epi.network$module$gene)
 entrez=bitr(gene,fromType = "REFSEQ",toType = "ENTREZID",
