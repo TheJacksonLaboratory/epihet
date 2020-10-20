@@ -11,6 +11,7 @@
 \alias{modulesil}
 \alias{promoter}
 \alias{sharedmatrix}
+\alias{myValues}
 \title{example data
 background}
 \format{background: A data frame with 31995 rows and 1 variables:
@@ -44,6 +45,9 @@ promoter
 
 data(sharedmatrix)
 sharedmatrix
+
+data(myValues)
+myValues
 }
 \value{
 A data frame
@@ -69,5 +73,7 @@ modulesil: Module information for CEBPA-sil mutation samples
 promoter: The promoter region annotation file
 
 sharedmatrix: Epigenetic heterogeneity values for 6 patients on DEH loci
+
+myValues: customized epigenetic diversity metric for 4 samples
 }
 \keyword{datasets}

@@ -5,8 +5,8 @@
 \title{Calculate Differential Heterogeneity}
 \usage{
 diffHet(compare.matrix, value, group1, group2, subtype,
-  het.dif.cutoff = 0.2, permutations = 1000, p.adjust.method = "fdr",
-  cores = 5)
+  het.dif.cutoff = 0.2, permutations = 1000, permutationtest = FALSE,
+  p.adjust.method = "fdr", cores = 5)
 }
 \arguments{
 \item{compare.matrix}{The comparison matrix generated from
@@ -34,6 +34,10 @@ to NA. (default: 0.20)}
 \item{permutations}{The number of permutations for the
 EntropyExplorer function. Value must be set to 'shannon'.
 (default: 1000)}
+
+\item{permutationtest}{boolean values determining if the permutation test is 
+applied for DEH loci identification based on customized heterogeneity metrics
+(default: FALSE)}
 
 \item{p.adjust.method}{The method to be used as a parameter in
 p.adjust() function. Possible methods are 'holm', 'hochberg',

@@ -4,8 +4,9 @@
 \alias{compMatrix}
 \title{Make Comparison Matrix}
 \usage{
-compMatrix(epi.gr, outprefix = NULL, readNumber = 60, p = 1,
-  cores = 5, sve = FALSE)
+compMatrix(epi.gr, outprefix = NULL, readNumber = 60,
+  metrics = c("read1", "meth1", "pdr", "epipoly", "shannon"),
+  p = 1, cores = 5, sve = FALSE)
 }
 \arguments{
 \item{epi.gr}{An input file containing the read number, locus,
@@ -17,6 +18,9 @@ GenomicRanges objects}
 
 \item{readNumber}{The lowest number of reads required for each loci
 (default: 60)}
+
+\item{metrics}{The epigenetic heterogeneity metrics included in comp.Matrix
+(default: read1,meth1,pdr,epipoly,shannon)}
 
 \item{p}{Percentage (as decimal) of matching samples required
 to determine a match at a given locus, e.g. a value of 0.75
