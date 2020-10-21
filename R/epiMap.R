@@ -79,10 +79,10 @@ epiMap <- function(compare.matrix, value, annotate,
     loci.percent = 0.1, show.rows = FALSE, show.columns = FALSE,
     font.size = 6, pdf.height = 10, pdf.width = 10,
     sve = FALSE, ...) {
-    values = c("read", "pdr", "meth", "epipoly", "shannon")
+    values = c("read", "pdr", "meth", "epipoly", "shannon", "myValues")
     if (!(value %in% values)) {
         stop("Invalid value '", value, "': Possible values are 'read',
-           'pdr', 'meth', 'epipoly', or 'shannon'")
+           'pdr', 'meth', 'epipoly', 'myValues' or 'shannon'")
     }
     value.matrix <- compare.matrix[compare.matrix$type == value,
         -(length(compare.matrix) - 1)]
