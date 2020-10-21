@@ -56,10 +56,10 @@
 epiBox <- function(compare.matrix, value, type, box.colors = NULL,
     add.points = FALSE, points.colors = NULL, pdf.height = 10,
     pdf.width = 10, sve = FALSE) {
-    values = c("read", "pdr", "meth", "epipoly", "shannon")
+    values = c("read", "pdr", "meth", "epipoly", "shannon", "myValues")
     if (!(value %in% values)) {
         stop("Invalid value '", value, "': Possible values are 'read',
-             'pdr', 'meth', 'epipoly', or 'shannon'")
+             'pdr', 'meth', 'epipoly', 'myValues' or 'shannon'")
     }
     location.col <- length(compare.matrix)
     type.col <- location.col - 1
