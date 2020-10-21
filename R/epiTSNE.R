@@ -59,10 +59,10 @@
 epiTSNE <- function(compare.matrix, value, type, points.colors = NULL,
     theta = 0.5, curTheme = NULL, perplexity = 5, max_iter = 1000,
     pdf.height = 10, pdf.width = 10, sve = FALSE) {
-    values <- c("read", "pdr", "meth", "epipoly", "shannon")
+    values <- c("read", "pdr", "meth", "epipoly", "shannon", "myValues")
     if (!(value %in% values)) {
         stop("Invalid value '", value, "': Possible values are 'read',
-             'pdr', 'meth', 'epipoly', or 'shannon'")
+             'pdr', 'meth', 'epipoly', 'myValues' or 'shannon'")
     }
     value.matrix <- compare.matrix[compare.matrix$type == value,
         -(length(compare.matrix) - 1)]
