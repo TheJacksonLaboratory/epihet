@@ -162,7 +162,7 @@ ids = epihet::splitn(basename(files),"[.]",1)
   \subsection{Creating a List of GenomicRanges Objects}
   To use epihet to calculate epigenetic heterogeneity, users need to assign the compressed text file suffix to methClone\_out.gz. Then, makeGR function in epihet reads in the compressed text files and creates a GenomicRanges object for each file. The GenomicRanges objects are returned in a list. The makeGR function is the first step for epihet's
   pipeline as the result is needed for input in the comparison matrix function, compMatrix. The function takes a vector of file
-  paths, 'files', and a vector of sample names that correspond to the files, 'ids'. The following code creates a
+  paths, 'files', and a vector of sample names that corresponds to the files, 'ids'. The following code creates a
   list of GenomicRanges objects using epihet's sample files:
 
 <<>>=
@@ -171,11 +171,11 @@ GR.List = epihet::makeGR(files = files, ids = ids,
 @
 
   One row in each GenomicRanges object in the list contains the information of one locus, including chromosome number, range of
-  the strand, and strand type, as well as six additional columns that includes the locus ID, number of
+  the strand, and strand type, as well as six additional columns that include the locus ID, number of
   reads, average methylation percentage of the locus, and PDR, epipolymorphism, and Shannon entropy values of the locus. If makeGR is being used to process many files, the variable 'cores' can be changed to specify the number of cores to
   use for parallel execution. If the resulting GenomicRanges list must be saved for later use, the variable 'sve' can be set to
   TRUE and the result will be saved to a .rda file.
-  \subsection{Generate Comparison Matrix}
+  \subsection{Generating Comparison Matrix}
   The list of GenomicRanges objects can be used to generate the comparison matrix that is used for the
   analysis functions included in epihet. The comparison matrix is created using the 'compMatrix' function which locates epialleles
   that are shared by at least a certain percentage of the samples and organizing the data into sections for read number, average methylation
@@ -194,12 +194,12 @@ comp.Matrix = epihet::compMatrix(epi.gr = GR.List, outprefix = NULL,
   can be created using multiple cores to speed up the execution as specified by the 'cores' variable.
   \\Additionally, the users can add other epigenetic heterogeneity metrics they develop or interest
 in this step. If there are multiple customized metrics, all the analysis will be performed one measurement
-one time. Firstly, the customized metrics on all the loci for one sample are saved as an elements of a list.
-The example data 'myValues' provided by epihet. Here we denoted the customized metrics as myValues.
-Then, we added the myValues into the metadata of Granges object from GR.List sample by sample.
+one time. Firstly, the customized metrics on all the loci for one sample are saved as an element of a list.
+The example data 'myValues' are provided by epihet. Here we denoted the customized metrics as myValues.
+Then, we added the myValues into the metadata of the GRanges object from GR.List sample by sample.
 Finally, the users can get the comparison matrix including the customized
 metrics through setting the argument 'metrics' to a vector including value 'myValues'. When the comparison matrix
-is generated, the users can also perform other downstream analysis using the customized metircs
+is generated, the users can also perform other downstream analysis using the customized metrics
 through setting the argument 'value' to 'myValues'.
 
 <<eval=FALSE>>=
@@ -218,7 +218,7 @@ mycomp.Matrix = epihet::compMatrix(epi.gr = myGR.List, outprefix = NULL,
 @
   
 
-  \subsection{Create Single GenomicRanges Object}
+  \subsection{Creating Single GenomicRanges Object}
   Instead of creating a list of GenomicRanges objects, a single GenomicRanges object can be created
   using the 'readGR' function. The function takes a vector of files, 'files',  and a vector of IDs,
   'ids', that corresponds to the files. The index of the file, 'n', to be used for creating the
@@ -270,7 +270,7 @@ epihet::epiBox(compare.matrix = comp.Matrix, value = 'epipoly',
 \begin{figure}[!htbp]
 \centering
 \includegraphics[width=3in]{epipoly_boxplot.pdf}
-\caption{Boxplot of CEBPA\_sil and Normal sample by epipolymorphism value.}
+\caption{Boxplot of CEBPA\_sil and Normal samples by epipolymorphism value.}
 \end{figure}
   As the figure 1 shows, the CEBPA\_sil mutation samples have a range in epipolymorphism values ranging from 0.08 to 0.55, while the normal
   samples have a very small range with all average epipolymorphism values being around 0.78. The figure also shows a relatively large
@@ -299,7 +299,7 @@ pmap = epihet::epiMap(compare.matrix = comp.Matrix,
 \begin{figure}[!htbp]
 \centering
 \includegraphics[width=3in]{epipoly_pheatmap.pdf}
-\caption{Heatmap of CEBPA\_sil and Normal sample by epipolymorphism value.}
+\caption{Heatmap of CEBPA\_sil and Normal samples by epipolymorphism value.}
 \end{figure}
   Other features of epiMap include customizing the size of the font in the image through 'font.size', showing row or column names
   using 'show.rows' and 'show.columns', and the ability to save the image as a .pdf file through 'sve', 'pdf.height', and 'pdf.width'.
@@ -329,7 +329,7 @@ epihet::epiPCA(compare.matrix = comp.Matrix, value = 'epipoly',
 \begin{figure}[h]
 \centering
 \includegraphics[width=4in]{epipoly_pca.pdf}
-\caption{PCA Plot of CEBPA\_sil and Normal sample by epipolymorphism value.}
+\caption{PCA Plot of CEBPA\_sil and Normal samples by epipolymorphism value.}
 \end{figure}
   The PCA plot shows CEBPA\_sil and normal samples can separate each other very well.
   \\Other features of epiPCA include adding frames or probability ellipses to better define the groupings of annotations with
@@ -353,9 +353,9 @@ epihet::epiTSNE(compare.matrix = comp.Matrix, value = 'epipoly',
 \begin{figure}[h]
 \centering
 \includegraphics[width=4in]{epipoly_tsne.pdf}
-\caption{t-SNE Plot of CEBPA\_sil and Normal sample.}
+\caption{t-SNE Plot of CEBPA\_sil and Normal samples.}
 \end{figure}
-  The t-SNE plot shows the CEBPA\_sil and normal samples cluster two different groups. As these two grouping are at opposite ends of the t-SNE plot, one can assume that the epipolymorphism values
+  The t-SNE plot shows the CEBPA\_sil and normal samples cluster two different groups. As these two groups are at opposite ends of the t-SNE plot, one can assume that the epipolymorphism values
   for the CEBPA\_sil mutation samples differ widely in comparison to the normal samples. This corresponds to a large difference in the number
   of methylation patterns found in the two subtypes.
   \\Other features of epiTSNE include customizing the colors of the points by adding a vector of colors to 'points.colors', customizing the
@@ -406,14 +406,14 @@ epihet::epiMA(pval.matrix = diffhetmatrix, padjust.cutoff = 0.05,
   \\Other features for epiMA include specifying the adjusted p-value cutoff to find significant values using 'padjust.cutoff', changing the
   individual point designs for the plot using 'pch', and the ability to save the plot as a .pdf file using 'sve'.
 
-\section{Constructing co-epigenetci heterogeneity network}
+\section{Constructing co-epigenetic heterogeneity network}
   \subsection{Network construction and module identification}
-  We can construct co-epigenetic heterogeneity network based on the DEH loci using WGCNA R package. For altorithm details, please refer to the tutorial of WGCNA.
-  Here, there are two menthods to construct network, which was decided by the parameter node.type. One method calculates the co-epigenetic heterogeneity between any two DEH loci.
+  We can construct co-epigenetic heterogeneity network based on the DEH loci using WGCNA R package. For algorithm details, please refer to the tutorial of WGCNA.
+  Here, there are two methods to construct network, which were decided by the parameter node.type. One method calculates the co-epigenetic heterogeneity between any two DEH loci.
   Another one is to identify genes with genome region annotated by DEH loci and calculates the co-epigenetic heterogeneity between any two genes.
   Genome region can be promoter, CpG islands, CpG shores and so on. The epigenetic heterogeneity of one gene was measured with the average epigenetic heterogeneity of loci associated with the gene.
   At this case, annotation files in BED format are need for annotating your DEH loci. You can download annotation from UCSC table browser for your genome of interest.
-  Then you should save the BED file as the Granges object in R, and input it into the parameter annotation.obj. We also provide gene promoter files for Refseq genes.
+  Then you should save the BED file as the GRanges object in R, and input it into the parameter annotation.obj. We also provide gene promoter files for Refseq genes.
   Additionally, users can also supply the clinical traits of patients in dataframe to the parameter datTraits, such as age, gender, survival time, to identify clinically significant modules.
   Then network can be obtained as follows:
 <<results='hide'>>=
@@ -444,22 +444,23 @@ epi.network=epihet::epiNetwork(node.type = "gene",DEH,sharedmatrix,
   This function is used to generate the co-epigenetic heterogeneity network and modules. It will return a list containing epigenetic heterogeneity matrix of patients, module information
   and genes of each module. At the same time, the function saves Topological Overlap Matrices(TOM) as RData format. And, it creates a clustering dendrogram of loci/genes showing module
   information through assigning different colors.
-  \\The function also creates a bar plot showing the number of genes associated with DEH loci in each module in the Figure 7.
-  \\When users provided the external clinical traits, the clinically significant modules were identified. The result was visualized by the heatmap plot in Figure 8.
+  \\When users provided the external clinical traits, the clinically significant modules were identified. The result was visualized by the heatmap plot in the Figure 7.
   Each row in the table corresponds to a module, and each column to a trait.
   Numbers in the table report the correlations of the corresponding module eigengenes and traits, with the p values printed below the correlations in parentheses. The color legend denotes correlation.
+  \\The function also creates a bar plot showing the number of genes associated with DEH loci in each module in Figure 8.
+  
 \begin{figure}[!htbp]
 \centering
 \includegraphics[width=4in]{epipolyclinicaltrait_heatmap.pdf}
-\caption{The bar plot showing the number of genes in each module.}
+\caption{Heatmap showing the relationship between module eigengenes and clinical traits.}
 \end{figure}
 \begin{figure}[!htbp]
 \centering
 \includegraphics[width=3in]{epipoly_num_gene_module.pdf}
-\caption{Heatmap showing the relationship between module eigengenes and clinical traits.}
+\caption{The bar plot showing the number of genes in each module.}
 \end{figure}
   \subsection{Module Visualization}
-  We can also visualize the modules and perform the network topoloty analysis using the following function.
+  We can also visualize the modules and perform the network topology analysis using the following function.
 <<results='hide'>>=
 load("epipoly-block.1.RData")
 module.topology=epihet::moduleVisual(TOM,
@@ -515,7 +516,7 @@ module.annotation=epihet::moduleAnno(DEG$refseq,background$gene,
 \caption{Scatter plot showing the modules enriched by DEGs. x-axis is the number of genes in the module. y-axis is the -log10(adjusted p-value). p-value is obtained from hypergeometric test. The label is the number of DEGs in the module.}
 \end{figure}
   \subsection{Module comparison}
-  Finally, we compare the similarity between modules using the Jaccard similarity score for different cancers or different sutypes of one cancer.
+  Finally, we compare the similarity between modules using the Jaccard similarity score for different cancers or different subtypes of one cancer.
 <<results='hide'>>=
 data(modulesil,package = "epihet")
 data(moduledm,package = "epihet")
@@ -525,7 +526,7 @@ sim.score=epihet::moduleSim(module.subtype1=modulesil,
                             sve = TRUE)
 @
   Here, you just need to input TOM files of the two cancer types or subtypes you interested.
-  This function returns a matrix showing the Jaccard similarity score between any two modules from different cancers or different subtypes of one cancer and a pheatmap plot to visualization.
+  This function returns a matrix showing the Jaccard similarity score between any two modules from different cancers or different subtypes of one cancer and a heatmap plot to visualization.
 \begin{figure}[!htbp]
 \centering
 \includegraphics[width=3in]{module_compare.pdf}
