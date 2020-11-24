@@ -4,7 +4,7 @@
 \alias{epiPathway}
 \title{pathway annotation}
 \usage{
-epiPathway(gene.list, cutoff = 0.05, prefix = NA, pdf.height = 10,
+epiPathway(gene.list, cutoff = 0.05, showCategory = 8, prefix = NA, pdf.height = 10,
   pdf.width = 10)
 }
 \arguments{
@@ -14,6 +14,8 @@ the third column is module color}
 
 \item{cutoff}{Cutoff value of pvalue for pathway enrichment (default:0.05)}
 
+\item{showCategory}{number of categories to show (default:8)}
+  
 \item{prefix}{a prefix for PDF file name}
 
 \item{pdf.height}{An integer representing the height (in inches)
