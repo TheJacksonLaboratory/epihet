@@ -19,34 +19,29 @@
 #' "389136","124857","1829","3164","3754","8614","9469","3217","9578",
 #' "10516","10630"),label=rep(18,33),color=rep("lightgreen",33),
 #' stringsAsFactors = FALSE)
-#' pathway <- epihet::epiPathway(genelist,cutoff = 0.05,
+#' pathway <- epihet::epiPathway(genelist,cutoff = 0.05,showCategory = 2,
 #'                              prefix="CEBPA_sil",pdf.height = 10,
 #'                              pdf.width = 10)
 #' @export
-epiPathway <- function(gene.list, cutoff = 0.05, prefix = NA,
+epiPathway <- function(gene.list, cutoff = 0.05, showCategory = 8, prefix = NA,
     pdf.height = 10, pdf.width = 10) {
     module.id <- unique(gene.list[, 3])
     pathway.result <- list()
-    t <- 1
     for (i in module.id) {
         print(i)
         dat <- gene.list[which(gene.list[, 3] == i), 1]
         x <- ReactomePA::enrichPathway(gene = dat, pvalueCutoff = cutoff,
             readable = TRUE)
-        if (!length(x)) {
-            print(paste("Could not find pathways for",
+        sigPathNum <- length(which(x@result$p.adjust < cutoff))
+        if (sigPathNum == 0) {
+            print(paste("Could not find significantly enriched pathways for",
                 paste("ME", i, sep = "")), sep = " ")
 
-        } else if (!nrow(x@result)) {
-            print(paste("Could not find pathways for",
-                paste("ME", i, sep = "")), sep = " ")
         } else {
-            dat.na <- data.frame(module = paste("ME", i, sep = ""), x@result)
-            barplot(x)
+            barplot(x, showCategory = showCategory)
             ggsave(paste(prefix, i, "pathway.pdf", sep = "_"),
                 height = pdf.height, width = pdf.width)
-            pathway.result[[t]] = dat.na
-            t <- t + 1
+            pathway.result[[paste("ME", i, sep = "")]] = x
         }
     }
     return(pathway.result)
