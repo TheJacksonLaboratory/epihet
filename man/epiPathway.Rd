@@ -39,7 +39,7 @@ genelist<-data.frame(ENTREZID=c("2902","2905","3360","286223","59338",
 "389136","124857","1829","3164","3754","8614","9469","3217","9578",
 "10516","10630"),label=rep(18,33),color=rep("lightgreen",33),
 stringsAsFactors = FALSE)
-pathway <- epihet::epiPathway(genelist,cutoff = 0.05,
+pathway <- epihet::epiPathway(genelist,cutoff = 0.05,showCategory = 2,
                              prefix="CEBPA_sil",pdf.height = 10,
                              pdf.width = 10)
 }
