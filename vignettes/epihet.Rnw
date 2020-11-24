@@ -19,7 +19,7 @@
   \large An R Package for Calculating and Analyzing \\
   the Epigenetic Heterogeneity of Cancer Cells}
 \author{Xiaowen Chen,Haitham Ashoor,Ryan Musich,Mingsheng Zhang,Jiahui Wang,Sheng Li}
-\date{November 2018}
+\date{Oct 2020}
 
 % \VignetteIndexEntry{epihet}
 %\VignetteEngine{knitr::knitr}
@@ -490,7 +490,7 @@ head(genelist)
 genelist=merge(genelist,entrez,by.x="gene",by.y="REFSEQ")
 genelist=unique(genelist[,c(4,2,3)])
 head(genelist)
-pathway = epihet::epiPathway(genelist,cutoff = 0.05,
+pathway = epihet::epiPathway(genelist,cutoff = 0.05,showCategory=8,
                              prefix="CEBPA_sil",pdf.height = 10,
                              pdf.width = 10)
 @
@@ -499,7 +499,7 @@ pathway = epihet::epiPathway(genelist,cutoff = 0.05,
 \includegraphics[width=4in]{CEBPA_sil_turquoise_pathway.pdf}
 \caption{Bar plot of pathway enrichment results.}
 \end{figure}
-  The function returns a dataframe containing pathways significantly enriched by genes of one module and a barplot enrichment map for visualization.
+  The function returns a list, one element is a dataframe containing pathways annotated by genes of one module. Bar plot describes adjusted p-values and gene count as bar color and height respectively.
   \\Furthermore, in this analysis we would like to investigate modules that are associated with transcription variance in cancer compared to normal samples. So we identify the modules significantly enriched by differentially expressed genes (DEGs)
 <<results='hide'>>=
 data(DEG,package = "epihet")
